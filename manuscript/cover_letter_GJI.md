@@ -26,7 +26,7 @@ Data and software availability: the Bayan Obo field data are available from
 Zenodo at https://doi.org/10.5281/zenodo.17292491. The code, configs, random
 seeds, plotting scripts, result CSV/JSON tables and manuscript build commands
 used for this version are available in the project repository at
-https://github.com/cangyeone/physical-sensitivity-kernels. Checkpoint
+https://github.com/cangyeone/SurfFlow. Checkpoint
 identifiers and exact evaluation commands are recorded in the repository README
 files and protocol JSON files.
 

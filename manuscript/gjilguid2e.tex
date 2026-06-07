@@ -37,7 +37,7 @@
 \pagestyle{plain}
 
 \begin{summary}
-Surface-wave dispersion inversion is non-unique, but deterministic neural inversions usually return only a point estimate. We develop an amortised probabilistic inversion in which a depth-controlled conditional rectified flow samples ensembles of 1-D $V_P$, $V_S$ and density profiles conditioned on incomplete Rayleigh/Love phase-velocity curves. The learned distribution is a posterior surrogate for the specified synthetic prior, forward solver, observation mask, mask-only noise model and depth-control basis; it is not a universal field-data posterior.
+Surface-wave dispersion inversion is non-unique, but deterministic neural inversions usually return only a point estimate. We develop an amortised probabilistic inversion in which a depth-controlled conditional rectified flow samples ensembles of 1-D $V_P$, $V_S$ and density profiles conditioned on incomplete Rayleigh/Love phase-velocity curves. The learned distribution is a posterior surrogate for the specified synthetic prior, forward solver, observation mask, mask-only noise model and depth-control basis; field use still requires a site-specific likelihood and calibration.
 
 Matched DI-Strong and DI-Weak samplers are trained from scratch with identical budgets so that only the structural prior generator differs. In the $N=1024$ in-prior diagnostic, DI-Strong reaches posterior-median $V_S$ MAE of 0.086 km s$^{-1}$ and mean pointwise 16--84 per cent interval coverage of 0.638. The prior-support audit shows the expected trade-off: DI-Weak reduces boundary and out-of-prior $V_S$ MAE to 0.171 and 0.499 km s$^{-1}$, compared with 0.372 and 0.782 km s$^{-1}$ for DI-Strong, while losing in-prior accuracy. Split-sample posterior-temperature scaling improves held-out mean coverage but is only a calibration diagnostic, not an observational likelihood. A Rayleigh-only Bayan Obo subarray MASW example \citep{Yang2025BayanOboDataset} demonstrates how local posterior ensembles can be assembled into pseudo-3-D workflow summaries; because the field example has no Love waves, no field likelihood and no independent calibration set, it is not interpreted as calibrated geological uncertainty.
 \end{summary}
@@ -414,7 +414,7 @@ The authors declare no competing interests.
 
 \begin{dataavailability}
 \noindent\textbf{Data Availability and Software Availability.}
-The Bayan Obo [dataset] field dispersion data used for the field demonstration are available from Zenodo \citep{Yang2025BayanOboDataset}. The code, synthetic-data generators, configs, random seeds, plotting scripts, evaluation CSV/JSON outputs and manuscript build commands used for this version are available in the project repository at \url{https://github.com/cangyeone/physical-sensitivity-kernels}. Checkpoint identifiers, training metadata and exact evaluation commands are recorded in the repository README files and result-table protocols.
+The Bayan Obo [dataset] field dispersion data used for the field demonstration are available from Zenodo \citep{Yang2025BayanOboDataset}. The code, synthetic-data generators, configs, random seeds, plotting scripts, evaluation CSV/JSON outputs and manuscript build commands used for this version are available in the project repository at \url{https://github.com/cangyeone/SurfFlow}. Checkpoint identifiers, training metadata and exact evaluation commands are recorded in the repository README files and result-table protocols.
 \end{dataavailability}
 
 \clearpage

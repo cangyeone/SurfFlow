@@ -1408,7 +1408,7 @@ $\reset@font\displaystyle##$\hfil\cr>\cr\approx\cr}}}
 
 
 \def\bsp{\medskip\reset@font\small\noindent This paper has been produced
- using the Blackwell Scientific Publications GJI \LaTeX2e\ class file.}
+ using the GJI \LaTeX2e\ class file.}
 
 
 %  ****************************************
