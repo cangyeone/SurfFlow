@@ -1,0 +1,35 @@
+========== Disp2Struct CRF Training Start | start_epoch=1 global_step=0 H=256 T=59 params=5664704 ==========
+[Step 00000100] epoch=001 batch=00100/01563 loss=0.863528 flow=0.674585 rec=0.311458 slope=0.483278 curv=0.905023 mae=0.21399 vp_mae=0.34178 vs_mae=0.18492 rho_mae=0.11528
+[Step 00000200] epoch=001 batch=00200/01563 loss=0.796117 flow=0.634854 rec=0.259944 slope=0.454444 curv=0.856909 mae=0.19105 vp_mae=0.30406 vs_mae=0.16502 rho_mae=0.10407
+[Step 00000300] epoch=001 batch=00300/01563 loss=0.778812 flow=0.635058 rec=0.234251 slope=0.386368 curv=0.730999 mae=0.17371 vp_mae=0.28026 vs_mae=0.14694 rho_mae=0.09395
+[Step 00000400] epoch=001 batch=00400/01563 loss=0.785887 flow=0.622236 rec=0.267962 slope=0.431466 curv=0.809624 mae=0.19068 vp_mae=0.30461 vs_mae=0.16464 rho_mae=0.10280
+[Step 00000500] epoch=001 batch=00500/01563 loss=0.769602 flow=0.606966 rec=0.264575 slope=0.440527 curv=0.832209 mae=0.19429 vp_mae=0.30939 vs_mae=0.16689 rho_mae=0.10659
+[Step 00000600] epoch=001 batch=00600/01563 loss=0.756974 flow=0.603507 rec=0.250188 slope=0.411839 curv=0.778083 mae=0.18387 vp_mae=0.29342 vs_mae=0.15938 rho_mae=0.09881
+[Step 00000700] epoch=001 batch=00700/01563 loss=0.702386 flow=0.581914 rec=0.193597 slope=0.342257 curv=0.656096 mae=0.15514 vp_mae=0.24887 vs_mae=0.13237 rho_mae=0.08416
+[Step 00000800] epoch=001 batch=00800/01563 loss=0.712223 flow=0.575468 rec=0.221560 slope=0.376342 curv=0.715784 mae=0.17155 vp_mae=0.27515 vs_mae=0.14629 rho_mae=0.09321
+[Step 00000900] epoch=001 batch=00900/01563 loss=0.725191 flow=0.567265 rec=0.257728 slope=0.422697 curv=0.792716 mae=0.18856 vp_mae=0.30341 vs_mae=0.15995 rho_mae=0.10232
+[Step 00001000] epoch=001 batch=01000/01563 loss=0.720032 flow=0.564379 rec=0.255695 slope=0.404064 curv=0.760281 mae=0.18634 vp_mae=0.29845 vs_mae=0.15714 rho_mae=0.10342
+[Step 00001100] epoch=001 batch=01100/01563 loss=0.692447 flow=0.548979 rec=0.233709 slope=0.385712 curv=0.732798 mae=0.18008 vp_mae=0.28924 vs_mae=0.15401 rho_mae=0.09698
+[Step 00001200] epoch=001 batch=01200/01563 loss=0.672938 flow=0.536628 rec=0.221252 slope=0.372225 curv=0.707208 mae=0.17224 vp_mae=0.27626 vs_mae=0.14772 rho_mae=0.09273
+[Step 00001300] epoch=001 batch=01300/01563 loss=0.661621 flow=0.535711 rec=0.204335 slope=0.343501 curv=0.656710 mae=0.16255 vp_mae=0.25992 vs_mae=0.13970 rho_mae=0.08803
+[Step 00001400] epoch=001 batch=01400/01563 loss=0.657068 flow=0.532606 rec=0.201529 slope=0.342668 curv=0.656383 mae=0.16363 vp_mae=0.26447 vs_mae=0.13828 rho_mae=0.08814
+[Step 00001500] epoch=001 batch=01500/01563 loss=0.665524 flow=0.520873 rec=0.235517 slope=0.390017 curv=0.739190 mae=0.18206 vp_mae=0.29327 vs_mae=0.15413 rho_mae=0.09876
+[Epoch 001/200] time=267.1s lr=2.00e-04 | train: loss=0.73821, flow=0.58943, rec=0.24219, mae=0.1821, vp=0.2921, vs=0.1552, rho=0.0989 | val: loss=0.61340, flow=0.49804, sample_mae=0.2691, sample_vp=0.4431, sample_vs=0.2160, sample_rho=0.1481
+[Step 00001600] epoch=002 batch=00037/01563 loss=0.619328 flow=0.507374 rec=0.179926 slope=0.317782 curv=0.610216 mae=0.15149 vp_mae=0.24305 vs_mae=0.12965 rho_mae=0.08176
+[Step 00001700] epoch=002 batch=00137/01563 loss=0.679494 flow=0.517648 rec=0.266508 slope=0.415337 curv=0.782459 mae=0.19953 vp_mae=0.32152 vs_mae=0.17068 rho_mae=0.10641
+[Step 00001800] epoch=002 batch=00237/01563 loss=0.649539 flow=0.510832 rec=0.227739 slope=0.360258 curv=0.682477 mae=0.17551 vp_mae=0.28337 vs_mae=0.14720 rho_mae=0.09597
+[Step 00001900] epoch=002 batch=00337/01563 loss=0.613623 flow=0.507653 rec=0.171391 slope=0.292748 curv=0.563817 mae=0.14587 vp_mae=0.23440 vs_mae=0.12468 rho_mae=0.07851
+[Step 00002000] epoch=002 batch=00437/01563 loss=0.610529 flow=0.489643 rec=0.195355 slope=0.335238 curv=0.644656 mae=0.16172 vp_mae=0.25972 vs_mae=0.13812 rho_mae=0.08732
+[Step 00002100] epoch=002 batch=00537/01563 loss=0.623370 flow=0.494606 rec=0.210895 slope=0.337522 curv=0.644026 mae=0.16862 vp_mae=0.26924 vs_mae=0.14486 rho_mae=0.09176
+[Step 00002200] epoch=002 batch=00637/01563 loss=0.604529 flow=0.491988 rec=0.183695 slope=0.299037 curv=0.574198 mae=0.15140 vp_mae=0.24451 vs_mae=0.12684 rho_mae=0.08284
+[Step 00002300] epoch=002 batch=00737/01563 loss=0.621976 flow=0.488861 rec=0.218908 slope=0.342730 curv=0.652514 mae=0.17316 vp_mae=0.27902 vs_mae=0.14708 rho_mae=0.09336
+[Step 00002400] epoch=002 batch=00837/01563 loss=0.616774 flow=0.483031 rec=0.218959 slope=0.351497 curv=0.668828 mae=0.17275 vp_mae=0.27719 vs_mae=0.14720 rho_mae=0.09387
+[Step 00002500] epoch=002 batch=00937/01563 loss=0.624412 flow=0.498200 rec=0.207917 slope=0.321970 curv=0.615491 mae=0.16425 vp_mae=0.26441 vs_mae=0.13872 rho_mae=0.08963
+[Step 00002600] epoch=002 batch=01037/01563 loss=0.602096 flow=0.470945 rec=0.214903 slope=0.342793 curv=0.655953 mae=0.17267 vp_mae=0.27612 vs_mae=0.14745 rho_mae=0.09443
+[Step 00002700] epoch=002 batch=01137/01563 loss=0.585083 flow=0.476505 rec=0.177075 slope=0.289387 curv=0.557062 mae=0.14916 vp_mae=0.24098 vs_mae=0.12702 rho_mae=0.07947
+[Step 00002800] epoch=002 batch=01237/01563 loss=0.572045 flow=0.474121 rec=0.158691 slope=0.267678 curv=0.519448 mae=0.13819 vp_mae=0.22161 vs_mae=0.11730 rho_mae=0.07566
+[Step 00002900] epoch=002 batch=01337/01563 loss=0.566962 flow=0.450771 rec=0.188293 slope=0.318837 curv=0.610217 mae=0.15941 vp_mae=0.25705 vs_mae=0.13547 rho_mae=0.08570
+[Step 00003000] epoch=002 batch=01437/01563 loss=0.564851 flow=0.458026 rec=0.173377 slope=0.291161 curv=0.557856 mae=0.14672 vp_mae=0.23791 vs_mae=0.12359 rho_mae=0.07866
+[Step 00003100] epoch=002 batch=01537/01563 loss=0.587192 flow=0.467569 rec=0.196326 slope=0.310096 curv=0.595556 mae=0.16160 vp_mae=0.26015 vs_mae=0.13671 rho_mae=0.08795
+[Epoch 002/200] time=248.1s lr=2.00e-04 | train: loss=0.60990, flow=0.49182, rec=0.19274, mae=0.1573, vp=0.2536, vs=0.1329, rho=0.0855 | val: loss=0.52998, flow=0.43105, sample_mae=0.2424, sample_vp=0.3998, sample_vs=0.1929, sample_rho=0.1345
+[Step 00003200] epoch=003 batch=00074/01563 loss=0.554446 flow=0.457565 rec=0.157255 slope=0.263086 curv=0.509882 mae=0.13884 vp_mae=0.22586 vs_mae=0.11666 rho_mae=0.07401

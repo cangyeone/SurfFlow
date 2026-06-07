@@ -1,0 +1,11 @@
+**/.DS_Store
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.npz
+**/*.npy
+**/best.pt
+**/latest.pt
+**/*.ckpt
+**/*.pth
+**/*.pid

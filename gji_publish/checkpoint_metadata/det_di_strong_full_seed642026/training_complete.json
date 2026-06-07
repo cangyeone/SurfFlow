@@ -1,0 +1,5 @@
+{
+  "best_checkpoint": "/Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/det_di_strong_full_seed642026/best.pt",
+  "best_val_loss": 0.1711696800775826,
+  "epochs": 24
+}

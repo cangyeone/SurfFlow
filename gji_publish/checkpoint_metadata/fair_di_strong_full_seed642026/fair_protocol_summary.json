@@ -1,0 +1,8 @@
+{
+  "config": "configs/fair_di_strong_full.yaml",
+  "prior": "strong",
+  "fairness_constraint": "No warm-start. Only structural prior generator differs between paired configs.",
+  "dataset_module": "utils.generate_data",
+  "save_dir": "/Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_strong_full_seed642026",
+  "fig_dir": "/Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/figures/fair_di_strong_full_seed642026"
+}

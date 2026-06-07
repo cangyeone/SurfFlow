@@ -1,0 +1,3 @@
+[done] subarrays=150 device=mps samples=64 steps=24
+[done] periods used per subarray: min=39 median=39 max=39
+[done] outputs: field_masw_results_fair_weak

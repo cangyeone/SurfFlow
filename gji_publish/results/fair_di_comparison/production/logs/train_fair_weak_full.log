@@ -1,0 +1,437 @@
+Device: mps
+Estimating normalization stats from 64 training batches...
+/Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/disp_inv_train.v1.3.py:1407: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=(cfg.use_amp and device.type == "cuda"))
+========== Disp2Struct Control-Point CRF v1.3 Training Start ==========
+H/T/Nc        : 256/59/28
+period range  : 2.00 - 60.00 s
+mask augment  : enabled=True, val=True
+mask presets  : ((2.0, 40.0), (10.0, 30.0), (5.0, 35.0), (15.0, 45.0)), preset_prob=0.65
+random window : 15.0-45.0 s, holes<= 6, point_drop=0.040
+params        : 4263188
+train batches : 1563
+val batches   : 32
+save_dir      : /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026
+/Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/disp_inv_train.v1.3.py:1064: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(enabled=(use_amp and device.type == "cuda")):
+[Step 00000100] epoch=001 batch=00100/01563 loss=0.675059 flow=0.559590 rec=0.228944 slope=0.015832 curv=0.020582 mae=0.22241 vp_mae=0.36255 vs_mae=0.21755 rho_mae=0.08713
+[Step 00000200] epoch=001 batch=00200/01563 loss=0.605533 flow=0.501539 rec=0.206703 slope=0.010260 curv=0.012883 mae=0.20671 vp_mae=0.33927 vs_mae=0.19513 rho_mae=0.08573
+[Step 00000300] epoch=001 batch=00300/01563 loss=0.596843 flow=0.488339 rec=0.215857 slope=0.009400 curv=0.010586 mae=0.21447 vp_mae=0.35440 vs_mae=0.20095 rho_mae=0.08807
+[Step 00000400] epoch=001 batch=00400/01563 loss=0.552374 flow=0.444347 rec=0.215008 slope=0.008440 curv=0.010152 mae=0.20786 vp_mae=0.33719 vs_mae=0.19977 rho_mae=0.08661
+[Step 00000500] epoch=001 batch=00500/01563 loss=0.561443 flow=0.467640 rec=0.186651 slope=0.007727 curv=0.009094 mae=0.19133 vp_mae=0.31037 vs_mae=0.18315 rho_mae=0.08047
+[Step 00000600] epoch=001 batch=00600/01563 loss=0.509145 flow=0.418620 rec=0.180040 slope=0.008181 curv=0.009619 mae=0.19265 vp_mae=0.31405 vs_mae=0.18499 rho_mae=0.07890
+[Step 00000700] epoch=001 batch=00700/01563 loss=0.532611 flow=0.439675 rec=0.184941 slope=0.007564 curv=0.008736 mae=0.18866 vp_mae=0.31080 vs_mae=0.17836 rho_mae=0.07683
+[Step 00000800] epoch=001 batch=00800/01563 loss=0.515067 flow=0.416175 rec=0.196798 slope=0.008059 curv=0.009086 mae=0.19480 vp_mae=0.30981 vs_mae=0.19016 rho_mae=0.08443
+[Step 00000900] epoch=001 batch=00900/01563 loss=0.524225 flow=0.420410 rec=0.206637 slope=0.008151 curv=0.008904 mae=0.20661 vp_mae=0.33649 vs_mae=0.19898 rho_mae=0.08435
+[Step 00001000] epoch=001 batch=01000/01563 loss=0.479794 flow=0.394093 rec=0.170534 slope=0.007096 curv=0.007940 mae=0.18012 vp_mae=0.29092 vs_mae=0.17269 rho_mae=0.07674
+[Step 00001100] epoch=001 batch=01100/01563 loss=0.495695 flow=0.400411 rec=0.189626 slope=0.007682 curv=0.008654 mae=0.19780 vp_mae=0.32758 vs_mae=0.18533 rho_mae=0.08049
+[Step 00001200] epoch=001 batch=01200/01563 loss=0.517743 flow=0.413276 rec=0.208005 slope=0.007591 curv=0.008486 mae=0.21104 vp_mae=0.34710 vs_mae=0.20050 rho_mae=0.08552
+[Step 00001300] epoch=001 batch=01300/01563 loss=0.513820 flow=0.401881 rec=0.222781 slope=0.009091 curv=0.009428 mae=0.21820 vp_mae=0.35198 vs_mae=0.20917 rho_mae=0.09344
+[Step 00001400] epoch=001 batch=01400/01563 loss=0.502125 flow=0.402911 rec=0.197546 slope=0.007176 curv=0.008293 mae=0.20155 vp_mae=0.33056 vs_mae=0.19043 rho_mae=0.08366
+[Step 00001500] epoch=001 batch=01500/01563 loss=0.484122 flow=0.378924 rec=0.209416 slope=0.008084 curv=0.008573 mae=0.21023 vp_mae=0.34387 vs_mae=0.19884 rho_mae=0.08796
+[Epoch 001/024] time=473.9s lr=1.99e-04 | train: loss=0.55388, flow=0.44632, rec=0.21394, mae=0.2109, vp=0.3438, vs=0.2011, rho=0.0878 | val: loss=0.46166, flow=0.36917, rec=0.18433, slope=0.00553, curv=0.00487, sample_mae=0.3673, sample_vp=0.6035, sample_vs=0.3488, sample_rho=0.1497
+  -> Best model saved to /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026/best.pt
+[Step 00001600] epoch=002 batch=00037/01563 loss=0.485680 flow=0.396319 rec=0.177854 slope=0.007140 curv=0.007686 mae=0.18533 vp_mae=0.30180 vs_mae=0.17651 rho_mae=0.07769
+[Step 00001700] epoch=002 batch=00137/01563 loss=0.529922 flow=0.418635 rec=0.221610 slope=0.007954 curv=0.008408 mae=0.21481 vp_mae=0.34440 vs_mae=0.20986 rho_mae=0.09016
+[Step 00001800] epoch=002 batch=00237/01563 loss=0.497715 flow=0.388337 rec=0.217909 slope=0.006901 curv=0.007854 mae=0.21272 vp_mae=0.34706 vs_mae=0.20306 rho_mae=0.08803
+[Step 00001900] epoch=002 batch=00337/01563 loss=0.456625 flow=0.373741 rec=0.164972 slope=0.006497 curv=0.007309 mae=0.17916 vp_mae=0.29144 vs_mae=0.17118 rho_mae=0.07487
+[Step 00002000] epoch=002 batch=00437/01563 loss=0.528986 flow=0.413832 rec=0.229415 slope=0.007276 curv=0.008223 mae=0.22105 vp_mae=0.36040 vs_mae=0.20870 rho_mae=0.09406
+[Step 00002100] epoch=002 batch=00537/01563 loss=0.478734 flow=0.374997 rec=0.206560 slope=0.007536 curv=0.007947 mae=0.20873 vp_mae=0.34481 vs_mae=0.19890 rho_mae=0.08248
+[Step 00002200] epoch=002 batch=00637/01563 loss=0.510842 flow=0.408743 rec=0.203306 slope=0.007435 curv=0.007459 mae=0.20578 vp_mae=0.33563 vs_mae=0.19707 rho_mae=0.08464
+[Step 00002300] epoch=002 batch=00737/01563 loss=0.438306 flow=0.362106 rec=0.151657 slope=0.006090 curv=0.006660 mae=0.16912 vp_mae=0.27494 vs_mae=0.16102 rho_mae=0.07141
+[Step 00002400] epoch=002 batch=00837/01563 loss=0.430265 flow=0.346052 rec=0.167610 slope=0.006789 curv=0.006887 mae=0.17843 vp_mae=0.28732 vs_mae=0.17171 rho_mae=0.07626
+[Step 00002500] epoch=002 batch=00937/01563 loss=0.455134 flow=0.353544 rec=0.202356 slope=0.006775 curv=0.007397 mae=0.20558 vp_mae=0.33635 vs_mae=0.19882 rho_mae=0.08156
+[Step 00002600] epoch=002 batch=01037/01563 loss=0.470500 flow=0.378528 rec=0.183157 slope=0.006484 curv=0.006928 mae=0.18976 vp_mae=0.30878 vs_mae=0.18184 rho_mae=0.07865
+[Step 00002700] epoch=002 batch=01137/01563 loss=0.476758 flow=0.385133 rec=0.182518 slope=0.006016 curv=0.006481 mae=0.18916 vp_mae=0.30601 vs_mae=0.18316 rho_mae=0.07831
+[Step 00002800] epoch=002 batch=01237/01563 loss=0.435535 flow=0.348251 rec=0.173763 slope=0.006624 curv=0.007147 mae=0.18569 vp_mae=0.30215 vs_mae=0.17882 rho_mae=0.07611
+[Step 00002900] epoch=002 batch=01337/01563 loss=0.456536 flow=0.371716 rec=0.168850 slope=0.006516 curv=0.006968 mae=0.18115 vp_mae=0.29336 vs_mae=0.17290 rho_mae=0.07720
+[Step 00003000] epoch=002 batch=01437/01563 loss=0.468169 flow=0.380466 rec=0.174557 slope=0.006920 curv=0.007810 mae=0.18514 vp_mae=0.29715 vs_mae=0.18158 rho_mae=0.07668
+[Step 00003100] epoch=002 batch=01537/01563 loss=0.431113 flow=0.346799 rec=0.167795 slope=0.006856 curv=0.007351 mae=0.18234 vp_mae=0.29706 vs_mae=0.17531 rho_mae=0.07464
+[Epoch 002/024] time=483.4s lr=1.97e-04 | train: loss=0.46697, flow=0.37559, rec=0.18194, mae=0.1898, vp=0.3088, vs=0.1818, rho=0.0787 | val: loss=0.42305, flow=0.33925, rec=0.16706, slope=0.00479, curv=0.00373, sample_mae=0.3576, sample_vp=0.5865, sample_vs=0.3393, sample_rho=0.1469
+  -> Best model saved to /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026/best.pt
+[Step 00003200] epoch=003 batch=00074/01563 loss=0.443078 flow=0.370516 rec=0.144484 slope=0.005330 curv=0.005348 mae=0.16279 vp_mae=0.26428 vs_mae=0.15667 rho_mae=0.06744
+[Step 00003300] epoch=003 batch=00174/01563 loss=0.430452 flow=0.350690 rec=0.158727 slope=0.006589 curv=0.006943 mae=0.17617 vp_mae=0.28748 vs_mae=0.16819 rho_mae=0.07285
+[Step 00003400] epoch=003 batch=00274/01563 loss=0.425031 flow=0.335467 rec=0.178315 slope=0.006667 curv=0.007294 mae=0.19227 vp_mae=0.31495 vs_mae=0.18493 rho_mae=0.07693
+[Step 00003500] epoch=003 batch=00374/01563 loss=0.457024 flow=0.369470 rec=0.174296 slope=0.006796 curv=0.006623 mae=0.18652 vp_mae=0.30408 vs_mae=0.17747 rho_mae=0.07800
+[Step 00003600] epoch=003 batch=00474/01563 loss=0.470364 flow=0.372206 rec=0.195508 slope=0.006769 curv=0.006501 mae=0.19883 vp_mae=0.32455 vs_mae=0.19225 rho_mae=0.07969
+[Step 00003700] epoch=003 batch=00574/01563 loss=0.438892 flow=0.362936 rec=0.151224 slope=0.005669 curv=0.006033 mae=0.16826 vp_mae=0.27011 vs_mae=0.16391 rho_mae=0.07074
+[Step 00003800] epoch=003 batch=00674/01563 loss=0.480148 flow=0.382352 rec=0.194854 slope=0.006211 curv=0.005883 mae=0.19726 vp_mae=0.32080 vs_mae=0.18848 rho_mae=0.08250
+[Step 00003900] epoch=003 batch=00774/01563 loss=0.420042 flow=0.330551 rec=0.178188 slope=0.006560 curv=0.006834 mae=0.19143 vp_mae=0.31139 vs_mae=0.18375 rho_mae=0.07915
+[Step 00004000] epoch=003 batch=00874/01563 loss=0.414262 flow=0.343023 rec=0.141821 slope=0.005414 curv=0.005840 mae=0.16707 vp_mae=0.27662 vs_mae=0.15792 rho_mae=0.06667
+[Step 00004100] epoch=003 batch=00974/01563 loss=0.371897 flow=0.302256 rec=0.138554 slope=0.005971 curv=0.006544 mae=0.16060 vp_mae=0.26078 vs_mae=0.15504 rho_mae=0.06596
+[Step 00004200] epoch=003 batch=01074/01563 loss=0.449902 flow=0.374723 rec=0.149701 slope=0.005497 curv=0.005295 mae=0.16785 vp_mae=0.27173 vs_mae=0.16427 rho_mae=0.06754
+[Step 00004300] epoch=003 batch=01174/01563 loss=0.450358 flow=0.351403 rec=0.197058 slope=0.007110 curv=0.007019 mae=0.19859 vp_mae=0.32340 vs_mae=0.19054 rho_mae=0.08182
+[Step 00004400] epoch=003 batch=01274/01563 loss=0.467244 flow=0.371248 rec=0.191244 slope=0.006221 curv=0.006270 mae=0.19461 vp_mae=0.31704 vs_mae=0.18782 rho_mae=0.07895
+[Step 00004500] epoch=003 batch=01374/01563 loss=0.461965 flow=0.360718 rec=0.201694 slope=0.006667 curv=0.006651 mae=0.20183 vp_mae=0.32906 vs_mae=0.19371 rho_mae=0.08270
+[Step 00004600] epoch=003 batch=01474/01563 loss=0.434894 flow=0.360939 rec=0.147269 slope=0.005321 curv=0.005411 mae=0.16473 vp_mae=0.26372 vs_mae=0.15981 rho_mae=0.07065
+[Epoch 003/024] time=474.4s lr=1.92e-04 | train: loss=0.43893, flow=0.35445, rec=0.16822, mae=0.1804, vp=0.2934, vs=0.1734, rho=0.0744 | val: loss=0.40440, flow=0.32219, rec=0.16393, slope=0.00443, curv=0.00306, sample_mae=0.3322, sample_vp=0.5452, sample_vs=0.3169, sample_rho=0.1345
+  -> Best model saved to /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026/best.pt
+[Step 00004700] epoch=004 batch=00011/01563 loss=0.413395 flow=0.315057 rec=0.195851 slope=0.006905 curv=0.006718 mae=0.19973 vp_mae=0.32308 vs_mae=0.19192 rho_mae=0.08420
+[Step 00004800] epoch=004 batch=00111/01563 loss=0.423717 flow=0.341181 rec=0.164297 slope=0.006460 curv=0.006381 mae=0.17778 vp_mae=0.28768 vs_mae=0.17038 rho_mae=0.07527
+[Step 00004900] epoch=004 batch=00211/01563 loss=0.468940 flow=0.380476 rec=0.176190 slope=0.006124 curv=0.006231 mae=0.18536 vp_mae=0.30255 vs_mae=0.17884 rho_mae=0.07468
+[Step 00005000] epoch=004 batch=00311/01563 loss=0.441150 flow=0.350868 rec=0.179739 slope=0.006885 curv=0.006854 mae=0.18720 vp_mae=0.30561 vs_mae=0.18001 rho_mae=0.07597
+[Step 00005100] epoch=004 batch=00411/01563 loss=0.431639 flow=0.336738 rec=0.189130 slope=0.005600 curv=0.005599 mae=0.18896 vp_mae=0.30767 vs_mae=0.18076 rho_mae=0.07845
+[Step 00005200] epoch=004 batch=00511/01563 loss=0.412661 flow=0.338380 rec=0.147896 slope=0.005510 curv=0.005802 mae=0.16653 vp_mae=0.26937 vs_mae=0.16205 rho_mae=0.06817
+[Step 00005300] epoch=004 batch=00611/01563 loss=0.384609 flow=0.311638 rec=0.145212 slope=0.006023 curv=0.006304 mae=0.16788 vp_mae=0.27367 vs_mae=0.16088 rho_mae=0.06908
+[Step 00005400] epoch=004 batch=00711/01563 loss=0.433351 flow=0.354716 rec=0.156548 slope=0.005904 curv=0.006597 mae=0.17423 vp_mae=0.28549 vs_mae=0.16684 rho_mae=0.07037
+[Step 00005500] epoch=004 batch=00811/01563 loss=0.428021 flow=0.356588 rec=0.142246 slope=0.005138 curv=0.005332 mae=0.16007 vp_mae=0.25624 vs_mae=0.15748 rho_mae=0.06647
+[Step 00005600] epoch=004 batch=00911/01563 loss=0.430156 flow=0.339192 rec=0.181161 slope=0.006376 curv=0.006485 mae=0.18830 vp_mae=0.30897 vs_mae=0.18110 rho_mae=0.07484
+[Step 00005700] epoch=004 batch=01011/01563 loss=0.390843 flow=0.327259 rec=0.126583 slope=0.004845 curv=0.005029 mae=0.15082 vp_mae=0.24448 vs_mae=0.14590 rho_mae=0.06209
+[Step 00005800] epoch=004 batch=01111/01563 loss=0.407335 flow=0.325523 rec=0.162941 slope=0.005694 curv=0.005723 mae=0.17691 vp_mae=0.28587 vs_mae=0.17383 rho_mae=0.07101
+[Step 00005900] epoch=004 batch=01211/01563 loss=0.401849 flow=0.323440 rec=0.156160 slope=0.005550 curv=0.005173 mae=0.17319 vp_mae=0.28116 vs_mae=0.16906 rho_mae=0.06935
+[Step 00006000] epoch=004 batch=01311/01563 loss=0.406313 flow=0.334720 rec=0.142543 slope=0.005351 curv=0.005311 mae=0.16121 vp_mae=0.26103 vs_mae=0.15642 rho_mae=0.06617
+[Step 00006100] epoch=004 batch=01411/01563 loss=0.388456 flow=0.309360 rec=0.157409 slope=0.006566 curv=0.006273 mae=0.17698 vp_mae=0.28765 vs_mae=0.16779 rho_mae=0.07550
+[Step 00006200] epoch=004 batch=01511/01563 loss=0.439670 flow=0.349353 rec=0.179864 slope=0.006466 curv=0.006207 mae=0.18752 vp_mae=0.30308 vs_mae=0.18426 rho_mae=0.07522
+[Epoch 004/024] time=473.9s lr=1.87e-04 | train: loss=0.42215, flow=0.34091, rec=0.16178, mae=0.1759, vp=0.2860, vs=0.1694, rho=0.0724 | val: loss=0.39360, flow=0.31722, rec=0.15230, slope=0.00408, curv=0.00265, sample_mae=0.3212, sample_vp=0.5270, sample_vs=0.3077, sample_rho=0.1291
+  -> Best model saved to /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026/best.pt
+[Step 00006300] epoch=005 batch=00048/01563 loss=0.425000 flow=0.344559 rec=0.160215 slope=0.005622 curv=0.005245 mae=0.17344 vp_mae=0.28052 vs_mae=0.16908 rho_mae=0.07074
+[Step 00006400] epoch=005 batch=00148/01563 loss=0.415766 flow=0.337074 rec=0.156753 slope=0.005316 curv=0.005000 mae=0.17021 vp_mae=0.27429 vs_mae=0.16490 rho_mae=0.07145
+[Step 00006500] epoch=005 batch=00248/01563 loss=0.383346 flow=0.305053 rec=0.155838 slope=0.006232 curv=0.006214 mae=0.17240 vp_mae=0.28139 vs_mae=0.16415 rho_mae=0.07165
+[Step 00006600] epoch=005 batch=00348/01563 loss=0.442375 flow=0.360628 rec=0.162774 slope=0.006030 curv=0.005871 mae=0.18026 vp_mae=0.29313 vs_mae=0.17402 rho_mae=0.07362
+[Step 00006700] epoch=005 batch=00448/01563 loss=0.395115 flow=0.316568 rec=0.156376 slope=0.005961 curv=0.006051 mae=0.17329 vp_mae=0.28322 vs_mae=0.16594 rho_mae=0.07070
+[Step 00006800] epoch=005 batch=00548/01563 loss=0.368492 flow=0.305036 rec=0.126242 slope=0.005532 curv=0.005835 mae=0.15036 vp_mae=0.24108 vs_mae=0.14509 rho_mae=0.06492
+[Step 00006900] epoch=005 batch=00648/01563 loss=0.403538 flow=0.329178 rec=0.148108 slope=0.005122 curv=0.005033 mae=0.16797 vp_mae=0.27382 vs_mae=0.16136 rho_mae=0.06874
+[Step 00007000] epoch=005 batch=00748/01563 loss=0.423782 flow=0.346342 rec=0.154276 slope=0.005044 curv=0.004983 mae=0.16732 vp_mae=0.27396 vs_mae=0.15679 rho_mae=0.07120
+[Step 00007100] epoch=005 batch=00848/01563 loss=0.432019 flow=0.340951 rec=0.181364 slope=0.006490 curv=0.006166 mae=0.19505 vp_mae=0.31937 vs_mae=0.18963 rho_mae=0.07616
+[Step 00007200] epoch=005 batch=00948/01563 loss=0.445326 flow=0.343575 rec=0.202749 slope=0.006376 curv=0.005755 mae=0.20304 vp_mae=0.32951 vs_mae=0.19510 rho_mae=0.08451
+[Step 00007300] epoch=005 batch=01048/01563 loss=0.395097 flow=0.314437 rec=0.160630 slope=0.005761 curv=0.005757 mae=0.17728 vp_mae=0.28999 vs_mae=0.16778 rho_mae=0.07408
+[Step 00007400] epoch=005 batch=01148/01563 loss=0.379660 flow=0.308922 rec=0.140817 slope=0.005525 curv=0.005336 mae=0.16188 vp_mae=0.25935 vs_mae=0.15939 rho_mae=0.06689
+[Step 00007500] epoch=005 batch=01248/01563 loss=0.430229 flow=0.342149 rec=0.175458 slope=0.005799 curv=0.006100 mae=0.18757 vp_mae=0.30627 vs_mae=0.17918 rho_mae=0.07726
+[Step 00007600] epoch=005 batch=01348/01563 loss=0.419607 flow=0.329345 rec=0.179837 slope=0.005760 curv=0.005557 mae=0.18897 vp_mae=0.30596 vs_mae=0.18304 rho_mae=0.07791
+[Step 00007700] epoch=005 batch=01448/01563 loss=0.399954 flow=0.324920 rec=0.149348 slope=0.006028 curv=0.005959 mae=0.16668 vp_mae=0.26867 vs_mae=0.16067 rho_mae=0.07070
+[Step 00007800] epoch=005 batch=01548/01563 loss=0.389442 flow=0.318985 rec=0.140294 slope=0.005163 curv=0.005171 mae=0.16483 vp_mae=0.26877 vs_mae=0.15911 rho_mae=0.06661
+[Epoch 005/024] time=465.8s lr=1.79e-04 | train: loss=0.40897, flow=0.33055, rec=0.15617, mae=0.1721, vp=0.2798, vs=0.1660, rho=0.0705 | val: loss=0.37311, flow=0.30081, rec=0.14415, slope=0.00395, curv=0.00228, sample_mae=0.3175, sample_vp=0.5212, sample_vs=0.3031, sample_rho=0.1282
+  -> Best model saved to /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026/best.pt
+[Step 00007900] epoch=006 batch=00085/01563 loss=0.409525 flow=0.333217 rec=0.151922 slope=0.005859 curv=0.005439 mae=0.16984 vp_mae=0.27575 vs_mae=0.16394 rho_mae=0.06983
+[Step 00008000] epoch=006 batch=00185/01563 loss=0.425189 flow=0.340625 rec=0.168454 slope=0.005626 curv=0.005595 mae=0.17938 vp_mae=0.29383 vs_mae=0.17351 rho_mae=0.07080
+[Step 00008100] epoch=006 batch=00285/01563 loss=0.369557 flow=0.295716 rec=0.147029 slope=0.005482 curv=0.005235 mae=0.16693 vp_mae=0.27151 vs_mae=0.16075 rho_mae=0.06854
+[Step 00008200] epoch=006 batch=00385/01563 loss=0.374745 flow=0.292468 rec=0.163950 slope=0.005000 curv=0.005134 mae=0.17598 vp_mae=0.28485 vs_mae=0.17072 rho_mae=0.07239
+[Step 00008300] epoch=006 batch=00485/01563 loss=0.434376 flow=0.356106 rec=0.155907 slope=0.005321 curv=0.005036 mae=0.16986 vp_mae=0.27345 vs_mae=0.16685 rho_mae=0.06929
+[Step 00008400] epoch=006 batch=00585/01563 loss=0.389448 flow=0.320172 rec=0.138008 slope=0.004586 curv=0.004275 mae=0.15761 vp_mae=0.25380 vs_mae=0.15270 rho_mae=0.06633
+[Step 00008500] epoch=006 batch=00685/01563 loss=0.422248 flow=0.346955 rec=0.150010 slope=0.004825 curv=0.004606 mae=0.16485 vp_mae=0.26616 vs_mae=0.16037 rho_mae=0.06801
+[Step 00008600] epoch=006 batch=00785/01563 loss=0.432587 flow=0.361694 rec=0.141114 slope=0.005690 curv=0.005072 mae=0.15928 vp_mae=0.25830 vs_mae=0.15511 rho_mae=0.06442
+[Step 00008700] epoch=006 batch=00885/01563 loss=0.391135 flow=0.325288 rec=0.131113 slope=0.004900 curv=0.004532 mae=0.15449 vp_mae=0.25044 vs_mae=0.14950 rho_mae=0.06355
+[Step 00008800] epoch=006 batch=00985/01563 loss=0.389084 flow=0.324527 rec=0.128480 slope=0.005375 curv=0.004908 mae=0.15217 vp_mae=0.24746 vs_mae=0.14932 rho_mae=0.05974
+[Step 00008900] epoch=006 batch=01085/01563 loss=0.407996 flow=0.324104 rec=0.167134 slope=0.005397 curv=0.005464 mae=0.18073 vp_mae=0.29795 vs_mae=0.17380 rho_mae=0.07044
+[Step 00009000] epoch=006 batch=01185/01563 loss=0.396545 flow=0.313893 rec=0.164580 slope=0.006206 curv=0.005200 mae=0.17897 vp_mae=0.29005 vs_mae=0.17275 rho_mae=0.07411
+[Step 00009100] epoch=006 batch=01285/01563 loss=0.405231 flow=0.320761 rec=0.168252 slope=0.005787 curv=0.005484 mae=0.18001 vp_mae=0.29030 vs_mae=0.17167 rho_mae=0.07807
+[Step 00009200] epoch=006 batch=01385/01563 loss=0.409702 flow=0.330707 rec=0.157308 slope=0.005665 curv=0.005786 mae=0.17261 vp_mae=0.28264 vs_mae=0.16477 rho_mae=0.07042
+[Step 00009300] epoch=006 batch=01485/01563 loss=0.412260 flow=0.333621 rec=0.156637 slope=0.005406 curv=0.005076 mae=0.16746 vp_mae=0.26912 vs_mae=0.16156 rho_mae=0.07169
+[Epoch 006/024] time=462.4s lr=1.71e-04 | train: loss=0.39770, flow=0.32186, rec=0.15103, mae=0.1684, vp=0.2737, vs=0.1625, rho=0.0690 | val: loss=0.36029, flow=0.28895, rec=0.14226, slope=0.00383, curv=0.00216, sample_mae=0.3030, sample_vp=0.4977, sample_vs=0.2899, sample_rho=0.1214
+  -> Best model saved to /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026/best.pt
+[Step 00009400] epoch=007 batch=00022/01563 loss=0.374882 flow=0.312560 rec=0.124070 slope=0.004849 curv=0.004455 mae=0.14990 vp_mae=0.24281 vs_mae=0.14657 rho_mae=0.06031
+[Step 00009500] epoch=007 batch=00122/01563 loss=0.388248 flow=0.318463 rec=0.138926 slope=0.005392 curv=0.005211 mae=0.16067 vp_mae=0.25736 vs_mae=0.15798 rho_mae=0.06668
+[Step 00009600] epoch=007 batch=00222/01563 loss=0.370384 flow=0.298753 rec=0.142557 slope=0.005847 curv=0.006005 mae=0.16341 vp_mae=0.26384 vs_mae=0.15808 rho_mae=0.06832
+[Step 00009700] epoch=007 batch=00322/01563 loss=0.380004 flow=0.304283 rec=0.150835 slope=0.005116 curv=0.004732 mae=0.16975 vp_mae=0.27548 vs_mae=0.16252 rho_mae=0.07124
+[Step 00009800] epoch=007 batch=00422/01563 loss=0.384090 flow=0.318495 rec=0.130571 slope=0.005209 curv=0.004916 mae=0.15408 vp_mae=0.25071 vs_mae=0.14652 rho_mae=0.06502
+[Step 00009900] epoch=007 batch=00522/01563 loss=0.416514 flow=0.345613 rec=0.141249 slope=0.004641 curv=0.004481 mae=0.15667 vp_mae=0.25408 vs_mae=0.15406 rho_mae=0.06188
+[Step 00010000] epoch=007 batch=00622/01563 loss=0.389340 flow=0.322369 rec=0.133350 slope=0.005029 curv=0.004445 mae=0.15525 vp_mae=0.25164 vs_mae=0.15040 rho_mae=0.06373
+[Step 00010100] epoch=007 batch=00722/01563 loss=0.426600 flow=0.328587 rec=0.195361 slope=0.005588 curv=0.005289 mae=0.20035 vp_mae=0.32661 vs_mae=0.19069 rho_mae=0.08374
+[Step 00010200] epoch=007 batch=00822/01563 loss=0.397388 flow=0.332228 rec=0.129718 slope=0.005071 curv=0.004735 mae=0.15236 vp_mae=0.24819 vs_mae=0.14758 rho_mae=0.06132
+[Step 00010300] epoch=007 batch=00922/01563 loss=0.413818 flow=0.329913 rec=0.167151 slope=0.005546 curv=0.005191 mae=0.17924 vp_mae=0.29407 vs_mae=0.17269 rho_mae=0.07096
+[Step 00010400] epoch=007 batch=01022/01563 loss=0.385344 flow=0.321238 rec=0.127559 slope=0.005551 curv=0.004920 mae=0.14831 vp_mae=0.24061 vs_mae=0.14519 rho_mae=0.05912
+[Step 00010500] epoch=007 batch=01122/01563 loss=0.377553 flow=0.304333 rec=0.145847 slope=0.005053 curv=0.004438 mae=0.16634 vp_mae=0.26984 vs_mae=0.15976 rho_mae=0.06941
+[Step 00010600] epoch=007 batch=01222/01563 loss=0.382437 flow=0.307664 rec=0.148950 slope=0.004971 curv=0.004912 mae=0.16860 vp_mae=0.27438 vs_mae=0.16231 rho_mae=0.06911
+[Step 00010700] epoch=007 batch=01322/01563 loss=0.406409 flow=0.321157 rec=0.169930 slope=0.004759 curv=0.004876 mae=0.17559 vp_mae=0.28695 vs_mae=0.16851 rho_mae=0.07131
+[Step 00010800] epoch=007 batch=01422/01563 loss=0.396524 flow=0.333318 rec=0.125807 slope=0.005095 curv=0.004820 mae=0.15011 vp_mae=0.24535 vs_mae=0.14460 rho_mae=0.06039
+[Step 00010900] epoch=007 batch=01522/01563 loss=0.419017 flow=0.324351 rec=0.188578 slope=0.006375 curv=0.005913 mae=0.19287 vp_mae=0.31194 vs_mae=0.18378 rho_mae=0.08289
+[Epoch 007/024] time=459.4s lr=1.61e-04 | train: loss=0.38904, flow=0.31464, rec=0.14818, mae=0.1662, vp=0.2700, vs=0.1606, rho=0.0680 | val: loss=0.35881, flow=0.28683, rec=0.14357, slope=0.00370, curv=0.00192, sample_mae=0.3014, sample_vp=0.4946, sample_vs=0.2895, sample_rho=0.1201
+  -> Best model saved to /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026/best.pt
+[Step 00011000] epoch=008 batch=00059/01563 loss=0.364883 flow=0.312492 rec=0.104243 slope=0.004564 curv=0.004110 mae=0.13602 vp_mae=0.22055 vs_mae=0.13224 rho_mae=0.05527
+[Step 00011100] epoch=008 batch=00159/01563 loss=0.370364 flow=0.290460 rec=0.159141 slope=0.005657 curv=0.005149 mae=0.17370 vp_mae=0.28128 vs_mae=0.16863 rho_mae=0.07118
+[Step 00011200] epoch=008 batch=00259/01563 loss=0.356078 flow=0.292129 rec=0.127259 slope=0.005321 curv=0.005303 mae=0.15447 vp_mae=0.25198 vs_mae=0.14861 rho_mae=0.06282
+[Step 00011300] epoch=008 batch=00359/01563 loss=0.379288 flow=0.307884 rec=0.142197 slope=0.005106 curv=0.005094 mae=0.16197 vp_mae=0.26286 vs_mae=0.15769 rho_mae=0.06537
+[Step 00011400] epoch=008 batch=00459/01563 loss=0.395070 flow=0.304305 rec=0.180865 slope=0.005580 curv=0.005332 mae=0.18668 vp_mae=0.30195 vs_mae=0.17784 rho_mae=0.08026
+[Step 00011500] epoch=008 batch=00559/01563 loss=0.385535 flow=0.307405 rec=0.155612 slope=0.005388 curv=0.005447 mae=0.16847 vp_mae=0.27261 vs_mae=0.16079 rho_mae=0.07203
+[Step 00011600] epoch=008 batch=00659/01563 loss=0.418948 flow=0.333136 rec=0.170962 slope=0.005578 curv=0.005182 mae=0.18172 vp_mae=0.29548 vs_mae=0.17606 rho_mae=0.07362
+[Step 00011700] epoch=008 batch=00759/01563 loss=0.347681 flow=0.282458 rec=0.129836 slope=0.005089 curv=0.005017 mae=0.15475 vp_mae=0.25288 vs_mae=0.14956 rho_mae=0.06180
+[Step 00011800] epoch=008 batch=00859/01563 loss=0.370166 flow=0.302689 rec=0.134387 slope=0.004752 curv=0.004496 mae=0.15754 vp_mae=0.25392 vs_mae=0.15546 rho_mae=0.06324
+[Step 00011900] epoch=008 batch=00959/01563 loss=0.392807 flow=0.312140 rec=0.160637 slope=0.005877 curv=0.005489 mae=0.17543 vp_mae=0.28560 vs_mae=0.16902 rho_mae=0.07168
+[Step 00012000] epoch=008 batch=01059/01563 loss=0.357134 flow=0.288389 rec=0.136896 slope=0.005010 curv=0.004658 mae=0.15788 vp_mae=0.25465 vs_mae=0.15373 rho_mae=0.06526
+[Step 00012100] epoch=008 batch=01159/01563 loss=0.345283 flow=0.291022 rec=0.108023 slope=0.004201 curv=0.003946 mae=0.13740 vp_mae=0.22227 vs_mae=0.13453 rho_mae=0.05541
+[Step 00012200] epoch=008 batch=01259/01563 loss=0.385088 flow=0.309055 rec=0.151462 slope=0.005089 curv=0.004769 mae=0.17010 vp_mae=0.27996 vs_mae=0.16272 rho_mae=0.06763
+[Step 00012300] epoch=008 batch=01359/01563 loss=0.380300 flow=0.317701 rec=0.124585 slope=0.005211 curv=0.004584 mae=0.14941 vp_mae=0.24376 vs_mae=0.14628 rho_mae=0.05821
+[Step 00012400] epoch=008 batch=01459/01563 loss=0.369897 flow=0.300479 rec=0.138199 slope=0.005305 curv=0.005272 mae=0.15891 vp_mae=0.25757 vs_mae=0.15297 rho_mae=0.06618
+[Step 00012500] epoch=008 batch=01559/01563 loss=0.367300 flow=0.301766 rec=0.130519 slope=0.004610 curv=0.004347 mae=0.15311 vp_mae=0.24828 vs_mae=0.14896 rho_mae=0.06208
+[Epoch 008/024] time=459.6s lr=1.50e-04 | train: loss=0.38160, flow=0.30888, rec=0.14482, mae=0.1639, vp=0.2662, vs=0.1585, rho=0.0670 | val: loss=0.34346, flow=0.27609, rec=0.13435, slope=0.00359, curv=0.00182, sample_mae=0.3011, sample_vp=0.4939, sample_vs=0.2888, sample_rho=0.1207
+  -> Best model saved to /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026/best.pt
+[Step 00012600] epoch=009 batch=00096/01563 loss=0.375140 flow=0.298906 rec=0.151830 slope=0.005379 curv=0.005069 mae=0.16347 vp_mae=0.26084 vs_mae=0.16016 rho_mae=0.06941
+[Step 00012700] epoch=009 batch=00196/01563 loss=0.424786 flow=0.335580 rec=0.177805 slope=0.005153 curv=0.004553 mae=0.18133 vp_mae=0.29607 vs_mae=0.17203 rho_mae=0.07589
+[Step 00012800] epoch=009 batch=00296/01563 loss=0.360807 flow=0.283724 rec=0.153533 slope=0.005337 curv=0.004933 mae=0.17306 vp_mae=0.28596 vs_mae=0.16597 rho_mae=0.06724
+[Step 00012900] epoch=009 batch=00396/01563 loss=0.343505 flow=0.281296 rec=0.123815 slope=0.005095 curv=0.004637 mae=0.15152 vp_mae=0.24451 vs_mae=0.14877 rho_mae=0.06129
+[Step 00013000] epoch=009 batch=00496/01563 loss=0.414022 flow=0.329344 rec=0.168666 slope=0.005833 curv=0.005329 mae=0.18195 vp_mae=0.29627 vs_mae=0.17482 rho_mae=0.07477
+[Step 00013100] epoch=009 batch=00596/01563 loss=0.346351 flow=0.285307 rec=0.121540 slope=0.004651 curv=0.004205 mae=0.14771 vp_mae=0.23802 vs_mae=0.14384 rho_mae=0.06127
+[Step 00013200] epoch=009 batch=00696/01563 loss=0.409716 flow=0.329160 rec=0.160439 slope=0.005717 curv=0.005006 mae=0.17419 vp_mae=0.28329 vs_mae=0.16785 rho_mae=0.07142
+[Step 00013300] epoch=009 batch=00796/01563 loss=0.352887 flow=0.301533 rec=0.102191 slope=0.004381 curv=0.003972 mae=0.13173 vp_mae=0.20948 vs_mae=0.13052 rho_mae=0.05518
+[Step 00013400] epoch=009 batch=00896/01563 loss=0.360676 flow=0.283993 rec=0.152759 slope=0.005081 curv=0.004955 mae=0.16820 vp_mae=0.27306 vs_mae=0.16094 rho_mae=0.07061
+[Step 00013500] epoch=009 batch=00996/01563 loss=0.350025 flow=0.297449 rec=0.104652 slope=0.004179 curv=0.004011 mae=0.13681 vp_mae=0.22298 vs_mae=0.13182 rho_mae=0.05563
+[Step 00013600] epoch=009 batch=01096/01563 loss=0.362737 flow=0.295812 rec=0.133221 slope=0.005393 curv=0.004465 mae=0.15572 vp_mae=0.25295 vs_mae=0.15184 rho_mae=0.06237
+[Step 00013700] epoch=009 batch=01196/01563 loss=0.354011 flow=0.289483 rec=0.128425 slope=0.005326 curv=0.004923 mae=0.15159 vp_mae=0.24191 vs_mae=0.14944 rho_mae=0.06343
+[Step 00013800] epoch=009 batch=01296/01563 loss=0.385450 flow=0.306508 rec=0.157251 slope=0.005311 curv=0.005190 mae=0.17536 vp_mae=0.28465 vs_mae=0.16723 rho_mae=0.07421
+[Step 00013900] epoch=009 batch=01396/01563 loss=0.354182 flow=0.283413 rec=0.140959 slope=0.004848 curv=0.004702 mae=0.16033 vp_mae=0.25771 vs_mae=0.15419 rho_mae=0.06910
+[Step 00014000] epoch=009 batch=01496/01563 loss=0.357728 flow=0.282864 rec=0.148966 slope=0.006487 curv=0.005639 mae=0.16950 vp_mae=0.27397 vs_mae=0.16535 rho_mae=0.06916
+[Epoch 009/024] time=465.4s lr=1.39e-04 | train: loss=0.37581, flow=0.30377, rec=0.14346, mae=0.1629, vp=0.2645, vs=0.1576, rho=0.0665 | val: loss=0.34315, flow=0.27503, rec=0.13585, slope=0.00355, curv=0.00166, sample_mae=0.2894, sample_vp=0.4752, sample_vs=0.2774, sample_rho=0.1157
+  -> Best model saved to /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026/best.pt
+[Step 00014100] epoch=010 batch=00033/01563 loss=0.354349 flow=0.281095 rec=0.145852 slope=0.005513 curv=0.005290 mae=0.16601 vp_mae=0.26954 vs_mae=0.16053 rho_mae=0.06795
+[Step 00014200] epoch=010 batch=00133/01563 loss=0.383801 flow=0.319142 rec=0.128651 slope=0.005614 curv=0.005283 mae=0.15612 vp_mae=0.25445 vs_mae=0.15150 rho_mae=0.06243
+[Step 00014300] epoch=010 batch=00233/01563 loss=0.380092 flow=0.298937 rec=0.161701 slope=0.005057 curv=0.005184 mae=0.17436 vp_mae=0.28482 vs_mae=0.16702 rho_mae=0.07125
+[Step 00014400] epoch=010 batch=00333/01563 loss=0.369101 flow=0.286723 rec=0.164070 slope=0.005734 curv=0.005653 mae=0.17395 vp_mae=0.28187 vs_mae=0.16496 rho_mae=0.07500
+[Step 00014500] epoch=010 batch=00433/01563 loss=0.396893 flow=0.315973 rec=0.161189 slope=0.005551 curv=0.004836 mae=0.17707 vp_mae=0.28960 vs_mae=0.17075 rho_mae=0.07086
+[Step 00014600] epoch=010 batch=00533/01563 loss=0.358623 flow=0.283087 rec=0.150438 slope=0.005382 curv=0.004833 mae=0.16853 vp_mae=0.27207 vs_mae=0.16624 rho_mae=0.06727
+[Step 00014700] epoch=010 batch=00633/01563 loss=0.358108 flow=0.286226 rec=0.143085 slope=0.005658 curv=0.005711 mae=0.16278 vp_mae=0.26394 vs_mae=0.15563 rho_mae=0.06877
+[Step 00014800] epoch=010 batch=00733/01563 loss=0.355273 flow=0.272275 rec=0.165320 slope=0.005695 curv=0.005341 mae=0.17965 vp_mae=0.28763 vs_mae=0.17831 rho_mae=0.07301
+[Step 00014900] epoch=010 batch=00833/01563 loss=0.390063 flow=0.301272 rec=0.176850 slope=0.006195 curv=0.005580 mae=0.18763 vp_mae=0.30480 vs_mae=0.18086 rho_mae=0.07722
+[Step 00015000] epoch=010 batch=00933/01563 loss=0.394914 flow=0.309913 rec=0.169283 slope=0.006098 curv=0.005440 mae=0.18129 vp_mae=0.29373 vs_mae=0.17599 rho_mae=0.07415
+[Step 00015100] epoch=010 batch=01033/01563 loss=0.372320 flow=0.300948 rec=0.142205 slope=0.004587 curv=0.004071 mae=0.15926 vp_mae=0.25984 vs_mae=0.15081 rho_mae=0.06712
+[Step 00015200] epoch=010 batch=01133/01563 loss=0.373032 flow=0.292346 rec=0.160776 slope=0.005038 curv=0.004575 mae=0.17819 vp_mae=0.29352 vs_mae=0.17166 rho_mae=0.06939
+[Step 00015300] epoch=010 batch=01233/01563 loss=0.391497 flow=0.314303 rec=0.153712 slope=0.005687 curv=0.005411 mae=0.16996 vp_mae=0.27385 vs_mae=0.16436 rho_mae=0.07167
+[Step 00015400] epoch=010 batch=01333/01563 loss=0.333642 flow=0.276112 rec=0.114543 slope=0.004318 curv=0.004259 mae=0.14566 vp_mae=0.23511 vs_mae=0.14244 rho_mae=0.05942
+[Step 00015500] epoch=010 batch=01433/01563 loss=0.354251 flow=0.280454 rec=0.146874 slope=0.006026 curv=0.005831 mae=0.16969 vp_mae=0.27450 vs_mae=0.16367 rho_mae=0.07088
+[Step 00015600] epoch=010 batch=01533/01563 loss=0.336278 flow=0.276112 rec=0.119770 slope=0.004789 curv=0.004211 mae=0.14610 vp_mae=0.23657 vs_mae=0.14101 rho_mae=0.06073
+[Epoch 010/024] time=474.6s lr=1.26e-04 | train: loss=0.37080, flow=0.29996, rec=0.14106, mae=0.1610, vp=0.2615, vs=0.1559, rho=0.0657 | val: loss=0.34014, flow=0.27269, rec=0.13452, slope=0.00348, curv=0.00160, sample_mae=0.2978, sample_vp=0.4881, sample_vs=0.2855, sample_rho=0.1199
+  -> Best model saved to /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026/best.pt
+[Step 00015700] epoch=011 batch=00070/01563 loss=0.360382 flow=0.294056 rec=0.132021 slope=0.005325 curv=0.004860 mae=0.15478 vp_mae=0.25256 vs_mae=0.15006 rho_mae=0.06171
+[Step 00015800] epoch=011 batch=00170/01563 loss=0.345683 flow=0.291051 rec=0.108772 slope=0.004164 curv=0.003762 mae=0.13731 vp_mae=0.22483 vs_mae=0.13021 rho_mae=0.05688
+[Step 00015900] epoch=011 batch=00270/01563 loss=0.343510 flow=0.285737 rec=0.115023 slope=0.004423 curv=0.004119 mae=0.14243 vp_mae=0.22861 vs_mae=0.13756 rho_mae=0.06111
+[Step 00016000] epoch=011 batch=00370/01563 loss=0.391559 flow=0.327669 rec=0.127191 slope=0.005022 curv=0.004307 mae=0.14716 vp_mae=0.23583 vs_mae=0.14445 rho_mae=0.06120
+[Step 00016100] epoch=011 batch=00470/01563 loss=0.358514 flow=0.289655 rec=0.137156 slope=0.004808 curv=0.004039 mae=0.15726 vp_mae=0.25520 vs_mae=0.15035 rho_mae=0.06622
+[Step 00016200] epoch=011 batch=00570/01563 loss=0.390553 flow=0.323693 rec=0.133126 slope=0.004970 curv=0.004836 mae=0.15393 vp_mae=0.24909 vs_mae=0.14873 rho_mae=0.06398
+[Step 00016300] epoch=011 batch=00670/01563 loss=0.355179 flow=0.288732 rec=0.132342 slope=0.004655 curv=0.004322 mae=0.15386 vp_mae=0.24858 vs_mae=0.15006 rho_mae=0.06294
+[Step 00016400] epoch=011 batch=00770/01563 loss=0.375253 flow=0.293514 rec=0.162820 slope=0.005541 curv=0.005193 mae=0.17751 vp_mae=0.29081 vs_mae=0.17049 rho_mae=0.07121
+[Step 00016500] epoch=011 batch=00870/01563 loss=0.367413 flow=0.300296 rec=0.133635 slope=0.005035 curv=0.004746 mae=0.15588 vp_mae=0.25110 vs_mae=0.15306 rho_mae=0.06349
+[Step 00016600] epoch=011 batch=00970/01563 loss=0.352390 flow=0.284495 rec=0.135142 slope=0.005535 curv=0.004734 mae=0.16056 vp_mae=0.26098 vs_mae=0.15685 rho_mae=0.06385
+[Step 00016700] epoch=011 batch=01070/01563 loss=0.356206 flow=0.292533 rec=0.126786 slope=0.004746 curv=0.004234 mae=0.15244 vp_mae=0.24864 vs_mae=0.14620 rho_mae=0.06249
+[Step 00016800] epoch=011 batch=01170/01563 loss=0.355974 flow=0.293281 rec=0.124831 slope=0.004757 curv=0.003923 mae=0.15053 vp_mae=0.24394 vs_mae=0.14572 rho_mae=0.06195
+[Step 00016900] epoch=011 batch=01270/01563 loss=0.329326 flow=0.268496 rec=0.121085 slope=0.004818 curv=0.004650 mae=0.14789 vp_mae=0.23820 vs_mae=0.14281 rho_mae=0.06266
+[Step 00017000] epoch=011 batch=01370/01563 loss=0.368279 flow=0.293276 rec=0.149318 slope=0.005847 curv=0.005232 mae=0.16696 vp_mae=0.26963 vs_mae=0.16310 rho_mae=0.06815
+[Step 00017100] epoch=011 batch=01470/01563 loss=0.377937 flow=0.313154 rec=0.128995 slope=0.004849 curv=0.004363 mae=0.15277 vp_mae=0.24747 vs_mae=0.14855 rho_mae=0.06228
+[Epoch 011/024] time=474.0s lr=1.13e-04 | train: loss=0.36472, flow=0.29506, rec=0.13873, mae=0.1593, vp=0.2586, vs=0.1543, rho=0.0650 | val: loss=0.33249, flow=0.26783, rec=0.12895, slope=0.00341, curv=0.00146, sample_mae=0.2792, sample_vp=0.4575, sample_vs=0.2686, sample_rho=0.1115
+  -> Best model saved to /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026/best.pt
+[Step 00017200] epoch=012 batch=00007/01563 loss=0.363968 flow=0.285577 rec=0.156184 slope=0.005069 curv=0.004537 mae=0.16947 vp_mae=0.27303 vs_mae=0.16324 rho_mae=0.07214
+[Step 00017300] epoch=012 batch=00107/01563 loss=0.367898 flow=0.292875 rec=0.149458 slope=0.004984 curv=0.004492 mae=0.16569 vp_mae=0.26791 vs_mae=0.16178 rho_mae=0.06739
+[Step 00017400] epoch=012 batch=00207/01563 loss=0.346040 flow=0.281204 rec=0.129121 slope=0.004736 curv=0.003838 mae=0.15050 vp_mae=0.24589 vs_mae=0.14592 rho_mae=0.05969
+[Step 00017500] epoch=012 batch=00307/01563 loss=0.356081 flow=0.282556 rec=0.146402 slope=0.005449 curv=0.005247 mae=0.16511 vp_mae=0.26287 vs_mae=0.16310 rho_mae=0.06935
+[Step 00017600] epoch=012 batch=00407/01563 loss=0.349268 flow=0.286176 rec=0.125655 slope=0.004413 curv=0.004320 mae=0.15192 vp_mae=0.24743 vs_mae=0.14806 rho_mae=0.06027
+[Step 00017700] epoch=012 batch=00507/01563 loss=0.362189 flow=0.298658 rec=0.126432 slope=0.005384 curv=0.004557 mae=0.15027 vp_mae=0.24452 vs_mae=0.14396 rho_mae=0.06231
+[Step 00017800] epoch=012 batch=00607/01563 loss=0.391760 flow=0.326196 rec=0.130643 slope=0.004134 curv=0.003572 mae=0.14793 vp_mae=0.23960 vs_mae=0.14469 rho_mae=0.05949
+[Step 00017900] epoch=012 batch=00707/01563 loss=0.326479 flow=0.268974 rec=0.114458 slope=0.004649 curv=0.004293 mae=0.14251 vp_mae=0.23034 vs_mae=0.13910 rho_mae=0.05808
+[Step 00018000] epoch=012 batch=00807/01563 loss=0.354502 flow=0.286554 rec=0.135281 slope=0.005157 curv=0.005021 mae=0.15780 vp_mae=0.25593 vs_mae=0.15477 rho_mae=0.06270
+[Step 00018100] epoch=012 batch=00907/01563 loss=0.382256 flow=0.310265 rec=0.143395 slope=0.005005 curv=0.004388 mae=0.16422 vp_mae=0.26677 vs_mae=0.15849 rho_mae=0.06739
+[Step 00018200] epoch=012 batch=01007/01563 loss=0.363585 flow=0.290970 rec=0.144661 slope=0.004820 curv=0.004302 mae=0.16315 vp_mae=0.26449 vs_mae=0.15886 rho_mae=0.06609
+[Step 00018300] epoch=012 batch=01107/01563 loss=0.342545 flow=0.264372 rec=0.155762 slope=0.004957 curv=0.004407 mae=0.17123 vp_mae=0.28048 vs_mae=0.16559 rho_mae=0.06761
+[Step 00018400] epoch=012 batch=01207/01563 loss=0.372997 flow=0.288345 rec=0.168709 slope=0.005010 curv=0.004718 mae=0.17977 vp_mae=0.29319 vs_mae=0.17133 rho_mae=0.07479
+[Step 00018500] epoch=012 batch=01307/01563 loss=0.383410 flow=0.308827 rec=0.148614 slope=0.004631 curv=0.004493 mae=0.16386 vp_mae=0.26646 vs_mae=0.15882 rho_mae=0.06629
+[Step 00018600] epoch=012 batch=01407/01563 loss=0.376107 flow=0.305490 rec=0.140582 slope=0.005604 curv=0.004592 mae=0.16299 vp_mae=0.26199 vs_mae=0.15938 rho_mae=0.06759
+[Step 00018700] epoch=012 batch=01507/01563 loss=0.375030 flow=0.305893 rec=0.137706 slope=0.004767 curv=0.004537 mae=0.15914 vp_mae=0.26333 vs_mae=0.15183 rho_mae=0.06227
+[Epoch 012/024] time=463.0s lr=1.00e-04 | train: loss=0.35946, flow=0.29069, rec=0.13694, mae=0.1579, vp=0.2562, vs=0.1529, rho=0.0645 | val: loss=0.33091, flow=0.26543, rec=0.13059, slope=0.00334, curv=0.00136, sample_mae=0.2847, sample_vp=0.4662, sample_vs=0.2736, sample_rho=0.1142
+  -> Best model saved to /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026/best.pt
+[Step 00018800] epoch=013 batch=00044/01563 loss=0.395025 flow=0.312536 rec=0.164335 slope=0.005377 curv=0.005265 mae=0.18041 vp_mae=0.29527 vs_mae=0.17486 rho_mae=0.07110
+[Step 00018900] epoch=013 batch=00144/01563 loss=0.329745 flow=0.270218 rec=0.118506 slope=0.004606 curv=0.004322 mae=0.14370 vp_mae=0.23061 vs_mae=0.13914 rho_mae=0.06136
+[Step 00019000] epoch=013 batch=00244/01563 loss=0.340870 flow=0.284295 rec=0.112647 slope=0.004221 curv=0.004003 mae=0.14184 vp_mae=0.22789 vs_mae=0.14046 rho_mae=0.05718
+[Step 00019100] epoch=013 batch=00344/01563 loss=0.367404 flow=0.286086 rec=0.161997 slope=0.005410 curv=0.004853 mae=0.17793 vp_mae=0.28622 vs_mae=0.17379 rho_mae=0.07379
+[Step 00019200] epoch=013 batch=00444/01563 loss=0.360456 flow=0.280752 rec=0.158768 slope=0.005315 curv=0.005373 mae=0.17164 vp_mae=0.28078 vs_mae=0.16571 rho_mae=0.06843
+[Step 00019300] epoch=013 batch=00544/01563 loss=0.395337 flow=0.316847 rec=0.156337 slope=0.005493 curv=0.004644 mae=0.17217 vp_mae=0.27986 vs_mae=0.16607 rho_mae=0.07058
+[Step 00019400] epoch=013 batch=00644/01563 loss=0.351244 flow=0.292346 rec=0.117286 slope=0.004287 curv=0.004023 mae=0.14115 vp_mae=0.22809 vs_mae=0.13645 rho_mae=0.05890
+[Step 00019500] epoch=013 batch=00744/01563 loss=0.303973 flow=0.247002 rec=0.113434 slope=0.004247 curv=0.004151 mae=0.14053 vp_mae=0.22670 vs_mae=0.13715 rho_mae=0.05775
+[Step 00019600] epoch=013 batch=00844/01563 loss=0.377247 flow=0.307473 rec=0.138946 slope=0.005147 curv=0.004337 mae=0.16070 vp_mae=0.26252 vs_mae=0.15262 rho_mae=0.06695
+[Step 00019700] epoch=013 batch=00944/01563 loss=0.350432 flow=0.273397 rec=0.153445 slope=0.005336 curv=0.004559 mae=0.17054 vp_mae=0.27701 vs_mae=0.16421 rho_mae=0.07038
+[Step 00019800] epoch=013 batch=01044/01563 loss=0.406204 flow=0.312889 rec=0.185974 slope=0.005623 curv=0.004619 mae=0.19155 vp_mae=0.31299 vs_mae=0.18591 rho_mae=0.07576
+[Step 00019900] epoch=013 batch=01144/01563 loss=0.330303 flow=0.254980 rec=0.150005 slope=0.005442 curv=0.004788 mae=0.16995 vp_mae=0.27484 vs_mae=0.16632 rho_mae=0.06870
+[Step 00020000] epoch=013 batch=01244/01563 loss=0.338394 flow=0.266792 rec=0.142611 slope=0.004965 curv=0.004780 mae=0.16287 vp_mae=0.26603 vs_mae=0.15699 rho_mae=0.06557
+[Step 00020100] epoch=013 batch=01344/01563 loss=0.319453 flow=0.264333 rec=0.109742 slope=0.004233 curv=0.003764 mae=0.13808 vp_mae=0.22406 vs_mae=0.13541 rho_mae=0.05479
+[Step 00020200] epoch=013 batch=01444/01563 loss=0.338105 flow=0.272871 rec=0.129898 slope=0.004844 curv=0.004320 mae=0.15533 vp_mae=0.25334 vs_mae=0.14965 rho_mae=0.06300
+[Step 00020300] epoch=013 batch=01544/01563 loss=0.353969 flow=0.289978 rec=0.127421 slope=0.004759 curv=0.004261 mae=0.15003 vp_mae=0.24206 vs_mae=0.14515 rho_mae=0.06288
+[Epoch 013/024] time=461.1s lr=8.75e-05 | train: loss=0.35602, flow=0.28774, rec=0.13597, mae=0.1572, vp=0.2551, vs=0.1524, rho=0.0642 | val: loss=0.32090, flow=0.25682, rec=0.12779, slope=0.00330, curv=0.00130, sample_mae=0.2819, sample_vp=0.4623, sample_vs=0.2704, sample_rho=0.1130
+  -> Best model saved to /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026/best.pt
+[Step 00020400] epoch=014 batch=00081/01563 loss=0.337999 flow=0.273137 rec=0.129106 slope=0.005235 curv=0.004668 mae=0.15356 vp_mae=0.24840 vs_mae=0.14941 rho_mae=0.06288
+[Step 00020500] epoch=014 batch=00181/01563 loss=0.365841 flow=0.292673 rec=0.145789 slope=0.004623 curv=0.004181 mae=0.16324 vp_mae=0.26394 vs_mae=0.15684 rho_mae=0.06895
+[Step 00020600] epoch=014 batch=00281/01563 loss=0.359479 flow=0.296108 rec=0.126142 slope=0.005105 curv=0.004375 mae=0.14803 vp_mae=0.24079 vs_mae=0.14404 rho_mae=0.05927
+[Step 00020700] epoch=014 batch=00381/01563 loss=0.373461 flow=0.295646 rec=0.154875 slope=0.006336 curv=0.006032 mae=0.17326 vp_mae=0.27906 vs_mae=0.16947 rho_mae=0.07126
+[Step 00020800] epoch=014 batch=00481/01563 loss=0.323075 flow=0.268012 rec=0.109554 slope=0.004823 curv=0.004487 mae=0.13977 vp_mae=0.22656 vs_mae=0.13467 rho_mae=0.05808
+[Step 00020900] epoch=014 batch=00581/01563 loss=0.329424 flow=0.267286 rec=0.123694 slope=0.004959 curv=0.004298 mae=0.15049 vp_mae=0.24241 vs_mae=0.14782 rho_mae=0.06123
+[Step 00021000] epoch=014 batch=00681/01563 loss=0.322929 flow=0.269497 rec=0.106344 slope=0.004433 curv=0.003859 mae=0.13531 vp_mae=0.21913 vs_mae=0.13137 rho_mae=0.05542
+[Step 00021100] epoch=014 batch=00781/01563 loss=0.338371 flow=0.269908 rec=0.136347 slope=0.004951 curv=0.004212 mae=0.16182 vp_mae=0.26470 vs_mae=0.15675 rho_mae=0.06401
+[Step 00021200] epoch=014 batch=00881/01563 loss=0.351836 flow=0.291260 rec=0.120654 slope=0.004187 curv=0.003873 mae=0.14238 vp_mae=0.23259 vs_mae=0.13571 rho_mae=0.05885
+[Step 00021300] epoch=014 batch=00981/01563 loss=0.394223 flow=0.313458 rec=0.160908 slope=0.005320 curv=0.004471 mae=0.17215 vp_mae=0.27872 vs_mae=0.16931 rho_mae=0.06841
+[Step 00021400] epoch=014 batch=01081/01563 loss=0.346597 flow=0.292219 rec=0.108315 slope=0.003753 curv=0.003379 mae=0.13534 vp_mae=0.21968 vs_mae=0.13174 rho_mae=0.05461
+[Step 00021500] epoch=014 batch=01181/01563 loss=0.368187 flow=0.294401 rec=0.146947 slope=0.005307 curv=0.004673 mae=0.16659 vp_mae=0.27062 vs_mae=0.16170 rho_mae=0.06745
+[Step 00021600] epoch=014 batch=01281/01563 loss=0.366459 flow=0.294822 rec=0.142688 slope=0.004980 curv=0.004367 mae=0.16193 vp_mae=0.26401 vs_mae=0.15573 rho_mae=0.06605
+[Step 00021700] epoch=014 batch=01381/01563 loss=0.336947 flow=0.270497 rec=0.132369 slope=0.004448 curv=0.004302 mae=0.15512 vp_mae=0.25372 vs_mae=0.14818 rho_mae=0.06347
+[Step 00021800] epoch=014 batch=01481/01563 loss=0.386921 flow=0.304568 rec=0.164080 slope=0.005351 curv=0.004567 mae=0.17729 vp_mae=0.28834 vs_mae=0.17154 rho_mae=0.07199
+[Epoch 014/024] time=463.8s lr=7.47e-05 | train: loss=0.35176, flow=0.28497, rec=0.13301, mae=0.1551, vp=0.2515, vs=0.1504, rho=0.0633 | val: loss=0.31713, flow=0.25286, rec=0.12816, slope=0.00339, curv=0.00136, sample_mae=0.2727, sample_vp=0.4469, sample_vs=0.2626, sample_rho=0.1087
+  -> Best model saved to /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026/best.pt
+[Step 00021900] epoch=015 batch=00018/01563 loss=0.336355 flow=0.274089 rec=0.123965 slope=0.004863 curv=0.004072 mae=0.15243 vp_mae=0.24856 vs_mae=0.14890 rho_mae=0.05983
+[Step 00022000] epoch=015 batch=00118/01563 loss=0.370913 flow=0.295072 rec=0.151031 slope=0.005544 curv=0.004871 mae=0.17124 vp_mae=0.28098 vs_mae=0.16580 rho_mae=0.06694
+[Step 00022100] epoch=015 batch=00218/01563 loss=0.342210 flow=0.267033 rec=0.149750 slope=0.005130 curv=0.004566 mae=0.16694 vp_mae=0.27149 vs_mae=0.16298 rho_mae=0.06634
+[Step 00022200] epoch=015 batch=00318/01563 loss=0.341186 flow=0.281552 rec=0.118710 slope=0.004681 curv=0.004432 mae=0.14629 vp_mae=0.23740 vs_mae=0.14158 rho_mae=0.05989
+[Step 00022300] epoch=015 batch=00418/01563 loss=0.386544 flow=0.322262 rec=0.127962 slope=0.005092 curv=0.004538 mae=0.15388 vp_mae=0.25231 vs_mae=0.14759 rho_mae=0.06175
+[Step 00022400] epoch=015 batch=00518/01563 loss=0.366245 flow=0.288536 rec=0.154823 slope=0.005060 curv=0.004446 mae=0.16697 vp_mae=0.26903 vs_mae=0.16057 rho_mae=0.07131
+[Step 00022500] epoch=015 batch=00618/01563 loss=0.355812 flow=0.297591 rec=0.116011 slope=0.003676 curv=0.003225 mae=0.14048 vp_mae=0.22825 vs_mae=0.13668 rho_mae=0.05652
+[Step 00022600] epoch=015 batch=00718/01563 loss=0.333503 flow=0.266355 rec=0.133670 slope=0.005263 curv=0.005022 mae=0.15775 vp_mae=0.25774 vs_mae=0.15288 rho_mae=0.06262
+[Step 00022700] epoch=015 batch=00818/01563 loss=0.345861 flow=0.289573 rec=0.112062 slope=0.004366 curv=0.003785 mae=0.14191 vp_mae=0.22788 vs_mae=0.13926 rho_mae=0.05858
+[Step 00022800] epoch=015 batch=00918/01563 loss=0.316923 flow=0.258090 rec=0.117141 slope=0.004473 curv=0.003927 mae=0.14640 vp_mae=0.23838 vs_mae=0.14223 rho_mae=0.05858
+[Step 00022900] epoch=015 batch=01018/01563 loss=0.346602 flow=0.286229 rec=0.120207 slope=0.004574 curv=0.003984 mae=0.14270 vp_mae=0.22882 vs_mae=0.13899 rho_mae=0.06029
+[Step 00023000] epoch=015 batch=01118/01563 loss=0.342800 flow=0.284563 rec=0.115945 slope=0.004509 curv=0.003900 mae=0.14263 vp_mae=0.23356 vs_mae=0.13605 rho_mae=0.05827
+[Step 00023100] epoch=015 batch=01218/01563 loss=0.298073 flow=0.255850 rec=0.083967 slope=0.004079 curv=0.003528 mae=0.12057 vp_mae=0.19540 vs_mae=0.11785 rho_mae=0.04847
+[Step 00023200] epoch=015 batch=01318/01563 loss=0.334347 flow=0.273358 rec=0.121466 slope=0.004384 curv=0.003665 mae=0.14399 vp_mae=0.23106 vs_mae=0.13988 rho_mae=0.06103
+[Step 00023300] epoch=015 batch=01418/01563 loss=0.351334 flow=0.287822 rec=0.126461 slope=0.004765 curv=0.004413 mae=0.15093 vp_mae=0.24544 vs_mae=0.14383 rho_mae=0.06353
+[Step 00023400] epoch=015 batch=01518/01563 loss=0.350455 flow=0.285598 rec=0.129141 slope=0.004781 curv=0.004664 mae=0.15417 vp_mae=0.25055 vs_mae=0.14962 rho_mae=0.06234
+[Epoch 015/024] time=467.2s lr=6.24e-05 | train: loss=0.34777, flow=0.28184, rec=0.13129, mae=0.1538, vp=0.2493, vs=0.1492, rho=0.0628 | val: loss=0.31267, flow=0.25082, rec=0.12334, slope=0.00325, curv=0.00121, sample_mae=0.2771, sample_vp=0.4533, sample_vs=0.2669, sample_rho=0.1111
+  -> Best model saved to /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026/best.pt
+[Step 00023500] epoch=016 batch=00055/01563 loss=0.312402 flow=0.259729 rec=0.104784 slope=0.004731 curv=0.004429 mae=0.13553 vp_mae=0.22036 vs_mae=0.13239 rho_mae=0.05384
+[Step 00023600] epoch=016 batch=00155/01563 loss=0.328048 flow=0.269805 rec=0.115908 slope=0.004898 curv=0.004349 mae=0.14255 vp_mae=0.23068 vs_mae=0.13725 rho_mae=0.05972
+[Step 00023700] epoch=016 batch=00255/01563 loss=0.323957 flow=0.266945 rec=0.113441 slope=0.004914 curv=0.004605 mae=0.14183 vp_mae=0.22763 vs_mae=0.13861 rho_mae=0.05923
+[Step 00023800] epoch=016 batch=00355/01563 loss=0.297230 flow=0.245291 rec=0.103364 slope=0.004274 curv=0.004339 mae=0.13514 vp_mae=0.21917 vs_mae=0.12978 rho_mae=0.05646
+[Step 00023900] epoch=016 batch=00455/01563 loss=0.353030 flow=0.281620 rec=0.142287 slope=0.004526 curv=0.004040 mae=0.15713 vp_mae=0.25283 vs_mae=0.15276 rho_mae=0.06580
+[Step 00024000] epoch=016 batch=00555/01563 loss=0.364666 flow=0.282849 rec=0.163008 slope=0.005328 curv=0.004714 mae=0.17551 vp_mae=0.28790 vs_mae=0.16868 rho_mae=0.06996
+[Step 00024100] epoch=016 batch=00655/01563 loss=0.341911 flow=0.266506 rec=0.150209 slope=0.005090 curv=0.004638 mae=0.17125 vp_mae=0.27921 vs_mae=0.16781 rho_mae=0.06674
+[Step 00024200] epoch=016 batch=00755/01563 loss=0.302797 flow=0.247561 rec=0.109958 slope=0.004319 curv=0.004144 mae=0.13655 vp_mae=0.21936 vs_mae=0.13416 rho_mae=0.05614
+[Step 00024300] epoch=016 batch=00855/01563 loss=0.356838 flow=0.289978 rec=0.133082 slope=0.005441 curv=0.004702 mae=0.15301 vp_mae=0.24648 vs_mae=0.14793 rho_mae=0.06462
+[Step 00024400] epoch=016 batch=00955/01563 loss=0.356067 flow=0.287774 rec=0.136008 slope=0.004894 curv=0.004405 mae=0.15679 vp_mae=0.25524 vs_mae=0.15179 rho_mae=0.06335
+[Step 00024500] epoch=016 batch=01055/01563 loss=0.349791 flow=0.286444 rec=0.126113 slope=0.004901 curv=0.004524 mae=0.14846 vp_mae=0.24102 vs_mae=0.14404 rho_mae=0.06031
+[Step 00024600] epoch=016 batch=01155/01563 loss=0.352838 flow=0.284307 rec=0.136513 slope=0.004657 curv=0.004244 mae=0.15837 vp_mae=0.25912 vs_mae=0.15207 rho_mae=0.06392
+[Step 00024700] epoch=016 batch=01255/01563 loss=0.361867 flow=0.294226 rec=0.134738 slope=0.004610 curv=0.004196 mae=0.15745 vp_mae=0.25950 vs_mae=0.15089 rho_mae=0.06197
+[Step 00024800] epoch=016 batch=01355/01563 loss=0.338318 flow=0.270573 rec=0.134915 slope=0.004831 curv=0.004660 mae=0.15753 vp_mae=0.25684 vs_mae=0.15130 rho_mae=0.06444
+[Step 00024900] epoch=016 batch=01455/01563 loss=0.351031 flow=0.288650 rec=0.124254 slope=0.004303 curv=0.003837 mae=0.14343 vp_mae=0.22913 vs_mae=0.13930 rho_mae=0.06187
+[Step 00025000] epoch=016 batch=01555/01563 loss=0.354657 flow=0.285508 rec=0.137701 slope=0.005128 curv=0.004238 mae=0.15541 vp_mae=0.25281 vs_mae=0.14834 rho_mae=0.06509
+[Epoch 016/024] time=467.8s lr=5.08e-05 | train: loss=0.34374, flow=0.27842, rec=0.13007, mae=0.1528, vp=0.2478, vs=0.1484, rho=0.0624 | val: loss=0.31473, flow=0.25096, rec=0.12719, slope=0.00325, curv=0.00118, sample_mae=0.2763, sample_vp=0.4526, sample_vs=0.2655, sample_rho=0.1108
+[Step 00025100] epoch=017 batch=00092/01563 loss=0.351876 flow=0.290882 rec=0.121468 slope=0.004421 curv=0.003905 mae=0.14742 vp_mae=0.24123 vs_mae=0.14305 rho_mae=0.05797
+[Step 00025200] epoch=017 batch=00192/01563 loss=0.342814 flow=0.279848 rec=0.125387 slope=0.004624 curv=0.004146 mae=0.15174 vp_mae=0.24628 vs_mae=0.14869 rho_mae=0.06025
+[Step 00025300] epoch=017 batch=00292/01563 loss=0.341981 flow=0.273413 rec=0.136538 slope=0.005066 curv=0.004508 mae=0.15636 vp_mae=0.25122 vs_mae=0.15325 rho_mae=0.06460
+[Step 00025400] epoch=017 batch=00392/01563 loss=0.366029 flow=0.291861 rec=0.147739 slope=0.005046 curv=0.004587 mae=0.16711 vp_mae=0.27474 vs_mae=0.16230 rho_mae=0.06427
+[Step 00025500] epoch=017 batch=00492/01563 loss=0.356518 flow=0.291004 rec=0.130471 slope=0.004708 curv=0.004335 mae=0.15356 vp_mae=0.25348 vs_mae=0.14772 rho_mae=0.05947
+[Step 00025600] epoch=017 batch=00592/01563 loss=0.328277 flow=0.259771 rec=0.136423 slope=0.004969 curv=0.004622 mae=0.15964 vp_mae=0.25798 vs_mae=0.15574 rho_mae=0.06521
+[Step 00025700] epoch=017 batch=00692/01563 loss=0.333229 flow=0.278014 rec=0.109931 slope=0.004196 curv=0.003928 mae=0.13895 vp_mae=0.22623 vs_mae=0.13509 rho_mae=0.05553
+[Step 00025800] epoch=017 batch=00792/01563 loss=0.325576 flow=0.277455 rec=0.095734 slope=0.004293 curv=0.003860 mae=0.12811 vp_mae=0.20671 vs_mae=0.12658 rho_mae=0.05104
+[Step 00025900] epoch=017 batch=00892/01563 loss=0.331536 flow=0.278818 rec=0.104900 slope=0.004536 curv=0.004047 mae=0.13782 vp_mae=0.22513 vs_mae=0.13423 rho_mae=0.05409
+[Step 00026000] epoch=017 batch=00992/01563 loss=0.305406 flow=0.248069 rec=0.114132 slope=0.004584 curv=0.004136 mae=0.14374 vp_mae=0.23264 vs_mae=0.14076 rho_mae=0.05783
+[Step 00026100] epoch=017 batch=01092/01563 loss=0.325494 flow=0.267657 rec=0.115104 slope=0.004777 curv=0.004643 mae=0.14354 vp_mae=0.23053 vs_mae=0.14087 rho_mae=0.05923
+[Step 00026200] epoch=017 batch=01192/01563 loss=0.323552 flow=0.257902 rec=0.130688 slope=0.005107 curv=0.005103 mae=0.15466 vp_mae=0.25079 vs_mae=0.14957 rho_mae=0.06362
+[Step 00026300] epoch=017 batch=01292/01563 loss=0.328473 flow=0.275341 rec=0.105772 slope=0.004178 curv=0.003623 mae=0.13555 vp_mae=0.22096 vs_mae=0.12996 rho_mae=0.05573
+[Step 00026400] epoch=017 batch=01392/01563 loss=0.340299 flow=0.280803 rec=0.118506 slope=0.004182 curv=0.003383 mae=0.13931 vp_mae=0.22358 vs_mae=0.13652 rho_mae=0.05781
+[Step 00026500] epoch=017 batch=01492/01563 loss=0.333932 flow=0.272042 rec=0.123208 slope=0.004876 curv=0.004252 mae=0.14999 vp_mae=0.23830 vs_mae=0.14761 rho_mae=0.06407
+[Epoch 017/024] time=469.8s lr=3.99e-05 | train: loss=0.34116, flow=0.27612, rec=0.12951, mae=0.1524, vp=0.2470, vs=0.1480, rho=0.0622 | val: loss=0.31157, flow=0.24961, rec=0.12358, slope=0.00320, curv=0.00111, sample_mae=0.2703, sample_vp=0.4426, sample_vs=0.2603, sample_rho=0.1081
+  -> Best model saved to /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026/best.pt
+[Step 00026600] epoch=018 batch=00029/01563 loss=0.362216 flow=0.286264 rec=0.151351 slope=0.004702 curv=0.004160 mae=0.16155 vp_mae=0.26056 vs_mae=0.15545 rho_mae=0.06864
+[Step 00026700] epoch=018 batch=00129/01563 loss=0.340603 flow=0.272358 rec=0.135971 slope=0.004409 curv=0.003972 mae=0.15466 vp_mae=0.24956 vs_mae=0.15232 rho_mae=0.06210
+[Step 00026800] epoch=018 batch=00229/01563 loss=0.351020 flow=0.285829 rec=0.129783 slope=0.005081 curv=0.004507 mae=0.15447 vp_mae=0.24876 vs_mae=0.15107 rho_mae=0.06357
+[Step 00026900] epoch=018 batch=00329/01563 loss=0.323238 flow=0.270863 rec=0.104302 slope=0.003810 curv=0.003309 mae=0.13444 vp_mae=0.21983 vs_mae=0.13075 rho_mae=0.05274
+[Step 00027000] epoch=018 batch=00429/01563 loss=0.330972 flow=0.280912 rec=0.099625 slope=0.004119 curv=0.004077 mae=0.13227 vp_mae=0.21562 vs_mae=0.12961 rho_mae=0.05158
+[Step 00027100] epoch=018 batch=00529/01563 loss=0.314298 flow=0.251135 rec=0.125759 slope=0.004744 curv=0.004666 mae=0.15229 vp_mae=0.24744 vs_mae=0.14668 rho_mae=0.06274
+[Step 00027200] epoch=018 batch=00629/01563 loss=0.334422 flow=0.273609 rec=0.121065 slope=0.004767 curv=0.004212 mae=0.14487 vp_mae=0.23440 vs_mae=0.14029 rho_mae=0.05991
+[Step 00027300] epoch=018 batch=00729/01563 loss=0.343915 flow=0.283730 rec=0.119843 slope=0.004458 curv=0.004137 mae=0.14564 vp_mae=0.23668 vs_mae=0.14295 rho_mae=0.05731
+[Step 00027400] epoch=018 batch=00829/01563 loss=0.337474 flow=0.267380 rec=0.139537 slope=0.005539 curv=0.004935 mae=0.16173 vp_mae=0.26036 vs_mae=0.15987 rho_mae=0.06496
+[Step 00027500] epoch=018 batch=00929/01563 loss=0.339865 flow=0.286754 rec=0.105692 slope=0.004447 curv=0.004286 mae=0.13554 vp_mae=0.22241 vs_mae=0.13132 rho_mae=0.05289
+[Step 00027600] epoch=018 batch=01029/01563 loss=0.304466 flow=0.252036 rec=0.104328 slope=0.004521 curv=0.003929 mae=0.13431 vp_mae=0.21624 vs_mae=0.13113 rho_mae=0.05556
+[Step 00027700] epoch=018 batch=01129/01563 loss=0.362330 flow=0.278472 rec=0.167101 slope=0.005206 curv=0.004694 mae=0.17501 vp_mae=0.28658 vs_mae=0.16772 rho_mae=0.07073
+[Step 00027800] epoch=018 batch=01229/01563 loss=0.347168 flow=0.275668 rec=0.142392 slope=0.005176 curv=0.004517 mae=0.16189 vp_mae=0.26129 vs_mae=0.15866 rho_mae=0.06574
+[Step 00027900] epoch=018 batch=01329/01563 loss=0.337686 flow=0.285150 rec=0.104641 slope=0.003672 curv=0.003129 mae=0.13062 vp_mae=0.21343 vs_mae=0.12512 rho_mae=0.05332
+[Step 00028000] epoch=018 batch=01429/01563 loss=0.304427 flow=0.241724 rec=0.124835 slope=0.004824 curv=0.004404 mae=0.15048 vp_mae=0.24596 vs_mae=0.14777 rho_mae=0.05770
+[Step 00028100] epoch=018 batch=01529/01563 loss=0.359843 flow=0.292574 rec=0.133987 slope=0.004677 curv=0.004249 mae=0.15450 vp_mae=0.25024 vs_mae=0.14759 rho_mae=0.06566
+[Epoch 018/024] time=491.3s lr=3.01e-05 | train: loss=0.33791, flow=0.27393, rec=0.12740, mae=0.1508, vp=0.2445, vs=0.1465, rho=0.0616 | val: loss=0.30290, flow=0.24485, rec=0.11577, slope=0.00313, curv=0.00109, sample_mae=0.2639, sample_vp=0.4317, sample_vs=0.2547, sample_rho=0.1054
+  -> Best model saved to /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026/best.pt
+[Step 00028200] epoch=019 batch=00066/01563 loss=0.327712 flow=0.277553 rec=0.099836 slope=0.004047 curv=0.003804 mae=0.12962 vp_mae=0.21120 vs_mae=0.12474 rho_mae=0.05290
+[Step 00028300] epoch=019 batch=00166/01563 loss=0.367446 flow=0.285393 rec=0.163462 slope=0.005387 curv=0.005234 mae=0.17491 vp_mae=0.28586 vs_mae=0.16642 rho_mae=0.07244
+[Step 00028400] epoch=019 batch=00266/01563 loss=0.359224 flow=0.294675 rec=0.128483 slope=0.005219 curv=0.004575 mae=0.15104 vp_mae=0.24356 vs_mae=0.14826 rho_mae=0.06129
+[Step 00028500] epoch=019 batch=00366/01563 loss=0.335642 flow=0.272254 rec=0.126222 slope=0.004704 curv=0.004233 mae=0.14906 vp_mae=0.24168 vs_mae=0.14334 rho_mae=0.06216
+[Step 00028600] epoch=019 batch=00466/01563 loss=0.304947 flow=0.241948 rec=0.125364 slope=0.005306 curv=0.005177 mae=0.15397 vp_mae=0.25093 vs_mae=0.14959 rho_mae=0.06140
+[Step 00028700] epoch=019 batch=00566/01563 loss=0.326148 flow=0.260816 rec=0.130150 slope=0.004394 curv=0.003775 mae=0.15303 vp_mae=0.24798 vs_mae=0.14897 rho_mae=0.06215
+[Step 00028800] epoch=019 batch=00666/01563 loss=0.342188 flow=0.271567 rec=0.140667 slope=0.004879 curv=0.004368 mae=0.16389 vp_mae=0.26837 vs_mae=0.16026 rho_mae=0.06305
+[Step 00028900] epoch=019 batch=00766/01563 loss=0.326733 flow=0.263835 rec=0.125207 slope=0.005033 curv=0.004344 mae=0.15215 vp_mae=0.24841 vs_mae=0.14873 rho_mae=0.05930
+[Step 00029000] epoch=019 batch=00866/01563 loss=0.310395 flow=0.251035 rec=0.118200 slope=0.004378 curv=0.004066 mae=0.14723 vp_mae=0.24130 vs_mae=0.14213 rho_mae=0.05827
+[Step 00029100] epoch=019 batch=00966/01563 loss=0.354142 flow=0.289469 rec=0.128745 slope=0.005177 curv=0.004090 mae=0.15195 vp_mae=0.24459 vs_mae=0.15053 rho_mae=0.06073
+[Step 00029200] epoch=019 batch=01066/01563 loss=0.336596 flow=0.276718 rec=0.119257 slope=0.004238 curv=0.003723 mae=0.14492 vp_mae=0.23454 vs_mae=0.14085 rho_mae=0.05936
+[Step 00029300] epoch=019 batch=01166/01563 loss=0.302373 flow=0.246548 rec=0.111101 slope=0.004690 curv=0.004018 mae=0.13819 vp_mae=0.22505 vs_mae=0.13398 rho_mae=0.05554
+[Step 00029400] epoch=019 batch=01266/01563 loss=0.388167 flow=0.316439 rec=0.142871 slope=0.005045 curv=0.004039 mae=0.15906 vp_mae=0.25551 vs_mae=0.15616 rho_mae=0.06550
+[Step 00029500] epoch=019 batch=01366/01563 loss=0.324944 flow=0.271468 rec=0.106430 slope=0.004430 curv=0.003939 mae=0.13435 vp_mae=0.21460 vs_mae=0.13353 rho_mae=0.05493
+[Step 00029600] epoch=019 batch=01466/01563 loss=0.328665 flow=0.274792 rec=0.107244 slope=0.004320 curv=0.003517 mae=0.13620 vp_mae=0.22073 vs_mae=0.13239 rho_mae=0.05549
+[Epoch 019/024] time=490.5s lr=2.16e-05 | train: loss=0.33464, flow=0.27127, rec=0.12618, mae=0.1499, vp=0.2429, vs=0.1456, rho=0.0613 | val: loss=0.30068, flow=0.24246, rec=0.11611, slope=0.00308, curv=0.00106, sample_mae=0.2650, sample_vp=0.4340, sample_vs=0.2554, sample_rho=0.1057
+  -> Best model saved to /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026/best.pt
+[Step 00029700] epoch=020 batch=00003/01563 loss=0.296090 flow=0.234535 rec=0.122555 slope=0.004703 curv=0.004213 mae=0.14834 vp_mae=0.23904 vs_mae=0.14483 rho_mae=0.06116
+[Step 00029800] epoch=020 batch=00103/01563 loss=0.333266 flow=0.275153 rec=0.115629 slope=0.005059 curv=0.004600 mae=0.14054 vp_mae=0.22516 vs_mae=0.13709 rho_mae=0.05938
+[Step 00029900] epoch=020 batch=00203/01563 loss=0.294278 flow=0.248141 rec=0.091831 slope=0.003733 curv=0.003408 mae=0.12254 vp_mae=0.19813 vs_mae=0.12015 rho_mae=0.04933
+[Step 00030000] epoch=020 batch=00303/01563 loss=0.338960 flow=0.275110 rec=0.127175 slope=0.004470 curv=0.003873 mae=0.14735 vp_mae=0.23840 vs_mae=0.14204 rho_mae=0.06161
+[Step 00030100] epoch=020 batch=00403/01563 loss=0.304444 flow=0.256062 rec=0.096231 slope=0.004514 curv=0.004011 mae=0.12756 vp_mae=0.20625 vs_mae=0.12504 rho_mae=0.05140
+[Step 00030200] epoch=020 batch=00503/01563 loss=0.304879 flow=0.250156 rec=0.108892 slope=0.004672 curv=0.004369 mae=0.14054 vp_mae=0.22811 vs_mae=0.13648 rho_mae=0.05703
+[Step 00030300] epoch=020 batch=00603/01563 loss=0.299242 flow=0.246710 rec=0.104528 slope=0.004500 curv=0.004293 mae=0.13424 vp_mae=0.21649 vs_mae=0.13203 rho_mae=0.05420
+[Step 00030400] epoch=020 batch=00703/01563 loss=0.326482 flow=0.271980 rec=0.108491 slope=0.004353 curv=0.003927 mae=0.14075 vp_mae=0.22945 vs_mae=0.13831 rho_mae=0.05449
+[Step 00030500] epoch=020 batch=00803/01563 loss=0.382226 flow=0.305389 rec=0.153052 slope=0.005293 curv=0.004723 mae=0.16666 vp_mae=0.26825 vs_mae=0.16328 rho_mae=0.06844
+[Step 00030600] epoch=020 batch=00903/01563 loss=0.370357 flow=0.297836 rec=0.144460 slope=0.004955 curv=0.004365 mae=0.16192 vp_mae=0.26354 vs_mae=0.15936 rho_mae=0.06286
+[Step 00030700] epoch=020 batch=01003/01563 loss=0.342670 flow=0.278769 rec=0.127225 slope=0.004874 curv=0.004466 mae=0.15339 vp_mae=0.24889 vs_mae=0.14795 rho_mae=0.06333
+[Step 00030800] epoch=020 batch=01103/01563 loss=0.340864 flow=0.278975 rec=0.123253 slope=0.004471 curv=0.003877 mae=0.14893 vp_mae=0.24308 vs_mae=0.14368 rho_mae=0.06002
+[Step 00030900] epoch=020 batch=01203/01563 loss=0.345515 flow=0.288991 rec=0.112529 slope=0.004420 curv=0.003868 mae=0.13858 vp_mae=0.22395 vs_mae=0.13570 rho_mae=0.05608
+[Step 00031000] epoch=020 batch=01303/01563 loss=0.342808 flow=0.266612 rec=0.151798 slope=0.005047 curv=0.004435 mae=0.16886 vp_mae=0.27616 vs_mae=0.16364 rho_mae=0.06678
+[Step 00031100] epoch=020 batch=01403/01563 loss=0.316823 flow=0.258065 rec=0.117055 slope=0.003872 curv=0.003732 mae=0.14389 vp_mae=0.23524 vs_mae=0.13941 rho_mae=0.05702
+[Step 00031200] epoch=020 batch=01503/01563 loss=0.326708 flow=0.268830 rec=0.115209 slope=0.004715 curv=0.003747 mae=0.14340 vp_mae=0.23206 vs_mae=0.14077 rho_mae=0.05737
+[Epoch 020/024] time=495.4s lr=1.43e-05 | train: loss=0.33238, flow=0.26959, rec=0.12502, mae=0.1491, vp=0.2415, vs=0.1450, rho=0.0608 | val: loss=0.29176, flow=0.23565, rec=0.11188, slope=0.00306, curv=0.00103, sample_mae=0.2617, sample_vp=0.4278, sample_vs=0.2525, sample_rho=0.1047
+  -> Best model saved to /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026/best.pt
+[Step 00031300] epoch=021 batch=00040/01563 loss=0.312707 flow=0.248779 rec=0.127329 slope=0.004466 curv=0.003962 mae=0.14900 vp_mae=0.24162 vs_mae=0.14336 rho_mae=0.06203
+[Step 00031400] epoch=021 batch=00140/01563 loss=0.335255 flow=0.276740 rec=0.116417 slope=0.005208 curv=0.004630 mae=0.14185 vp_mae=0.23125 vs_mae=0.13671 rho_mae=0.05761
+[Step 00031500] epoch=021 batch=00240/01563 loss=0.315656 flow=0.257957 rec=0.114816 slope=0.005010 curv=0.004002 mae=0.14108 vp_mae=0.22769 vs_mae=0.13703 rho_mae=0.05851
+[Step 00031600] epoch=021 batch=00340/01563 loss=0.335084 flow=0.273515 rec=0.122658 slope=0.004110 curv=0.003472 mae=0.14599 vp_mae=0.23820 vs_mae=0.14045 rho_mae=0.05932
+[Step 00031700] epoch=021 batch=00440/01563 loss=0.342893 flow=0.277290 rec=0.130662 slope=0.004634 curv=0.004010 mae=0.15614 vp_mae=0.25450 vs_mae=0.15268 rho_mae=0.06122
+[Step 00031800] epoch=021 batch=00540/01563 loss=0.329977 flow=0.265088 rec=0.129231 slope=0.004638 curv=0.004199 mae=0.15734 vp_mae=0.25780 vs_mae=0.15236 rho_mae=0.06185
+[Step 00031900] epoch=021 batch=00640/01563 loss=0.327863 flow=0.269958 rec=0.115259 slope=0.004599 curv=0.004488 mae=0.14162 vp_mae=0.22982 vs_mae=0.13623 rho_mae=0.05881
+[Step 00032000] epoch=021 batch=00740/01563 loss=0.314155 flow=0.262521 rec=0.102784 slope=0.004100 curv=0.003688 mae=0.13254 vp_mae=0.21356 vs_mae=0.12935 rho_mae=0.05473
+[Step 00032100] epoch=021 batch=00840/01563 loss=0.314401 flow=0.259863 rec=0.108566 slope=0.004341 curv=0.003805 mae=0.13684 vp_mae=0.22240 vs_mae=0.13336 rho_mae=0.05476
+[Step 00032200] epoch=021 batch=00940/01563 loss=0.319783 flow=0.263987 rec=0.111030 slope=0.004814 curv=0.004054 mae=0.13975 vp_mae=0.22584 vs_mae=0.13564 rho_mae=0.05777
+[Step 00032300] epoch=021 batch=01040/01563 loss=0.308265 flow=0.251952 rec=0.112091 slope=0.004503 curv=0.004198 mae=0.13977 vp_mae=0.22691 vs_mae=0.13441 rho_mae=0.05799
+[Step 00032400] epoch=021 batch=01140/01563 loss=0.307326 flow=0.252329 rec=0.109498 slope=0.004181 curv=0.003882 mae=0.13606 vp_mae=0.22177 vs_mae=0.13209 rho_mae=0.05432
+[Step 00032500] epoch=021 batch=01240/01563 loss=0.297774 flow=0.249672 rec=0.095691 slope=0.004273 curv=0.004346 mae=0.12581 vp_mae=0.20382 vs_mae=0.12158 rho_mae=0.05203
+[Step 00032600] epoch=021 batch=01340/01563 loss=0.324121 flow=0.268777 rec=0.110198 slope=0.004140 curv=0.003786 mae=0.14013 vp_mae=0.22844 vs_mae=0.13703 rho_mae=0.05492
+[Step 00032700] epoch=021 batch=01440/01563 loss=0.344168 flow=0.282622 rec=0.122520 slope=0.004838 curv=0.004428 mae=0.15048 vp_mae=0.24197 vs_mae=0.14835 rho_mae=0.06111
+[Step 00032800] epoch=021 batch=01540/01563 loss=0.338046 flow=0.277536 rec=0.120439 slope=0.004903 curv=0.004481 mae=0.14661 vp_mae=0.23567 vs_mae=0.14201 rho_mae=0.06216
+[Epoch 021/024] time=496.9s lr=8.57e-06 | train: loss=0.33072, flow=0.26837, rec=0.12414, mae=0.1484, vp=0.2403, vs=0.1443, rho=0.0606 | val: loss=0.29555, flow=0.23782, rec=0.11512, slope=0.00313, curv=0.00105, sample_mae=0.2587, sample_vp=0.4233, sample_vs=0.2497, sample_rho=0.1032
+[Step 00032900] epoch=022 batch=00077/01563 loss=0.300153 flow=0.252766 rec=0.094273 slope=0.004195 curv=0.004013 mae=0.12649 vp_mae=0.20358 vs_mae=0.12380 rho_mae=0.05207
+[Step 00033000] epoch=022 batch=00177/01563 loss=0.333540 flow=0.267965 rec=0.130577 slope=0.004904 curv=0.004166 mae=0.15231 vp_mae=0.24679 vs_mae=0.15127 rho_mae=0.05887
+[Step 00033100] epoch=022 batch=00277/01563 loss=0.329388 flow=0.275685 rec=0.106883 slope=0.004466 curv=0.003807 mae=0.13436 vp_mae=0.21459 vs_mae=0.13053 rho_mae=0.05795
+[Step 00033200] epoch=022 batch=00377/01563 loss=0.361395 flow=0.298623 rec=0.124995 slope=0.004736 curv=0.003770 mae=0.14739 vp_mae=0.23499 vs_mae=0.14598 rho_mae=0.06120
+[Step 00033300] epoch=022 batch=00477/01563 loss=0.308080 flow=0.247481 rec=0.120615 slope=0.004959 curv=0.004311 mae=0.14613 vp_mae=0.23624 vs_mae=0.14123 rho_mae=0.06093
+[Step 00033400] epoch=022 batch=00577/01563 loss=0.324135 flow=0.269871 rec=0.107919 slope=0.005118 curv=0.004778 mae=0.13607 vp_mae=0.21875 vs_mae=0.13141 rho_mae=0.05805
+[Step 00033500] epoch=022 batch=00677/01563 loss=0.307374 flow=0.249049 rec=0.116047 slope=0.005108 curv=0.004562 mae=0.14047 vp_mae=0.22406 vs_mae=0.13743 rho_mae=0.05991
+[Step 00033600] epoch=022 batch=00777/01563 loss=0.306038 flow=0.248204 rec=0.115134 slope=0.004448 curv=0.004448 mae=0.14141 vp_mae=0.22781 vs_mae=0.13996 rho_mae=0.05646
+[Step 00033700] epoch=022 batch=00877/01563 loss=0.340407 flow=0.273077 rec=0.134114 slope=0.004718 curv=0.003771 mae=0.15365 vp_mae=0.24821 vs_mae=0.15199 rho_mae=0.06076
+[Step 00033800] epoch=022 batch=00977/01563 loss=0.370183 flow=0.299821 rec=0.140224 slope=0.004344 curv=0.003363 mae=0.15524 vp_mae=0.24919 vs_mae=0.15056 rho_mae=0.06598
+[Step 00033900] epoch=022 batch=01077/01563 loss=0.326024 flow=0.269693 rec=0.112078 slope=0.004997 curv=0.004183 mae=0.14244 vp_mae=0.23055 vs_mae=0.13942 rho_mae=0.05735
+[Step 00034000] epoch=022 batch=01177/01563 loss=0.329698 flow=0.262503 rec=0.133823 slope=0.004798 curv=0.004367 mae=0.15796 vp_mae=0.25847 vs_mae=0.15241 rho_mae=0.06299
+[Step 00034100] epoch=022 batch=01277/01563 loss=0.289762 flow=0.238554 rec=0.101948 slope=0.003957 curv=0.003604 mae=0.13264 vp_mae=0.21552 vs_mae=0.12910 rho_mae=0.05330
+[Step 00034200] epoch=022 batch=01377/01563 loss=0.315350 flow=0.261840 rec=0.106521 slope=0.004272 curv=0.003594 mae=0.13534 vp_mae=0.21815 vs_mae=0.13240 rho_mae=0.05546
+[Step 00034300] epoch=022 batch=01477/01563 loss=0.347435 flow=0.272099 rec=0.150114 slope=0.004739 curv=0.004204 mae=0.16298 vp_mae=0.26727 vs_mae=0.15621 rho_mae=0.06545
+[Epoch 022/024] time=494.6s lr=4.39e-06 | train: loss=0.32923, flow=0.26695, rec=0.12401, mae=0.1483, vp=0.2401, vs=0.1441, rho=0.0605 | val: loss=0.29178, flow=0.23665, rec=0.10994, slope=0.00309, curv=0.00100, sample_mae=0.2556, sample_vp=0.4181, sample_vs=0.2469, sample_rho=0.1018
+[Step 00034400] epoch=023 batch=00014/01563 loss=0.355452 flow=0.291890 rec=0.126601 slope=0.004466 curv=0.003826 mae=0.15081 vp_mae=0.24504 vs_mae=0.14573 rho_mae=0.06167
+[Step 00034500] epoch=023 batch=00114/01563 loss=0.330900 flow=0.264417 rec=0.132377 slope=0.005060 curv=0.004149 mae=0.15649 vp_mae=0.25179 vs_mae=0.15394 rho_mae=0.06374
+[Step 00034600] epoch=023 batch=00214/01563 loss=0.317269 flow=0.261302 rec=0.111394 slope=0.004652 curv=0.003787 mae=0.13689 vp_mae=0.21976 vs_mae=0.13466 rho_mae=0.05626
+[Step 00034700] epoch=023 batch=00314/01563 loss=0.329486 flow=0.277342 rec=0.103748 slope=0.004606 curv=0.003970 mae=0.13479 vp_mae=0.21559 vs_mae=0.13197 rho_mae=0.05683
+[Step 00034800] epoch=023 batch=00414/01563 loss=0.317050 flow=0.262625 rec=0.108374 slope=0.003995 curv=0.003797 mae=0.13568 vp_mae=0.22070 vs_mae=0.13017 rho_mae=0.05616
+[Step 00034900] epoch=023 batch=00514/01563 loss=0.339979 flow=0.278484 rec=0.122408 slope=0.004925 curv=0.004426 mae=0.14937 vp_mae=0.23985 vs_mae=0.14767 rho_mae=0.06058
+[Step 00035000] epoch=023 batch=00614/01563 loss=0.331312 flow=0.262309 rec=0.137494 slope=0.004368 curv=0.003797 mae=0.15583 vp_mae=0.24941 vs_mae=0.15256 rho_mae=0.06551
+[Step 00035100] epoch=023 batch=00714/01563 loss=0.369418 flow=0.302346 rec=0.133601 slope=0.004652 curv=0.003895 mae=0.15053 vp_mae=0.24395 vs_mae=0.14678 rho_mae=0.06086
+[Step 00035200] epoch=023 batch=00814/01563 loss=0.339493 flow=0.270017 rec=0.138368 slope=0.004957 curv=0.004466 mae=0.15927 vp_mae=0.25877 vs_mae=0.15263 rho_mae=0.06642
+[Step 00035300] epoch=023 batch=00914/01563 loss=0.294299 flow=0.244152 rec=0.099748 slope=0.004613 curv=0.004241 mae=0.13191 vp_mae=0.21224 vs_mae=0.13192 rho_mae=0.05158
+[Step 00035400] epoch=023 batch=01014/01563 loss=0.303378 flow=0.247795 rec=0.110645 slope=0.004389 curv=0.004171 mae=0.14090 vp_mae=0.23098 vs_mae=0.13632 rho_mae=0.05539
+[Step 00035500] epoch=023 batch=01114/01563 loss=0.335533 flow=0.279860 rec=0.110790 slope=0.004818 curv=0.003740 mae=0.13855 vp_mae=0.22202 vs_mae=0.13577 rho_mae=0.05786
+[Step 00035600] epoch=023 batch=01214/01563 loss=0.333770 flow=0.265110 rec=0.136718 slope=0.005108 curv=0.004624 mae=0.15396 vp_mae=0.24769 vs_mae=0.14999 rho_mae=0.06421
+[Step 00035700] epoch=023 batch=01314/01563 loss=0.294004 flow=0.236161 rec=0.115178 slope=0.004285 curv=0.003959 mae=0.13980 vp_mae=0.22613 vs_mae=0.13407 rho_mae=0.05921
+[Step 00035800] epoch=023 batch=01414/01563 loss=0.328861 flow=0.275496 rec=0.106246 slope=0.004142 curv=0.003405 mae=0.13283 vp_mae=0.21233 vs_mae=0.13058 rho_mae=0.05559
+[Step 00035900] epoch=023 batch=01514/01563 loss=0.325112 flow=0.273233 rec=0.103300 slope=0.003921 curv=0.003334 mae=0.13270 vp_mae=0.21228 vs_mae=0.13138 rho_mae=0.05442
+[Epoch 023/024] time=492.3s lr=1.85e-06 | train: loss=0.32881, flow=0.26676, rec=0.12355, mae=0.1479, vp=0.2395, vs=0.1439, rho=0.0604 | val: loss=0.30273, flow=0.24280, rec=0.11952, slope=0.00315, curv=0.00103, sample_mae=0.2592, sample_vp=0.4238, sample_vs=0.2502, sample_rho=0.1038
+[Step 00036000] epoch=024 batch=00051/01563 loss=0.334815 flow=0.275707 rec=0.117728 slope=0.004092 curv=0.003962 mae=0.14171 vp_mae=0.22722 vs_mae=0.14048 rho_mae=0.05744
+[Step 00036100] epoch=024 batch=00151/01563 loss=0.353484 flow=0.289545 rec=0.127238 slope=0.005453 curv=0.004721 mae=0.14906 vp_mae=0.23907 vs_mae=0.14538 rho_mae=0.06273
+[Step 00036200] epoch=024 batch=00251/01563 loss=0.351909 flow=0.288816 rec=0.125596 slope=0.004996 curv=0.004475 mae=0.14893 vp_mae=0.24066 vs_mae=0.14462 rho_mae=0.06151
+[Step 00036300] epoch=024 batch=00351/01563 loss=0.356726 flow=0.294713 rec=0.123484 slope=0.004583 curv=0.004132 mae=0.14723 vp_mae=0.23573 vs_mae=0.14387 rho_mae=0.06208
+[Step 00036400] epoch=024 batch=00451/01563 loss=0.338331 flow=0.271299 rec=0.133482 slope=0.004946 curv=0.004397 mae=0.15441 vp_mae=0.25245 vs_mae=0.15052 rho_mae=0.06025
+[Step 00036500] epoch=024 batch=00551/01563 loss=0.329979 flow=0.270083 rec=0.119254 slope=0.004570 curv=0.004126 mae=0.14451 vp_mae=0.23346 vs_mae=0.14022 rho_mae=0.05987
+[Step 00036600] epoch=024 batch=00651/01563 loss=0.364850 flow=0.284874 rec=0.159288 slope=0.005647 curv=0.005012 mae=0.17915 vp_mae=0.29501 vs_mae=0.17090 rho_mae=0.07153
+[Step 00036700] epoch=024 batch=00751/01563 loss=0.343740 flow=0.279206 rec=0.128461 slope=0.005184 curv=0.004384 mae=0.15315 vp_mae=0.24605 vs_mae=0.15161 rho_mae=0.06179
+[Step 00036800] epoch=024 batch=00851/01563 loss=0.377722 flow=0.306360 rec=0.142126 slope=0.005089 curv=0.004444 mae=0.16481 vp_mae=0.26789 vs_mae=0.15922 rho_mae=0.06731
+[Step 00036900] epoch=024 batch=00951/01563 loss=0.343395 flow=0.279358 rec=0.127518 slope=0.004742 curv=0.004143 mae=0.14907 vp_mae=0.24512 vs_mae=0.14373 rho_mae=0.05837
+[Step 00037000] epoch=024 batch=01051/01563 loss=0.367292 flow=0.285536 rec=0.162883 slope=0.005403 curv=0.004459 mae=0.17657 vp_mae=0.29040 vs_mae=0.16992 rho_mae=0.06938
+[Step 00037100] epoch=024 batch=01151/01563 loss=0.320597 flow=0.263012 rec=0.114596 slope=0.004836 curv=0.004525 mae=0.14353 vp_mae=0.23315 vs_mae=0.13903 rho_mae=0.05840
+[Step 00037200] epoch=024 batch=01251/01563 loss=0.343286 flow=0.275401 rec=0.135144 slope=0.005266 curv=0.004995 mae=0.15650 vp_mae=0.25391 vs_mae=0.15120 rho_mae=0.06440
+[Step 00037300] epoch=024 batch=01351/01563 loss=0.289235 flow=0.243715 rec=0.090567 slope=0.003976 curv=0.003720 mae=0.12578 vp_mae=0.20350 vs_mae=0.12515 rho_mae=0.04870
+[Step 00037400] epoch=024 batch=01451/01563 loss=0.326267 flow=0.266731 rec=0.118495 slope=0.004862 curv=0.004513 mae=0.14558 vp_mae=0.23896 vs_mae=0.13817 rho_mae=0.05961
+[Step 00037500] epoch=024 batch=01551/01563 loss=0.316623 flow=0.256862 rec=0.119004 slope=0.004393 curv=0.003927 mae=0.14639 vp_mae=0.23713 vs_mae=0.14224 rho_mae=0.05979
+[Epoch 024/024] time=490.8s lr=1.00e-06 | train: loss=0.32793, flow=0.26621, rec=0.12288, mae=0.1474, vp=0.2388, vs=0.1433, rho=0.0602 | val: loss=0.29604, flow=0.23787, rec=0.11601, slope=0.00313, curv=0.00103, sample_mae=0.2555, sample_vp=0.4183, sample_vs=0.2467, sample_rho=0.1015
+========== Disp2Struct Control-Point CRF v1.3 Training Done ==========
+Best score: 0.291757
+[done] Fair DI-Weak checkpoint directory: /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_full_seed642026

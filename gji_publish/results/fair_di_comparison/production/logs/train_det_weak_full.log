@@ -1,0 +1,25 @@
+[Epoch 001/024] train=0.36904 val=0.32739 vs=0.2784
+[Epoch 002/024] train=0.30955 val=0.30262 vs=0.2648
+[Epoch 003/024] train=0.29200 val=0.29020 vs=0.2549
+[Epoch 004/024] train=0.28080 val=0.27991 vs=0.2490
+[Epoch 005/024] train=0.27370 val=0.28236 vs=0.2529
+[Epoch 006/024] train=0.26802 val=0.27164 vs=0.2451
+[Epoch 007/024] train=0.26288 val=0.25542 vs=0.2329
+[Epoch 008/024] train=0.25776 val=0.25215 vs=0.2320
+[Epoch 009/024] train=0.25409 val=0.24964 vs=0.2301
+[Epoch 010/024] train=0.25012 val=0.24492 vs=0.2272
+[Epoch 011/024] train=0.24569 val=0.25346 vs=0.2325
+[Epoch 012/024] train=0.24229 val=0.23799 vs=0.2229
+[Epoch 013/024] train=0.23897 val=0.23301 vs=0.2202
+[Epoch 014/024] train=0.23506 val=0.22742 vs=0.2164
+[Epoch 015/024] train=0.23176 val=0.22823 vs=0.2161
+[Epoch 016/024] train=0.22829 val=0.22942 vs=0.2163
+[Epoch 017/024] train=0.22612 val=0.22950 vs=0.2164
+[Epoch 018/024] train=0.22262 val=0.21846 vs=0.2094
+[Epoch 019/024] train=0.22102 val=0.21949 vs=0.2100
+[Epoch 020/024] train=0.21702 val=0.21757 vs=0.2094
+[Epoch 021/024] train=0.21541 val=0.21796 vs=0.2085
+[Epoch 022/024] train=0.21375 val=0.21191 vs=0.2050
+[Epoch 023/024] train=0.21244 val=0.21260 vs=0.2054
+[Epoch 024/024] train=0.21150 val=0.21781 vs=0.2080
+[done] deterministic DI-weak checkpoint directory: /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/det_di_weak_full_seed642026

@@ -1,0 +1,8 @@
+{
+  "best_checkpoint": "/Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_pilot_seed642026/best.pt",
+  "best_val_loss": 0.7827248275279999,
+  "completed_utc": "2026-06-06T08:36:01Z",
+  "epochs": 2,
+  "global_step": 64,
+  "latest_checkpoint": "/Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_weak_pilot_seed642026/latest.pt"
+}

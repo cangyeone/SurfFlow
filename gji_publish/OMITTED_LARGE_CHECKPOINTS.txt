@@ -1,0 +1,58 @@
+ckpt/disp2struct_crf.v1.1/latest.pt
+-rw-r--r--@ 1 yuziye  staff    65M Jun  3 16:37 ckpt/disp2struct_crf.v1.1/latest.pt
+ckpt/disp2struct_crf.v1.1/best.pt
+-rw-r--r--@ 1 yuziye  staff    65M Jun  3 16:37 ckpt/disp2struct_crf.v1.1/best.pt
+ckpt/det_di_weak_pilot_seed642026/latest.pt
+-rw-r--r--@ 1 yuziye  staff    53M Jun  6 17:21 ckpt/det_di_weak_pilot_seed642026/latest.pt
+ckpt/det_di_weak_pilot_seed642026/best.pt
+-rw-r--r--@ 1 yuziye  staff    53M Jun  6 17:21 ckpt/det_di_weak_pilot_seed642026/best.pt
+ckpt/fair_di_strong_pilot_seed642026/latest.pt
+-rw-r--r--@ 1 yuziye  staff    49M Jun  6 16:34 ckpt/fair_di_strong_pilot_seed642026/latest.pt
+ckpt/fair_di_strong_pilot_seed642026/best.pt
+-rw-r--r--@ 1 yuziye  staff    49M Jun  6 16:34 ckpt/fair_di_strong_pilot_seed642026/best.pt
+ckpt/disp2struct_crf.v1.2_cp/latest.pt
+-rw-r--r--@ 1 yuziye  staff    49M Jun  3 20:21 ckpt/disp2struct_crf.v1.2_cp/latest.pt
+ckpt/disp2struct_crf.v1.2_cp/best.pt
+-rw-r--r--@ 1 yuziye  staff    49M Jun  3 20:07 ckpt/disp2struct_crf.v1.2_cp/best.pt
+ckpt/disp2struct_crf.v1.3_cp/latest.pt
+-rw-r--r--@ 1 yuziye  staff    49M Jun  6 01:36 ckpt/disp2struct_crf.v1.3_cp/latest.pt
+ckpt/disp2struct_crf.v1.3_cp/best.pt
+-rw-r--r--@ 1 yuziye  staff    49M Jun  6 01:25 ckpt/disp2struct_crf.v1.3_cp/best.pt
+ckpt/struct2disp_cpmlp.prior_boundary_v3.pt
+-rw-r--r--@ 1 yuziye  staff   4.4M Jun  5 11:00 ckpt/struct2disp_cpmlp.prior_boundary_v3.pt
+ckpt/det_di_strong_full_seed642026/latest.pt
+-rw-r--r--@ 1 yuziye  staff    53M Jun  7 09:18 ckpt/det_di_strong_full_seed642026/latest.pt
+ckpt/det_di_strong_full_seed642026/best.pt
+-rw-r--r--@ 1 yuziye  staff    53M Jun  7 08:43 ckpt/det_di_strong_full_seed642026/best.pt
+ckpt/disp2struct_crf.v1.3_cp_weak/latest.pt
+-rw-r--r--@ 1 yuziye  staff    49M Jun  5 21:50 ckpt/disp2struct_crf.v1.3_cp_weak/latest.pt
+ckpt/disp2struct_crf.v1.3_cp_weak/best.pt
+-rw-r--r--@ 1 yuziye  staff    49M Jun  5 21:44 ckpt/disp2struct_crf.v1.3_cp_weak/best.pt
+ckpt/struct2disp_transformer.prior_boundary_v2.pt
+-rw-r--r--@ 1 yuziye  staff   2.8M Jun  5 10:34 ckpt/struct2disp_transformer.prior_boundary_v2.pt
+ckpt/struct2disp_transformer.prior_boundary_tiny.pt
+-rw-r--r--@ 1 yuziye  staff   2.8M Jun  4 20:08 ckpt/struct2disp_transformer.prior_boundary_tiny.pt
+ckpt/disp2struct_crf.v1.2_cp_weak/latest.pt
+-rw-r--r--@ 1 yuziye  staff    49M Jun  5 10:31 ckpt/disp2struct_crf.v1.2_cp_weak/latest.pt
+ckpt/disp2struct_crf.v1.2_cp_weak/best.pt
+-rw-r--r--@ 1 yuziye  staff    49M Jun  5 10:29 ckpt/disp2struct_crf.v1.2_cp_weak/best.pt
+ckpt/det_di_strong_pilot_seed642026/latest.pt
+-rw-r--r--@ 1 yuziye  staff    53M Jun  6 17:19 ckpt/det_di_strong_pilot_seed642026/latest.pt
+ckpt/det_di_strong_pilot_seed642026/best.pt
+-rw-r--r--@ 1 yuziye  staff    53M Jun  6 17:19 ckpt/det_di_strong_pilot_seed642026/best.pt
+ckpt/det_di_weak_full_seed642026/latest.pt
+-rw-r--r--@ 1 yuziye  staff    53M Jun  7 12:30 ckpt/det_di_weak_full_seed642026/latest.pt
+ckpt/det_di_weak_full_seed642026/best.pt
+-rw-r--r--@ 1 yuziye  staff    53M Jun  7 12:14 ckpt/det_di_weak_full_seed642026/best.pt
+ckpt/fair_di_weak_pilot_seed642026/latest.pt
+-rw-r--r--@ 1 yuziye  staff    49M Jun  6 16:36 ckpt/fair_di_weak_pilot_seed642026/latest.pt
+ckpt/fair_di_weak_pilot_seed642026/best.pt
+-rw-r--r--@ 1 yuziye  staff    49M Jun  6 16:36 ckpt/fair_di_weak_pilot_seed642026/best.pt
+ckpt/fair_di_weak_full_seed642026/latest.pt
+-rw-r--r--@ 1 yuziye  staff    49M Jun  7 00:23 ckpt/fair_di_weak_full_seed642026/latest.pt
+ckpt/fair_di_weak_full_seed642026/best.pt
+-rw-r--r--@ 1 yuziye  staff    49M Jun  6 23:50 ckpt/fair_di_weak_full_seed642026/best.pt
+ckpt/fair_di_strong_full_seed642026/latest.pt
+-rw-r--r--@ 1 yuziye  staff    49M Jun  6 21:11 ckpt/fair_di_strong_full_seed642026/latest.pt
+ckpt/fair_di_strong_full_seed642026/best.pt
+-rw-r--r--@ 1 yuziye  staff    49M Jun  6 20:36 ckpt/fair_di_strong_full_seed642026/best.pt

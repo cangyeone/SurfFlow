@@ -1,0 +1,5 @@
+========== Disp2Struct Control-Point CRF v1.3 Training Start | start_epoch=1 global_step=0 H=256 T=59 Nc=28 mask_augment=True presets=((2.0, 40.0), (10.0, 30.0), (5.0, 35.0), (15.0, 45.0)) random_width=15.0-45.0 params=4263188 ==========
+[Step 00000025] epoch=001 batch=00025/00032 loss=0.871453 flow=0.720883 rec=0.296721 slope=0.034895 curv=0.046465 mae=0.20350 vp_mae=0.32381 vs_mae=0.17444 rho_mae=0.11225
+[Epoch 001/002] time=27.7s lr=1.01e-04 | train: loss=0.91906, flow=0.76369, rec=0.30631, mae=0.2119, vp=0.3400, vs=0.1804, rho=0.1153 | val: loss=0.83416, flow=0.68868, rec=0.28696, slope=0.03148, curv=0.04266, sample_mae=0.4031, sample_vp=0.6499, sample_vs=0.3404, sample_rho=0.2191
+[Step 00000050] epoch=002 batch=00018/00032 loss=0.833080 flow=0.701134 rec=0.259681 slope=0.033020 curv=0.045379 mae=0.19521 vp_mae=0.31383 vs_mae=0.17043 rho_mae=0.10135
+[Epoch 002/002] time=24.8s lr=1.00e-06 | train: loss=0.81760, flow=0.67868, rec=0.27379, mae=0.1959, vp=0.3141, vs=0.1664, rho=0.1072 | val: loss=0.77459, flow=0.64525, rec=0.25506, slope=0.02841, curv=0.03897, sample_mae=0.3822, sample_vp=0.6170, sample_vs=0.3194, sample_rho=0.2101

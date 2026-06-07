@@ -1,0 +1,8 @@
+{
+  "best_checkpoint": "/Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_strong_full_seed642026/best.pt",
+  "best_val_loss": 0.2876776233315468,
+  "completed_utc": "2026-06-06T13:11:58Z",
+  "epochs": 24,
+  "global_step": 37512,
+  "latest_checkpoint": "/Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/fair_di_strong_full_seed642026/latest.pt"
+}

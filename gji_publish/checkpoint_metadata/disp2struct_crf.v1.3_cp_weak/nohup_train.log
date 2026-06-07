@@ -1,0 +1,77 @@
+Device: cpu
+Estimating normalization stats from 32 training batches...
+Warm-started 70 tensors from /Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/disp2struct_crf.v1.2_cp_weak/best.pt (missing=11, unexpected=0)
+/Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/disp_inv_train.v1.3.py:1318: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=(cfg.use_amp and device.type == "cuda"))
+========== Disp2Struct Control-Point CRF v1.3 Training Start ==========
+H/T/Nc        : 256/59/28
+period range  : 2.00 - 60.00 s
+mask augment  : enabled=True, val=True
+mask presets  : ((2.0, 40.0), (10.0, 30.0), (5.0, 35.0), (15.0, 45.0)), preset_prob=0.65
+random window : 15.0-45.0 s, holes<= 6, point_drop=0.040
+params        : 4263188
+train batches : 313
+val batches   : 16
+save_dir      : ckpt/disp2struct_crf.v1.3_cp_weak
+/Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/disp_inv_train.v1.3.py:993: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(enabled=(use_amp and device.type == "cuda")):
+[Step 00000100] epoch=001 batch=00100/00313 loss=0.417183 flow=0.331603 rec=0.170435 slope=0.006242 curv=0.004989 mae=0.18116 vp_mae=0.29057 vs_mae=0.17820 rho_mae=0.07472
+[Step 00000200] epoch=001 batch=00200/00313 loss=0.396767 flow=0.330418 rec=0.132089 slope=0.005109 curv=0.004902 mae=0.15718 vp_mae=0.25398 vs_mae=0.15379 rho_mae=0.06378
+[Step 00000300] epoch=001 batch=00300/00313 loss=0.402678 flow=0.318022 rec=0.168684 slope=0.005370 curv=0.004594 mae=0.18183 vp_mae=0.29467 vs_mae=0.17580 rho_mae=0.07501
+[Epoch 001/012] time=175.7s lr=9.83e-05 | train: loss=0.40753, flow=0.33014, rec=0.15417, mae=0.1703, vp=0.2757, vs=0.1648, rho=0.0706 | val: loss=0.36989, flow=0.29727, sample_mae=0.3208, sample_vp=0.5294, sample_vs=0.3023, sample_rho=0.1308
+  -> Best model saved to ckpt/disp2struct_crf.v1.3_cp_weak/best.pt
+[Step 00000400] epoch=002 batch=00087/00313 loss=0.400629 flow=0.318264 rec=0.164059 slope=0.005749 curv=0.004788 mae=0.17732 vp_mae=0.28581 vs_mae=0.17298 rho_mae=0.07316
+[Step 00000500] epoch=002 batch=00187/00313 loss=0.407964 flow=0.324452 rec=0.166323 slope=0.006001 curv=0.004997 mae=0.18060 vp_mae=0.29372 vs_mae=0.17140 rho_mae=0.07667
+[Step 00000600] epoch=002 batch=00287/00313 loss=0.382715 flow=0.311728 rec=0.141403 slope=0.004849 curv=0.004310 mae=0.15817 vp_mae=0.25429 vs_mae=0.15279 rho_mae=0.06743
+[Epoch 002/012] time=214.0s lr=9.34e-05 | train: loss=0.39002, flow=0.31639, rec=0.14666, mae=0.1648, vp=0.2668, vs=0.1592, rho=0.0685 | val: loss=0.35338, flow=0.28338, sample_mae=0.3222, sample_vp=0.5292, sample_vs=0.3066, sample_rho=0.1308
+  -> Best model saved to ckpt/disp2struct_crf.v1.3_cp_weak/best.pt
+[Step 00000700] epoch=003 batch=00074/00313 loss=0.387621 flow=0.305936 rec=0.162758 slope=0.005162 curv=0.004722 mae=0.17711 vp_mae=0.29068 vs_mae=0.16826 rho_mae=0.07239
+[Step 00000800] epoch=003 batch=00174/00313 loss=0.382748 flow=0.311991 rec=0.141001 slope=0.004358 curv=0.003840 mae=0.16074 vp_mae=0.26229 vs_mae=0.15329 rho_mae=0.06664
+[Step 00000900] epoch=003 batch=00274/00313 loss=0.371813 flow=0.301794 rec=0.139433 slope=0.005079 curv=0.004925 mae=0.16172 vp_mae=0.26727 vs_mae=0.15264 rho_mae=0.06524
+[Epoch 003/012] time=206.1s lr=8.55e-05 | train: loss=0.38126, flow=0.30878, rec=0.14437, mae=0.1632, vp=0.2642, vs=0.1577, rho=0.0677 | val: loss=0.34767, flow=0.28119, sample_mae=0.3058, sample_vp=0.5028, sample_vs=0.2898, sample_rho=0.1248
+  -> Best model saved to ckpt/disp2struct_crf.v1.3_cp_weak/best.pt
+[Step 00001000] epoch=004 batch=00061/00313 loss=0.350036 flow=0.285686 rec=0.128146 slope=0.004667 curv=0.004341 mae=0.15084 vp_mae=0.24295 vs_mae=0.14504 rho_mae=0.06452
+[Step 00001100] epoch=004 batch=00161/00313 loss=0.397851 flow=0.326814 rec=0.141466 slope=0.005204 curv=0.004384 mae=0.16440 vp_mae=0.26686 vs_mae=0.15729 rho_mae=0.06906
+[Step 00001200] epoch=004 batch=00261/00313 loss=0.373610 flow=0.308916 rec=0.128766 slope=0.005375 curv=0.004282 mae=0.15358 vp_mae=0.24821 vs_mae=0.14786 rho_mae=0.06468
+[Epoch 004/012] time=165.7s lr=7.52e-05 | train: loss=0.37326, flow=0.30303, rec=0.13989, mae=0.1598, vp=0.2585, vs=0.1546, rho=0.0664 | val: loss=0.34180, flow=0.27381, sample_mae=0.3125, sample_vp=0.5137, sample_vs=0.2969, sample_rho=0.1269
+  -> Best model saved to ckpt/disp2struct_crf.v1.3_cp_weak/best.pt
+[Step 00001300] epoch=005 batch=00048/00313 loss=0.376420 flow=0.317544 rec=0.117235 slope=0.004402 curv=0.003865 mae=0.14414 vp_mae=0.23511 vs_mae=0.13944 rho_mae=0.05788
+[Step 00001400] epoch=005 batch=00148/00313 loss=0.311127 flow=0.255620 rec=0.110452 slope=0.004695 curv=0.004614 mae=0.14118 vp_mae=0.22667 vs_mae=0.13691 rho_mae=0.05996
+[Step 00001500] epoch=005 batch=00248/00313 loss=0.360149 flow=0.286155 rec=0.147301 slope=0.005811 curv=0.005308 mae=0.16653 vp_mae=0.26619 vs_mae=0.16063 rho_mae=0.07277
+[Epoch 005/012] time=160.5s lr=6.33e-05 | train: loss=0.36708, flow=0.29762, rec=0.13834, mae=0.1588, vp=0.2568, vs=0.1538, rho=0.0657 | val: loss=0.33848, flow=0.27256, sample_mae=0.3108, sample_vp=0.5100, sample_vs=0.2964, sample_rho=0.1259
+  -> Best model saved to ckpt/disp2struct_crf.v1.3_cp_weak/best.pt
+[Step 00001600] epoch=006 batch=00035/00313 loss=0.353473 flow=0.290654 rec=0.125136 slope=0.004275 curv=0.003793 mae=0.15074 vp_mae=0.24493 vs_mae=0.14674 rho_mae=0.06056
+[Step 00001700] epoch=006 batch=00135/00313 loss=0.336069 flow=0.271796 rec=0.128014 slope=0.004514 curv=0.004062 mae=0.15029 vp_mae=0.24378 vs_mae=0.14468 rho_mae=0.06241
+[Step 00001800] epoch=006 batch=00235/00313 loss=0.378032 flow=0.291266 rec=0.172858 slope=0.005752 curv=0.005010 mae=0.18135 vp_mae=0.29205 vs_mae=0.17696 rho_mae=0.07504
+[Epoch 006/012] time=163.6s lr=5.05e-05 | train: loss=0.36435, flow=0.29549, rec=0.13714, mae=0.1578, vp=0.2553, vs=0.1527, rho=0.0654 | val: loss=0.33992, flow=0.27495, sample_mae=0.3097, sample_vp=0.5085, sample_vs=0.2952, sample_rho=0.1254
+[Step 00001900] epoch=007 batch=00022/00313 loss=0.376470 flow=0.306126 rec=0.140096 slope=0.005124 curv=0.003981 mae=0.16099 vp_mae=0.26022 vs_mae=0.15738 rho_mae=0.06536
+[Step 00002000] epoch=007 batch=00122/00313 loss=0.386086 flow=0.313314 rec=0.144935 slope=0.005183 curv=0.004543 mae=0.16353 vp_mae=0.26335 vs_mae=0.15933 rho_mae=0.06791
+[Step 00002100] epoch=007 batch=00222/00313 loss=0.376106 flow=0.305181 rec=0.141210 slope=0.005492 curv=0.004499 mae=0.15988 vp_mae=0.25556 vs_mae=0.15661 rho_mae=0.06746
+[Epoch 007/012] time=162.4s lr=3.77e-05 | train: loss=0.36105, flow=0.29287, rec=0.13578, mae=0.1568, vp=0.2540, vs=0.1518, rho=0.0648 | val: loss=0.32986, flow=0.26468, sample_mae=0.3085, sample_vp=0.5060, sample_vs=0.2945, sample_rho=0.1249
+  -> Best model saved to ckpt/disp2struct_crf.v1.3_cp_weak/best.pt
+[Step 00002200] epoch=008 batch=00009/00313 loss=0.354561 flow=0.290487 rec=0.127597 slope=0.004665 curv=0.004236 mae=0.14760 vp_mae=0.24004 vs_mae=0.14049 rho_mae=0.06225
+[Step 00002300] epoch=008 batch=00109/00313 loss=0.352302 flow=0.290721 rec=0.122622 slope=0.004597 curv=0.004051 mae=0.14665 vp_mae=0.23671 vs_mae=0.14294 rho_mae=0.06028
+[Step 00002400] epoch=008 batch=00209/00313 loss=0.362864 flow=0.284065 rec=0.156933 slope=0.005662 curv=0.004890 mae=0.17441 vp_mae=0.28247 vs_mae=0.17131 rho_mae=0.06946
+[Step 00002500] epoch=008 batch=00309/00313 loss=0.358158 flow=0.286820 rec=0.142109 slope=0.004811 curv=0.004337 mae=0.16162 vp_mae=0.25924 vs_mae=0.15786 rho_mae=0.06777
+[Epoch 008/012] time=163.5s lr=2.58e-05 | train: loss=0.35845, flow=0.29016, rec=0.13600, mae=0.1571, vp=0.2545, vs=0.1521, rho=0.0647 | val: loss=0.32989, flow=0.26652, sample_mae=0.3116, sample_vp=0.5110, sample_vs=0.2981, sample_rho=0.1257
+[Step 00002600] epoch=009 batch=00096/00313 loss=0.348917 flow=0.290589 rec=0.116112 slope=0.004624 curv=0.004138 mae=0.14262 vp_mae=0.22987 vs_mae=0.13877 rho_mae=0.05922
+[Step 00002700] epoch=009 batch=00196/00313 loss=0.379525 flow=0.299572 rec=0.159292 slope=0.005291 curv=0.004225 mae=0.17550 vp_mae=0.28677 vs_mae=0.16852 rho_mae=0.07121
+[Step 00002800] epoch=009 batch=00296/00313 loss=0.329097 flow=0.254994 rec=0.147592 slope=0.005164 curv=0.004843 mae=0.16441 vp_mae=0.26592 vs_mae=0.15845 rho_mae=0.06886
+[Epoch 009/012] time=162.7s lr=1.55e-05 | train: loss=0.35680, flow=0.28930, rec=0.13444, mae=0.1555, vp=0.2514, vs=0.1507, rho=0.0643 | val: loss=0.32236, flow=0.25938, sample_mae=0.2997, sample_vp=0.4909, sample_vs=0.2869, sample_rho=0.1214
+  -> Best model saved to ckpt/disp2struct_crf.v1.3_cp_weak/best.pt
+[Step 00002900] epoch=010 batch=00083/00313 loss=0.314742 flow=0.258516 rec=0.111971 slope=0.004088 curv=0.003636 mae=0.14123 vp_mae=0.22815 vs_mae=0.13541 rho_mae=0.06014
+[Step 00003000] epoch=010 batch=00183/00313 loss=0.350365 flow=0.274242 rec=0.151616 slope=0.005333 curv=0.004818 mae=0.16812 vp_mae=0.27122 vs_mae=0.16217 rho_mae=0.07098
+[Step 00003100] epoch=010 batch=00283/00313 loss=0.389831 flow=0.327658 rec=0.123826 slope=0.004502 curv=0.003466 mae=0.14634 vp_mae=0.23346 vs_mae=0.14446 rho_mae=0.06109
+[Epoch 010/012] time=160.2s lr=7.63e-06 | train: loss=0.35503, flow=0.28772, rec=0.13405, mae=0.1555, vp=0.2515, vs=0.1506, rho=0.0642 | val: loss=0.31994, flow=0.25821, sample_mae=0.3045, sample_vp=0.4992, sample_vs=0.2910, sample_rho=0.1233
+  -> Best model saved to ckpt/disp2struct_crf.v1.3_cp_weak/best.pt
+[Step 00003200] epoch=011 batch=00070/00313 loss=0.345008 flow=0.281038 rec=0.127352 slope=0.005002 curv=0.004407 mae=0.15485 vp_mae=0.24955 vs_mae=0.15135 rho_mae=0.06363
+[Step 00003300] epoch=011 batch=00170/00313 loss=0.350807 flow=0.285061 rec=0.130967 slope=0.004507 curv=0.003670 mae=0.15365 vp_mae=0.24819 vs_mae=0.14995 rho_mae=0.06280
+[Step 00003400] epoch=011 batch=00270/00313 loss=0.368792 flow=0.309457 rec=0.118126 slope=0.004618 curv=0.004054 mae=0.14124 vp_mae=0.22714 vs_mae=0.13515 rho_mae=0.06142
+[Epoch 011/012] time=162.6s lr=2.69e-06 | train: loss=0.35433, flow=0.28741, rec=0.13328, mae=0.1548, vp=0.2505, vs=0.1499, rho=0.0641 | val: loss=0.33001, flow=0.26604, sample_mae=0.2971, sample_vp=0.4868, sample_vs=0.2837, sample_rho=0.1209
+[Step 00003500] epoch=012 batch=00057/00313 loss=0.358691 flow=0.288113 rec=0.140532 slope=0.005248 curv=0.004947 mae=0.16058 vp_mae=0.26233 vs_mae=0.15374 rho_mae=0.06567
+[Step 00003600] epoch=012 batch=00157/00313 loss=0.355059 flow=0.281012 rec=0.147489 slope=0.005057 curv=0.004878 mae=0.16716 vp_mae=0.27123 vs_mae=0.16350 rho_mae=0.06675
+[Step 00003700] epoch=012 batch=00257/00313 loss=0.383594 flow=0.313071 rec=0.140494 slope=0.004707 curv=0.004058 mae=0.16006 vp_mae=0.26220 vs_mae=0.15471 rho_mae=0.06328
+[Epoch 012/012] time=161.9s lr=1.00e-06 | train: loss=0.35324, flow=0.28634, rec=0.13323, mae=0.1548, vp=0.2505, vs=0.1499, rho=0.0639 | val: loss=0.32298, flow=0.26050, sample_mae=0.2999, sample_vp=0.4912, sample_vs=0.2864, sample_rho=0.1222
+========== Disp2Struct Control-Point CRF v1.3 Training Done ==========
+Best score: 0.319942
+[done] DI-Weak v1.3 checkpoint directory: ckpt/disp2struct_crf.v1.3_cp_weak

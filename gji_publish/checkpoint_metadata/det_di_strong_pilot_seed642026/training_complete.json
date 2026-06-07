@@ -1,0 +1,5 @@
+{
+  "best_checkpoint": "/Users/yuziye/Documents/GitHub/physical-sensitivity-kernels/ckpt/det_di_strong_pilot_seed642026/best.pt",
+  "best_val_loss": 0.3944232165813446,
+  "epochs": 2
+}
