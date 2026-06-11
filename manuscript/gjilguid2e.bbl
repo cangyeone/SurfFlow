@@ -1,0 +1,170 @@
+\begin{thebibliography}{26}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[Ardizzone et~al.(2019)Ardizzone, Kruse, Wirkert, Rahner, Pellegrini,
+  Klessen, Maier-Hein, Rother, \& Kothe]{ArdizzoneEtAl2019}
+Ardizzone, L., Kruse, J., Wirkert, S., Rahner, D., Pellegrini, E.~W., Klessen,
+  R.~S., Maier-Hein, L., Rother, C., \& Kothe, U., 2019.
+\newblock Analyzing inverse problems with invertible neural networks, in {\em
+  International Conference on Learning Representations\/}.
+
+\bibitem[Bodin et~al.(2012)Bodin, Sambridge, Tkalcic, Arroucau, Gallagher, \&
+  Rawlinson]{BodinEtAl2012}
+Bodin, T., Sambridge, M., Tkalcic, H., Arroucau, P., Gallagher, K., \&
+  Rawlinson, N., 2012.
+\newblock Transdimensional inversion of receiver functions and surface wave
+  dispersion, {\it Journal of Geophysical Research: Solid Earth\/}, {\bf
+  117}(B2), B02301, doi: 10.1029/2011JB008560.
+
+\bibitem[Brocher(2005)]{Brocher2005}
+Brocher, T.~M., 2005.
+\newblock Empirical relations between elastic wavespeeds and density in the
+  earth's crust, {\it Bulletin of the Seismological Society of America\/}, {\bf
+  95}(6), 2081--2092, doi: 10.1785/0120050077.
+
+\bibitem[Chen et~al.(2022)Chen, Xia, Pang, Zhou, \& Mi]{ChenEtAl2022}
+Chen, X., Xia, J., Pang, J., Zhou, C., \& Mi, B., 2022.
+\newblock Deep learning inversion of rayleigh-wave dispersion curves with
+  geological constraints for near-surface investigations, {\it Geophysical
+  Journal International\/}, {\bf 231}(1), 1--14, doi: 10.1093/gji/ggac171.
+
+\bibitem[Cranmer et~al.(2020)Cranmer, Brehmer, \& Louppe]{CranmerEtAl2020}
+Cranmer, K., Brehmer, J., \& Louppe, G., 2020.
+\newblock The frontier of simulation-based inference, {\it Proceedings of the
+  National Academy of Sciences\/}, {\bf 117}(48), 30055--30062, doi:
+  10.1073/pnas.1912789117.
+
+\bibitem[Devilee et~al.(1999)Devilee, Curtis, \&
+  Roy-Chowdhury]{DevileeEtAl1999}
+Devilee, R. J.~R., Curtis, A., \& Roy-Chowdhury, K., 1999.
+\newblock An efficient, probabilistic neural network approach to solving
+  inverse problems: Inverting surface wave velocities for eurasian crustal
+  thickness, {\it Journal of Geophysical Research: Solid Earth\/}, {\bf
+  104}(B12), 28841--28857, doi: 10.1029/1999JB900273.
+
+\bibitem[Earp et~al.(2020)Earp, Curtis, Zhang, \& Hansteen]{EarpEtAl2020}
+Earp, S., Curtis, A., Zhang, X., \& Hansteen, F., 2020.
+\newblock Probabilistic neural network tomography across grane field (north
+  sea) from surface wave dispersion data, {\it Geophysical Journal
+  International\/}, {\bf 223}(3), 1741--1757, doi: 10.1093/gji/ggaa328.
+
+\bibitem[Gao \& Lekic(2018)]{GaoLekic2018}
+Gao, C. \& Lekic, V., 2018.
+\newblock Consequences of parametrization choices in surface wave inversion:
+  insights from transdimensional bayesian methods, {\it Geophysical Journal
+  International\/}, {\bf 215}(2), 1037--1063, doi: 10.1093/gji/ggy310.
+
+\bibitem[Herrmann(2013)]{Herrmann2013}
+Herrmann, R.~B., 2013.
+\newblock Computer programs in seismology: An evolving tool for instruction and
+  research, {\it Seismological Research Letters\/}, {\bf 84}(6), 1081--1088,
+  doi: 10.1785/0220110096.
+
+\bibitem[Hu et~al.(2020)Hu, Qiu, Zhang, \& Ben-Zion]{HuEtAl2020}
+Hu, J., Qiu, H., Zhang, H., \& Ben-Zion, Y., 2020.
+\newblock Using deep learning to derive shear-wave velocity models from
+  surface-wave dispersion data, {\it Seismological Research Letters\/}, {\bf
+  91}(3), 1738--1751, doi: 10.1785/0220190222.
+
+\bibitem[Keil \& Wassermann(2023)]{KeilWassermann2023}
+Keil, S. \& Wassermann, J., 2023.
+\newblock Surface wave dispersion curve inversion using mixture density
+  networks, {\it Geophysical Journal International\/}, {\bf 235}(1), 401--415,
+  doi: 10.1093/gji/ggad227.
+
+\bibitem[Lipman et~al.(2023)Lipman, Chen, Ben-Hamu, Nickel, \&
+  Le]{LipmanEtAl2023}
+Lipman, Y., Chen, R. T.~Q., Ben-Hamu, H., Nickel, M., \& Le, M., 2023.
+\newblock Flow matching for generative modeling, in {\em International
+  Conference on Learning Representations\/}.
+
+\bibitem[Liu et~al.(2025)Liu, Deng, Su, Bai, \& Ouyang]{LiuEtAl2025DispFormer}
+Liu, F., Deng, B., Su, R., Bai, L., \& Ouyang, W., 2025.
+\newblock Dispformer: A pretrained transformer incorporating physical
+  constraints for dispersion curve inversion, {\it Journal of Geophysical
+  Research: Machine Learning and Computation\/}, {\bf 2}(3), doi:
+  10.1029/2025JH000648.
+
+\bibitem[Liu et~al.(2026)Liu, Zhao, Gu, Ling, Zhuang, Li, Su, Fang, Zhou,
+  Huang, \& Bai]{LiuEtAl2026OpenSWI}
+Liu, F., Zhao, S., Gu, X., Ling, F., Zhuang, P., Li, Y., Su, R., Fang, L.,
+  Zhou, L., Huang, J., \& Bai, L., 2026.
+\newblock Openswi: a massive-scale benchmark dataset for surface wave
+  dispersion curve inversion, {\it Earth System Science Data\/}, {\bf 18}(4),
+  2769--2798, doi: 10.5194/essd-18-2769-2026.
+
+\bibitem[Liu et~al.(2022)Liu, Gong, \& Liu]{LiuGongLiu2022}
+Liu, X., Gong, C., \& Liu, Q., 2022.
+\newblock Flow straight and fast: Learning to generate and transfer data with
+  rectified flow, {\it arXiv preprint arXiv:2209.03003\/}, doi:
+  10.48550/arXiv.2209.03003.
+
+\bibitem[Luo et~al.(2022)Luo, Huang, Yang, Zhao, Yang, \& Xu]{LuoEtAl2022}
+Luo, Y., Huang, Y., Yang, Y., Zhao, K., Yang, X., \& Xu, H., 2022.
+\newblock Constructing shear velocity models from surface wave dispersion
+  curves using deep learning, {\it Journal of Applied Geophysics\/}, {\bf 196},
+  104524, doi: 10.1016/j.jappgeo.2021.104524.
+
+\bibitem[Luu(2024)]{LuuDisba}
+Luu, K., 2024.
+\newblock [software] disba: Numba-accelerated computation of surface wave
+  dispersion, Python software, doi: 10.5281/zenodo.14534395.
+
+\bibitem[Meier et~al.(2007)Meier, Curtis, \& Trampert]{MeierEtAl2007}
+Meier, U., Curtis, A., \& Trampert, J., 2007.
+\newblock Global crustal thickness from neural network inversion of surface
+  wave data, {\it Geophysical Journal International\/}, {\bf 169}(2), 706--722,
+  doi: 10.1111/j.1365-246X.2007.03373.x.
+
+\bibitem[Mosegaard \& Tarantola(1995)]{MosegaardTarantola1995}
+Mosegaard, K. \& Tarantola, A., 1995.
+\newblock Monte carlo sampling of solutions to inverse problems, {\it Journal
+  of Geophysical Research: Solid Earth\/}, {\bf 100}(B7), 12431--12447, doi:
+  10.1029/94JB03097.
+
+\bibitem[Pan et~al.(2026)Pan, Wang, \& Chen]{PanEtAl2026QEDispInv}
+Pan, L., Wang, J., \& Chen, X., 2026.
+\newblock Surface-wave dispersion curve computation and inversion: A framework
+  integrating quadratic extrema interpolation and randomized layering with
+  multiple initial models, {\it Bulletin of the Seismological Society of
+  America\/}, {\bf 116}(3), 902--922, doi: 10.1785/0120250207.
+
+\bibitem[Sambridge(1999)]{Sambridge1999}
+Sambridge, M., 1999.
+\newblock Geophysical inversion with a neighbourhood algorithm---i. searching a
+  parameter space, {\it Geophysical Journal International\/}, {\bf 138}(2),
+  479--494, doi: 10.1046/j.1365-246X.1999.00876.x.
+
+\bibitem[Shapiro \& Ritzwoller(2002)]{ShapiroRitzwoller2002}
+Shapiro, N.~M. \& Ritzwoller, M.~H., 2002.
+\newblock Monte-carlo inversion for a global shear-velocity model of the crust
+  and upper mantle, {\it Geophysical Journal International\/}, {\bf 151}(1),
+  88--105, doi: 10.1046/j.1365-246X.2002.01742.x.
+
+\bibitem[Tarantola(2005)]{Tarantola2005}
+Tarantola, A., 2005.
+\newblock {\it Inverse Problem Theory and Methods for Model Parameter
+  Estimation\/}, Society for Industrial and Applied Mathematics, Philadelphia,
+  PA, doi: 10.1137/1.9780898717921.
+
+\bibitem[Yablokov et~al.(2023)Yablokov, Lugovtsova, \&
+  Serdyukov]{YablokovEtAl2023}
+Yablokov, A., Lugovtsova, Y., \& Serdyukov, A., 2023.
+\newblock Uncertainty quantification of multimodal surface wave inversion using
+  artificial neural networks, {\it GEOPHYSICS\/}, {\bf 88}(1), KS1--KS11, doi:
+  10.1190/geo2022-0261.1.
+
+\bibitem[Yablokov et~al.(2021)Yablokov, Serdyukov, Loginov, \&
+  Baranov]{YablokovEtAl2021}
+Yablokov, A.~V., Serdyukov, A.~S., Loginov, G.~N., \& Baranov, V.~D., 2021.
+\newblock An artificial neural network approach for the inversion of surface
+  wave dispersion curves, {\it Geophysical Prospecting\/}, {\bf 69}(7),
+  1405--1432, doi: 10.1111/1365-2478.13107.
+
+\bibitem[Zhang \& Curtis(2021)]{ZhangCurtis2021}
+Zhang, X. \& Curtis, A., 2021.
+\newblock Bayesian geophysical inversion using invertible neural networks, {\it
+  Journal of Geophysical Research: Solid Earth\/}, {\bf 126}(7), e2021JB022320,
+  doi: 10.1029/2021JB022320.
+
+\end{thebibliography}
