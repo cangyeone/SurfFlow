@@ -34,9 +34,9 @@ NOMINAL = 0.68
 
 REGIMES = ["in-prior", "boundary", "out-of-prior"]
 REGIME_LABELS = {
-    "in-prior": "In prior",
-    "boundary": "Near boundary",
-    "out-of-prior": "Out of prior",
+    "in-prior": "Inside support",
+    "boundary": "Near edge",
+    "out-of-prior": "Outside support",
 }
 METHODS = ["DI-Strong", "DI-Weak"]
 METHOD_COLORS = {"DI-Strong": POST_BLUE, "DI-Weak": WEAK_ORANGE}
@@ -497,7 +497,7 @@ def make_figure(rows: list[dict[str, str]], stem: str) -> None:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--metrics", type=Path, default=RESULTS_DIR / "calibration_metrics.csv")
-    parser.add_argument("--stem", default="fig04_calibration_reliability_v2")
+    parser.add_argument("--stem", default="fig04_calibration_reliability_v4")
     parser.add_argument("--layout", choices=("summary", "curves"), default="summary")
     return parser.parse_args()
 

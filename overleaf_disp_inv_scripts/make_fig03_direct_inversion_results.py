@@ -324,7 +324,7 @@ def plot_grouped_bar_panel(
     nominal: float | None = None,
 ) -> None:
     regimes = ["in-prior", "boundary", "out-of-prior"]
-    labels = ["In\nprior", "Near\nboundary", "Out of\nprior"]
+    labels = ["Inside\nsupport", "Near\nedge", "Outside\nsupport"]
     x = np.arange(len(regimes), dtype=float)
     width = 0.32
     styles = {
@@ -567,9 +567,9 @@ def make_figure(args: argparse.Namespace) -> None:
     fig.text(0.286, 0.706, "shaded bands: p5-p95", ha="left", va="center", fontsize=5.45, color=SUBTLE)
 
     cases = [
-        ("in_prior", "In prior"),
-        ("boundary", "Near boundary"),
-        ("out_of_prior", "Out of prior"),
+        ("in_prior", "Inside support"),
+        ("boundary", "Near edge"),
+        ("out_of_prior", "Outside support"),
     ]
     dispersion_axes = []
     profile_axes = []
@@ -609,7 +609,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--diagnostics", type=Path, default=DEFAULT_DIAGNOSTICS_PATH)
     parser.add_argument("--metrics", type=Path, default=DEFAULT_METRICS_PATH)
-    parser.add_argument("--stem", default="fig03_direct_inversion_results_v8")
+    parser.add_argument("--stem", default="fig03_direct_inversion_results_v9")
     parser.add_argument("--example-index", type=int, default=186)
     parser.add_argument("--in-prior-index", type=int, default=227)
     parser.add_argument("--boundary-index", type=int, default=292)

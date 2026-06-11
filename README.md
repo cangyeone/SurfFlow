@@ -10,8 +10,10 @@ at the repository root rather than inside an extra publish subdirectory.
 
 The current manuscript framing is an audit-oriented one: SurfFlow is treated as
 a learned posterior sampler for a stated synthetic inversion problem, not as a
-general field-data foundation model. The most recent code/figure sync notes are
-in `docs/GJI_CODE_SYNC.md`.
+general field-data foundation model. The most recent code, figure and experiment
+sync notes are in `docs/GJI_CODE_SYNC.md`; the current GJI revision status after
+the reduced MCMC posterior-anchor experiment is in
+`docs/gji_revision_status_after_mcmc_anchor_20260611.md`.
 
 ## Contents
 
@@ -66,6 +68,9 @@ python overleaf_disp_inv_scripts/make_fig02_control_points_refined.py
 python overleaf_disp_inv_scripts/make_fig03_direct_inversion_results.py
 python overleaf_disp_inv_scripts/make_fig04_calibration_reliability.py
 python scripts/make_gji_common_input_benchmark_figure.py
+python scripts/run_same_prior_mcmc_posterior.py --help
+python scripts/plot_mcmc_posterior_anchor_figures.py --help
+python scripts/run_rayleigh_love_input_ablation.py --help
 ```
 
 The full production run used matched strong/weak training budgets and is
@@ -75,3 +80,9 @@ The same-site CSRM benchmark against QEDisp and DispFormer is documented by
 the wrapper scripts in `scripts/` and the small CSV/JSON summaries under
 `results/openswi_csrm_transfer/`, `results/qedisp_csrm_multistart/` and
 `results/dispformer_openswi_csrm/`.
+
+The reduced same-prior MCMC posterior anchor and Rayleigh/Love input ablation
+are documented in:
+
+- `docs/same_prior_mcmc_posterior_anchor_20260611.md`
+- `docs/rayleigh_love_input_ablation_20260611.md`

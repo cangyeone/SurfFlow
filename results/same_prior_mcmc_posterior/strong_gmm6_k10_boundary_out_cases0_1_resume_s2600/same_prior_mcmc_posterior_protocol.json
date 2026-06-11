@@ -1,0 +1,45 @@
+{
+  "cases": 2,
+  "checkpoint": "/Volumes/lx_exFAT/yzy_directSWI/code_data/ckpt/fair_di_strong_full_seed642026/best.pt",
+  "created_unix_time": 1781192084.1089249,
+  "figure_paths": [
+    "figures/same_prior_mcmc_posterior/strong_gmm6_k10_boundary_out_cases0_1_resume_s2600/same_prior_mcmc_boundary_case0_joint.png",
+    "figures/same_prior_mcmc_posterior/strong_gmm6_k10_boundary_out_cases0_1_resume_s2600/same_prior_mcmc_boundary_case1_joint.png",
+    "figures/same_prior_mcmc_posterior/strong_gmm6_k10_boundary_out_cases0_1_resume_s2600/same_prior_mcmc_out_of_prior_case0_joint.png",
+    "figures/same_prior_mcmc_posterior/strong_gmm6_k10_boundary_out_cases0_1_resume_s2600/same_prior_mcmc_out_of_prior_case1_joint.png",
+    "figures/same_prior_mcmc_posterior/strong_gmm6_k10_boundary_out_cases0_1_resume_s2600/same_prior_mcmc_summary_joint.png"
+  ],
+  "gmm_components": 6,
+  "input_mode": "joint",
+  "interpretation": "Projected same-prior MCMC reference. The empirical prior is fitted to low-dimensional parameters projected from the SurfFlow strong synthetic training generator. This is the appropriate test for posterior similarity, distinct from broad-prior stress MCMC.",
+  "knot_depths_km": [
+    0.0,
+    2.0,
+    5.0,
+    10.0,
+    20.0,
+    35.0,
+    50.0,
+    75.0,
+    100.0,
+    127.5
+  ],
+  "mcmc": {
+    "burnin": 300,
+    "n_steps": 2600,
+    "n_walkers": 24,
+    "sampler": "affine-invariant stretch move",
+    "thin": 5
+  },
+  "n_prior_samples": 2500,
+  "prior_projection": "Vs at knot depths plus median Vp/Vs",
+  "regimes": "boundary,out-of-prior",
+  "sigma_c_km_s": 0.1,
+  "thresholds": {
+    "accept_max": 0.65,
+    "accept_min": 0.1,
+    "ess_min": 80.0,
+    "pred_rms_max": 0.17500000000000002,
+    "rhat_max": 1.2
+  }
+}

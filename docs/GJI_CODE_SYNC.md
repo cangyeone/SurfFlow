@@ -1,162 +1,280 @@
-# GJI Code and Figure Sync Notes
+# GJI Code, Figure and Experiment Sync Notes
 
-This note records the manuscript-facing files that should stay aligned between
-GitHub and Overleaf while the GJI draft is being revised.
+Date: 2026-06-12
+
+This note is the repository-side handoff for the current GJI draft. It records
+which scripts, small result summaries and figures should stay aligned between
+GitHub, the local manuscript tree and Overleaf.
 
 ## Manuscript Position
 
-The current paper should be read as an audit-oriented method paper. SurfFlow is
-used as a conditional-flow sampler for a stated synthetic inversion problem. The
-main claim is not that rectified flow is universally more accurate than QEDisp
-or DispFormer. The main claim is that learned posterior samples can be generated
-quickly and then checked through prior-support tests, empirical coverage,
-posterior-temperature diagnostics, missing-band sensitivity, noise sensitivity
-and common-input baselines.
+The paper should be read as an audit-oriented method paper. SurfFlow is a
+conditional rectified-flow sampler for a stated synthetic surface-wave inverse
+problem. The main claim is not that it is universally more accurate or more
+general than QEDispInv or DispFormer. The main claim is that learned posterior
+samples can be generated quickly and then checked through:
 
-Use qualified language such as:
+- prior-support stress tests,
+- empirical coverage and posterior-temperature diagnostics,
+- posterior-predictive dispersion residuals,
+- missing-band and noise sensitivity checks,
+- reduced same-prior MCMC posterior anchors,
+- common-input QEDisp/DispFormer baselines.
+
+Use qualified wording such as:
 
 - `learned posterior under the stated synthetic training distribution`
 - `synthetic-distribution posterior`
 - `conditional posterior sampler`
 - `posterior samples conditioned on the prior, forward solver, mask and noise assumption`
+- `reduced same-prior MCMC reference`
 
 Avoid unqualified claims that the network returns a field-calibrated Bayesian
-posterior.
+posterior or a general-purpose surface-wave foundation model.
 
-## Figure Regeneration
+## Current Main-Text Figure Map
 
-Run commands from the repository root. The local working convention is the
-`seisloc` conda environment:
+Run commands from the repository root. The local working environment is the
+`seisloc` conda environment, normally accessed as
+`/opt/miniconda3/envs/seisloc/bin/python`. If `disba`/`numba` cache writes fail
+on this machine, set:
 
 ```bash
-conda run -n seisloc python overleaf_disp_inv_scripts/make_fig01_three_row_main.py
-conda run -n seisloc python overleaf_disp_inv_scripts/make_fig02_control_points_refined.py
-conda run -n seisloc python overleaf_disp_inv_scripts/make_fig03_direct_inversion_results.py
-conda run -n seisloc python overleaf_disp_inv_scripts/make_fig04_calibration_reliability.py
-conda run -n seisloc python scripts/make_gji_common_input_benchmark_figure.py
+export MPLCONFIGDIR=/private/tmp/yzy_mpl_cache
+export NUMBA_CACHE_DIR=/private/tmp/yzy_numba_cache
 ```
 
-The current manuscript also uses a same-site CSRM QC example figure. Regenerate
-it with:
+| Figure | Manuscript file | Regeneration entry point | Role |
+| --- | --- | --- | --- |
+| Fig. 1 | `manuscript/figures/fig01_workflow_prior_posterior_audit_p5p95.pdf` | `overleaf_disp_inv_scripts/make_fig01_three_row_main.py` | Conceptual method and audit workflow |
+| Fig. 2 | `manuscript/figures/fig02_control_points.pdf` | `overleaf_disp_inv_scripts/make_fig02_control_points_refined.py` | Depth controls and model parameterisation |
+| Fig. 3 | `manuscript/figures/fig03_direct_inversion_results_v9.pdf` | `overleaf_disp_inv_scripts/make_fig03_direct_inversion_results.py` | DI-Strong/DI-Weak production diagnostics |
+| Fig. 4 | `manuscript/figures/fig04_calibration_reliability_v4.pdf` | `overleaf_disp_inv_scripts/make_fig04_calibration_reliability.py` | Calibration/reliability summary |
+| Fig. 5 | `manuscript/figures/fig05_common_input_benchmark.pdf` | `scripts/make_gji_common_input_benchmark_figure.py` | Same-site QEDisp/DispFormer/DI benchmark |
+| Fig. 6 or supplement | `manuscript/figures/fig06_common_input_qc_examples.pdf` | `scripts/make_csrm_same_site_qc_examples.py` | Visual QC examples for common-input benchmark |
 
-```bash
-conda run -n seisloc python scripts/make_csrm_same_site_qc_examples.py
+The current manuscript text uses the reader-facing regime labels:
+
+- `inside support`
+- `near edge`
+- `outside support`
+
+Do not reintroduce the older labels `in-prior`, `near-boundary` or
+`out-of-prior` in captions or prose unless referring to internal file names.
+
+## Common-Input Benchmark
+
+Small tracked summaries:
+
+```text
+results/openswi_csrm_transfer/n512_s32_step24/
+results/qedisp_csrm_multistart/sites128_starts64/
+results/dispformer_openswi_csrm/sites128_official/
 ```
 
-That script needs diagnostic arrays that are intentionally not stored in GitHub
-because they are large. See the omitted-file list below.
+Current n=128 summary:
 
-## Common-Input Benchmark Files
+| Method | Input | Mean Vs MAE (km/s) | Median Vs MAE (km/s) |
+| --- | --- | ---: | ---: |
+| QEDisp m0 multistart | Rayleigh phase | 0.104 | 0.100 |
+| DI-Strong | Rayleigh phase | 0.108 | 0.106 |
+| DI-Weak | Rayleigh phase | 0.138 | 0.128 |
+| DispFormer phase-only | Rayleigh phase | 0.111 | 0.108 |
+| DispFormer phase+group | Rayleigh phase + group | 0.105 | 0.101 |
 
-Small CSV/JSON result summaries used by the current manuscript are tracked in
-GitHub:
+Interpretation:
 
-- `results/openswi_csrm_transfer/n512_s32_step24/`
-- `results/qedisp_csrm_multistart/sites128_starts64/`
-- `results/dispformer_openswi_csrm/sites128_official/`
+- DI-Strong is point-estimate competitive, not clearly more accurate.
+- QEDisp and DispFormer remain strong baselines.
+- The manuscript claim should be "comparable point error plus auditable
+  posterior samples", not "best accuracy".
 
-The benchmark currently compares the following:
+## Reduced Same-Prior MCMC Posterior Anchor
 
-- SurfFlow DI-Strong and DI-Weak on the same CSRM sites.
-- QEDisp fundamental-mode Rayleigh multistart inversion.
-- DispFormer phase-only on the same Rayleigh phase input.
-- DispFormer phase+group as a method-native reference with extra input.
+This is now the preferred posterior-reference experiment. It supersedes the
+earlier ABC-style posterior anchor for the core manuscript claim.
 
-Interpretation: the comparison supports comparable point-estimate performance
-for DI-Strong, while the main SurfFlow contribution remains posterior sampling
-and reliability checking.
+Scripts:
 
-## Posterior Anchor and Input Ablation
+```text
+scripts/run_mcmc_posterior_reference.py
+scripts/run_same_prior_mcmc_posterior.py
+scripts/plot_mcmc_posterior_anchor_figures.py
+```
 
-Two manuscript-supporting pilot experiments are now tracked in GitHub.
+Clean publication figures:
 
-### Traditional ABC posterior anchor vs DI posterior samples
+```text
+figures/same_prior_mcmc_posterior/posterior_anchor_publication/mcmc_anchor_inside_support_profiles.*
+figures/same_prior_mcmc_posterior/posterior_anchor_publication/mcmc_anchor_support_transition_profiles.*
+manuscript/figures/mcmc_anchor_inside_support_profiles.pdf
+manuscript/figures/mcmc_anchor_support_transition_profiles.pdf
+```
 
-Script:
+Small metrics/protocol outputs to keep:
+
+```text
+results/same_prior_mcmc_posterior/strong_gmm6_k10_validated_cases0_5/same_prior_mcmc_posterior_metrics_combined.csv
+results/same_prior_mcmc_posterior/strong_gmm6_k10_validated_cases0_5/same_prior_mcmc_posterior_summary.json
+results/same_prior_mcmc_posterior/strong_gmm6_k10_boundary_out_cases0_1_resume_s2600/same_prior_mcmc_posterior_metrics.csv
+results/same_prior_mcmc_posterior/strong_gmm6_k10_boundary_out_cases0_1_resume_s2600/same_prior_mcmc_posterior_protocol.json
+```
+
+Large local-only output:
+
+```text
+results/same_prior_mcmc_posterior/strong_gmm6_k10_boundary_out_cases0_1_resume_s2600/same_prior_mcmc_posterior_diagnostics.npz
+```
+
+The `.npz` file is required to replot the transition figure without rerunning
+MCMC, but it is intentionally omitted from GitHub. Put it in an external
+archive or rerun the MCMC command if a fully reproducible package is needed.
+
+Replot command from saved diagnostics:
 
 ```bash
-/opt/miniconda3/envs/seisloc/bin/python scripts/run_traditional_posterior_anchor.py \
-  --n-prior-draws 4096 \
-  --cases-per-regime 2 \
-  --priors strong,weak \
-  --input-mode joint \
-  --sigma-c 0.10 \
-  --abc-keep 128 \
-  --di-samples 64 \
+MPLCONFIGDIR=/private/tmp/yzy_mpl_cache \
+NUMBA_CACHE_DIR=/private/tmp/yzy_numba_cache \
+/opt/miniconda3/envs/seisloc/bin/python scripts/plot_mcmc_posterior_anchor_figures.py
+```
+
+Boundary/outside-support MCMC resume command used for the current diagnostics:
+
+```bash
+MPLCONFIGDIR=/private/tmp/yzy_mpl_cache \
+NUMBA_CACHE_DIR=/private/tmp/yzy_numba_cache \
+PYTHONUNBUFFERED=1 \
+/opt/miniconda3/envs/seisloc/bin/python scripts/run_same_prior_mcmc_posterior.py \
+  --cases 2 \
+  --regimes boundary,out-of-prior \
+  --n-prior-samples 2500 \
+  --gmm-components 6 \
+  --gmm-iters 80 \
+  --knot-depths-km 0 2 5 10 20 35 50 75 100 127.5 \
+  --n-init 768 \
+  --n-walkers 24 \
+  --n-steps 2600 \
+  --burnin 300 \
+  --thin 5 \
+  --resume-starts-npz results/same_prior_mcmc_posterior/strong_gmm6_k10_boundary_out_cases0_1_s1600/same_prior_mcmc_posterior_diagnostics.npz \
+  --di-samples 96 \
   --di-steps 24 \
-  --di-forward-max-samples 0 \
-  --out-dir results/traditional_posterior_anchor/joint_n4096_abc128_di64_modelonly \
-  --fig-dir figures/traditional_posterior_anchor/joint_n4096_abc128_di64_modelonly \
-  --progress-every 512
+  --pred-max-samples 128 \
+  --out-dir results/same_prior_mcmc_posterior/strong_gmm6_k10_boundary_out_cases0_1_resume_s2600 \
+  --fig-dir figures/same_prior_mcmc_posterior/strong_gmm6_k10_boundary_out_cases0_1_resume_s2600 \
+  --progress-every 200
 ```
 
-Tracked outputs:
+Inside-support summary:
 
-- `results/traditional_posterior_anchor/joint_n4096_abc128_di64_modelonly/posterior_anchor_metrics.csv`
-- `results/traditional_posterior_anchor/joint_n4096_abc128_di64_modelonly/posterior_anchor_protocol.json`
-- `figures/traditional_posterior_anchor/joint_n4096_abc128_di64_modelonly/posterior_anchor_vs_di_summary_joint.*`
-- six case-level figures under the same figure directory.
+| Quantity | Value |
+| --- | ---: |
+| usable MCMC cases | 6 / 6 |
+| mean max R-hat | 1.14 |
+| mean min ESS | 194 |
+| mean posterior-predictive RMS | 0.013 km/s |
+| mean DI-MCMC median Vs difference | 0.057 km/s |
+| mean p05-p95 interval overlap | 0.58 |
+| mean DI/MCMC p05-p95 width ratio | 1.21 |
 
-The large `posterior_anchor_diagnostics.npz` file is intentionally local-only.
+Interpretation:
 
-Interpretation: this is a same-prior, same-forward prior-predictive ABC anchor,
-not a full transdimensional MCMC reference. It shows that DI median profiles are
-often more accurate than the ABC posterior median in these cases, but DI
-p05-p95 intervals are narrower than the same-prior ABC anchor. This supports
-using DI as a fast learned posterior sampler only when paired with calibration
-and prior-support audits.
+- Inside support, DI-Strong gives posterior medians and p05-p95 bands broadly
+  consistent with the reduced MCMC reference.
+- Near and outside support, agreement degrades, which supports the prior-support
+  audit message.
+- This is not the exact full-dimensional Bayesian posterior for the original
+  procedural Earth generator.
 
-We do not need to download or depend on Zhang and Curtis' VIP code for this
-specific comparison. An external variational-inference package would introduce
-a different parameterisation and prior, whereas this anchor is designed to keep
-the inversion problem identical to SurfFlow.
+## Rayleigh/Love Input-Channel Ablation
 
-### Rayleigh/Love input-channel ablation
+This is a supplement candidate. It checks that the same DI architecture can use
+Rayleigh-only, Love-only or joint Rayleigh+Love m0 inputs under the matched
+synthetic setup.
 
 Script:
 
-```bash
-/opt/miniconda3/envs/seisloc/bin/python scripts/run_rayleigh_love_input_ablation.py \
-  --n-test 64 \
-  --posterior-samples 32 \
-  --euler-steps 16 \
-  --batch-size 16 \
-  --methods DI-Strong,DI-Weak \
-  --out-dir results/rayleigh_love_input_ablation/n64_s32_steps16 \
-  --fig-dir figures/rayleigh_love_input_ablation/n64_s32_steps16
+```text
+scripts/run_rayleigh_love_input_ablation.py
 ```
 
-Tracked outputs:
+Formal n=128 command:
 
-- `results/rayleigh_love_input_ablation/n64_s32_steps16/rayleigh_love_input_ablation_metrics.csv`
-- `results/rayleigh_love_input_ablation/n64_s32_steps16/rayleigh_love_input_ablation_protocol.json`
-- `figures/rayleigh_love_input_ablation/n64_s32_steps16/rayleigh_love_input_ablation.*`
+```bash
+MPLCONFIGDIR=/private/tmp/yzy_mpl_cache \
+NUMBA_CACHE_DIR=/private/tmp/yzy_numba_cache \
+PYTHONUNBUFFERED=1 \
+/opt/miniconda3/envs/seisloc/bin/python scripts/run_rayleigh_love_input_ablation.py \
+  --n-test 128 \
+  --posterior-samples 64 \
+  --euler-steps 24 \
+  --batch-size 16 \
+  --out-dir results/rayleigh_love_input_ablation/n128_s64_steps24 \
+  --fig-dir figures/rayleigh_love_input_ablation/n128_s64_steps24
+```
 
-The current pilot shows a modest but consistent improvement from joint
-Rayleigh+Love input relative to either single-wave input.
+Small outputs:
 
-## Large Files Not Tracked by GitHub
+```text
+results/rayleigh_love_input_ablation/n128_s64_steps24/rayleigh_love_input_ablation_metrics.csv
+results/rayleigh_love_input_ablation/n128_s64_steps24/rayleigh_love_input_ablation_protocol.json
+figures/rayleigh_love_input_ablation/n128_s64_steps24/rayleigh_love_input_ablation.*
+```
 
-The following products are local/archive files rather than GitHub files:
+Current n=128 result:
 
-- model checkpoints, including `best.pt`, `latest.pt`, `*.ckpt` and `*.pth`
-- large diagnostic arrays such as `*.npz` and `*.npy`
-- QEDisp per-site `qedispinv.h5` files
-- external OpenSWI/DispFormer repositories and their official checkpoints
+| Method | Rayleigh-only Vs MAE | Love-only Vs MAE | Joint Vs MAE |
+| --- | ---: | ---: | ---: |
+| DI-Strong | 0.079 | 0.085 | 0.076 |
+| DI-Weak | 0.145 | 0.171 | 0.142 |
+
+Interpretation:
+
+- Joint input modestly helps or ties the best single-wave case.
+- This is capability evidence, not the main contribution.
+- Do not present this as a general multimode Rayleigh/Love foundation model.
+
+## Files Not Suitable for GitHub
+
+The following products should stay local or move to a separate reproducibility
+archive:
+
+- model checkpoint weights: `best.pt`, `latest.pt`, `*.ckpt`, `*.pth`
+- large arrays: `*.npz`, `*.npy`
+- QEDisp per-site `qedispinv.h5` products
+- external OpenSWI/DispFormer repositories and official checkpoints
 - external QEDisp/QEDispInv build trees
+- large exploratory figure batches that are not cited by the manuscript
 
-These files should be regenerated from the scripts or placed in a separate
-reproducibility archive before final submission.
+The repository should track scripts, configs, small CSV/JSON summaries, final
+small manuscript figures and the LaTeX source. Large binary diagnostics should
+be listed here and archived separately.
 
-## Next Experiments
+## Current Overleaf State
 
-The next GJI-strengthening experiments should be kept separate from the current
-code-sync commit:
+The local Overleaf clone at:
 
-1. Scale the posterior anchor beyond the current 2 cases/regime only if it is
-   needed for a supplement table.
-2. Re-run the Rayleigh/Love input-channel ablation at n=128, samples=64,
-   steps=24 if the ablation moves from supplement to main text.
-3. Add a lightweight depth-control or smoothness-loss ablation if reviewers are
-   likely to question whether narrow posteriors are caused by the parameter
-   basis or loss regularisation rather than the data.
+```text
+/Users/liuxin/Documents/yzy_directSWI/paper-overleaf
+```
+
+has been updated and pushed to the Overleaf git remote with commit:
+
+```text
+870105a Add MCMC posterior anchor and updated audit figures
+```
+
+The Overleaf version compiles locally with no undefined citations, references or
+missing figures. The only remaining warning is a tiny 0.32 pt overfull hbox near
+the observation-encoding sentence.
+
+## Next Work
+
+1. Keep Fig. 6 as main-text QC only if the manuscript needs visual support for
+   the common-input benchmark; otherwise move it to supplement.
+2. Keep the Rayleigh/Love ablation in supplement unless reviewers ask for more
+   input-channel evidence.
+3. Add a small depth-control or smoothness-loss ablation only if the narrow
+   posterior intervals become a reviewer concern.
+4. Prepare a separate archive for omitted `.npz`, checkpoint and QEDisp per-site
+   files before final submission.
