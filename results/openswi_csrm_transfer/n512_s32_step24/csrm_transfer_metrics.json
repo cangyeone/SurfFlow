@@ -1,0 +1,42 @@
+[
+  {
+    "checkpoint": "/Volumes/lx_exFAT/yzy_directSWI/code_data/ckpt/fair_di_strong_full_seed642026/best.pt",
+    "euler_steps": 24,
+    "method": "DI-Strong",
+    "min_period_count": 10,
+    "n_depth": 241,
+    "n_sites": 512,
+    "period_max_s": 60.0,
+    "period_min_s": 8.0,
+    "posterior_samples": 32,
+    "reference_in_p05_p95": 0.6867382002074689,
+    "reference_in_p05_p95_shallow_0_40km": 0.7874469521604939,
+    "runtime_s": 13.204752922058105,
+    "site_stride": 1,
+    "vs_bias_km_s": -0.039145950227975845,
+    "vs_mae_0_40km_km_s": 0.10893481224775314,
+    "vs_mae_40_120km_km_s": 0.11000494658946991,
+    "vs_mae_km_s": 0.1096452847123146,
+    "vs_rmse_km_s": 0.14590361714363098
+  },
+  {
+    "checkpoint": "/Volumes/lx_exFAT/yzy_directSWI/code_data/ckpt/fair_di_weak_full_seed642026/best.pt",
+    "euler_steps": 24,
+    "method": "DI-Weak",
+    "min_period_count": 10,
+    "n_depth": 241,
+    "n_sites": 512,
+    "period_max_s": 60.0,
+    "period_min_s": 8.0,
+    "posterior_samples": 32,
+    "reference_in_p05_p95": 0.8398761670124482,
+    "reference_in_p05_p95_shallow_0_40km": 0.8910349151234568,
+    "runtime_s": 5.8873231410980225,
+    "site_stride": 1,
+    "vs_bias_km_s": 0.00943269394338131,
+    "vs_mae_0_40km_km_s": 0.1755903959274292,
+    "vs_mae_40_120km_km_s": 0.12859594821929932,
+    "vs_mae_km_s": 0.1443907767534256,
+    "vs_rmse_km_s": 0.19822990894317627
+  }
+]

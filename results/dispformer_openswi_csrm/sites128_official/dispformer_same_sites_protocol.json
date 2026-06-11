@@ -1,0 +1,13 @@
+{
+  "created_utc": "2026-06-10T18:20:01.543621+00:00",
+  "data_dir": "/Users/liuxin/Documents/yzy_directSWI/field_data_candidates/openswi_real_csrm",
+  "device": "cpu",
+  "elapsed_seconds": 11.967731952667236,
+  "model_dir": "/Users/liuxin/Documents/yzy_directSWI/external/OpenSWI/Script/Training/OpenSWI-deep/Article-Figure/model/dispformer_local_global_v1/dispformer_local_global_v1_md=128_nh=8_nl=3_od=301_lt=MSE_lr=0.0001_ne=1000_bs=512_ni=False",
+  "n_sites": 128,
+  "note": "DispFormer is deterministic. phase_only is the strict same-information comparison with SurfFlow/QEDisp; phase_group is the official OpenSWI real-data input protocol.",
+  "openswi_root": "/Users/liuxin/Documents/yzy_directSWI/external/OpenSWI",
+  "period_max": 60.0,
+  "period_min": 8.0,
+  "site_source": "results/qedisp_csrm_multistart/sites128_starts64/combined_same_sites_metrics.csv"
+}

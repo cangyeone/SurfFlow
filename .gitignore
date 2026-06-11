@@ -4,8 +4,15 @@
 **/*.pyo
 **/*.npz
 **/*.npy
+**/*.h5
 **/best.pt
 **/latest.pt
 **/*.ckpt
 **/*.pth
 **/*.pid
+**/*.aux
+**/*.blg
+**/*.fdb_latexmk
+**/*.fls
+**/*.log
+**/*.out

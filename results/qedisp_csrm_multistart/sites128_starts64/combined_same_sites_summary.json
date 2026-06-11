@@ -1,0 +1,47 @@
+{
+  "DI-Strong": {
+    "mean_disp_best_rms_km_s": null,
+    "mean_reference_in_p05_p95": 0.680433091286307,
+    "mean_vs_mae_km_s": 0.1076498330803588,
+    "median_disp_best_rms_km_s": null,
+    "median_reference_in_p05_p95": 0.6950207468879668,
+    "median_vs_mae_km_s": 0.10629071667790413,
+    "n": 128,
+    "p25_disp_best_rms_km_s": null,
+    "p25_reference_in_p05_p95": 0.5684647302904564,
+    "p25_vs_mae_km_s": 0.09015132300555706,
+    "p75_disp_best_rms_km_s": null,
+    "p75_reference_in_p05_p95": 0.7925311203319502,
+    "p75_vs_mae_km_s": 0.12305871210992336
+  },
+  "DI-Weak": {
+    "mean_disp_best_rms_km_s": null,
+    "mean_reference_in_p05_p95": 0.8561981327800829,
+    "mean_vs_mae_km_s": 0.1378986631752923,
+    "median_disp_best_rms_km_s": null,
+    "median_reference_in_p05_p95": 0.9087136929460581,
+    "median_vs_mae_km_s": 0.12841365486383438,
+    "n": 128,
+    "p25_disp_best_rms_km_s": null,
+    "p25_reference_in_p05_p95": 0.7655601659751038,
+    "p25_vs_mae_km_s": 0.10490931570529938,
+    "p75_disp_best_rms_km_s": null,
+    "p75_reference_in_p05_p95": 0.975103734439834,
+    "p75_vs_mae_km_s": 0.15928079560399055
+  },
+  "QEDisp m0 multistart": {
+    "mean_disp_best_rms_km_s": 0.010493980141047063,
+    "mean_reference_in_p05_p95": null,
+    "mean_vs_mae_km_s": 0.10359338026555737,
+    "median_disp_best_rms_km_s": 0.009541891079129906,
+    "median_reference_in_p05_p95": null,
+    "median_vs_mae_km_s": 0.09977283897148193,
+    "n": 128,
+    "p25_disp_best_rms_km_s": 0.0061266918411604174,
+    "p25_reference_in_p05_p95": null,
+    "p25_vs_mae_km_s": 0.07740603306405378,
+    "p75_disp_best_rms_km_s": 0.012974452471035255,
+    "p75_reference_in_p05_p95": null,
+    "p75_vs_mae_km_s": 0.12179024312574102
+  }
+}

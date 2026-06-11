@@ -143,8 +143,8 @@ def plot_prior_vs(
     ensemble_indices: np.ndarray | None = None,
     xlabel: bool = True,
 ) -> None:
-    q10, q90 = quantiles(vs, (0.10, 0.90))
-    ax.fill_betweenx(depth, q10, q90, color=PRIOR_FILL, linewidth=0, zorder=2, label="Prior ensemble p10-p90")
+    q05, q95 = quantiles(vs, (0.05, 0.95))
+    ax.fill_betweenx(depth, q05, q95, color=PRIOR_FILL, linewidth=0, zorder=2, label="Prior ensemble p5-p95")
     if ensemble_indices is not None:
         for idx in ensemble_indices[:8]:
             ax.plot(vs[int(idx)], depth, color=PRIOR, lw=0.38, alpha=0.18, zorder=3)
@@ -209,8 +209,8 @@ def plot_prior_predictive_dispersion(
     period = disp_all[0, 0]
     ray = np.where(np.isfinite(disp_all[:, 1, :]), disp_all[:, 1, :], np.nan)
     ray_ok = np.isfinite(ray).sum(axis=0) >= 32
-    q10, q90 = finite_quantiles(ray[:, ray_ok], (0.10, 0.90))
-    ax.fill_between(period[ray_ok], q10, q90, color=PRIOR_FILL, lw=0, alpha=0.88, zorder=2)
+    q05, q95 = finite_quantiles(ray[:, ray_ok], (0.05, 0.95))
+    ax.fill_between(period[ray_ok], q05, q95, color=PRIOR_FILL, lw=0, alpha=0.88, zorder=2)
 
     for idx in ensemble_indices[:8]:
         curve = disp_all[int(idx), 1]
@@ -246,17 +246,17 @@ def plot_posterior_predictive_fit(
     pred = forward_rayleigh(depth, period, samples)[:, ok]
     p = period[ok]
     obs = disp[1, ok]
-    q16, q50, q84 = quantiles(pred, (0.16, 0.50, 0.84))
-    ax.fill_between(p, q16, q84, color=POST_BLUE_FILL, linewidth=0, alpha=0.92, zorder=2)
-    ax.plot(p, q16, color=POST_BLUE, lw=0.34, alpha=0.34, zorder=3)
-    ax.plot(p, q84, color=POST_BLUE, lw=0.34, alpha=0.34, zorder=3)
+    q05, q50, q95 = quantiles(pred, (0.05, 0.50, 0.95))
+    ax.fill_between(p, q05, q95, color=POST_BLUE_FILL, linewidth=0, alpha=0.92, zorder=2)
+    ax.plot(p, q05, color=POST_BLUE, lw=0.34, alpha=0.34, zorder=3)
+    ax.plot(p, q95, color=POST_BLUE, lw=0.34, alpha=0.34, zorder=3)
     ax.plot(p, q50, color=POST_BLUE, lw=1.15, zorder=4)
     keep = np.zeros(len(p), dtype=bool)
     keep[::2] = True
     keep[-1] = True
     ax.scatter(p[keep], obs[keep], s=7.4, facecolor=EXAMPLE, edgecolor=PAPER, linewidth=0.34, zorder=6)
     ax.set_xlim(float(p.min()) - 1.5, float(p.max()) + 3.0)
-    ax.set_ylim(min(float(q16.min()), float(obs.min())) - 0.12, max(float(q84.max()), float(obs.max())) + 0.10)
+    ax.set_ylim(min(float(q05.min()), float(obs.min())) - 0.12, max(float(q95.max()), float(obs.max())) + 0.10)
     ax.set_xlabel("Period (s)", fontsize=6.4)
     if ylabel:
         ax.set_ylabel(r"$c$ (km/s)", fontsize=6.4)
@@ -308,10 +308,10 @@ def draw_sampler_block(ax: plt.Axes) -> None:
 
 def plot_posterior_vs(ax: plt.Axes, depth: np.ndarray, target: np.ndarray, samples: np.ndarray, *, title: str) -> None:
     vs = samples[:, 1]
-    q16, q50, q84 = quantiles(vs, (0.16, 0.50, 0.84))
+    q05, q50, q95 = quantiles(vs, (0.05, 0.50, 0.95))
     for curve in vs[::4]:
         ax.plot(curve, depth, color=POST_BLUE, lw=0.24, alpha=0.030, zorder=1)
-    ax.fill_betweenx(depth, q16, q84, color=POST_BLUE_FILL, linewidth=0, alpha=0.90, zorder=2)
+    ax.fill_betweenx(depth, q05, q95, color=POST_BLUE_FILL, linewidth=0, alpha=0.90, zorder=2)
     ax.plot(target[1], depth, color=TRUTH, lw=1.08, zorder=4)
     ax.plot(q50, depth, color=POST_BLUE, lw=1.36, ls=(0, (3.0, 1.8)), zorder=5)
     ax.set_ylim(100, 0)
@@ -360,9 +360,9 @@ def make_asset_c(diagnostics: np.lib.npyio.NpzFile, metrics: list[dict[str, str]
     axes = [fig.add_subplot(gs[0, 0]), fig.add_subplot(gs[0, 1])]
 
     def profile_panel(ax: plt.Axes, target: np.ndarray, samples: np.ndarray, title: str, *, ylabel: bool) -> None:
-        q16, q50, q84 = quantiles(samples, (0.16, 0.50, 0.84))
+        q05, q50, q95 = quantiles(samples, (0.05, 0.50, 0.95))
         ax.fill_betweenx(depth, p05, p95, color=SUPPORT_FILL, lw=0, zorder=1)
-        ax.fill_betweenx(depth, q16, q84, color=POST_BLUE_FILL, lw=0, alpha=0.90, zorder=2)
+        ax.fill_betweenx(depth, q05, q95, color=POST_BLUE_FILL, lw=0, alpha=0.90, zorder=2)
         ax.plot(target, depth, color=TRUTH, lw=1.10, zorder=4)
         ax.plot(q50, depth, color=POST_BLUE, lw=1.22, ls=(0, (3.0, 1.8)), zorder=5)
         ax.set_ylim(100, 0)
@@ -377,8 +377,8 @@ def make_asset_c(diagnostics: np.lib.npyio.NpzFile, metrics: list[dict[str, str]
             ax.set_yticklabels([])
         style_axis(ax)
 
-    profile_panel(axes[0], inside_target, inside_samples, "inside support", ylabel=True)
-    profile_panel(axes[1], boundary_target, boundary_samples, "support mismatch", ylabel=False)
+    profile_panel(axes[0], inside_target, inside_samples, "In prior", ylabel=True)
+    profile_panel(axes[1], boundary_target, boundary_samples, "Near boundary", ylabel=False)
 
     save_asset(fig, "fig01_asset_C_prior_support_audit")
 

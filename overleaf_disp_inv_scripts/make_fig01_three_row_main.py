@@ -122,7 +122,7 @@ def plot_conditioning_data(ax: plt.Axes, disp: np.ndarray, mask: np.ndarray) -> 
     ax.set_ylim(float(ray[valid].min()) - 0.18, float(ray[valid].max()) + 0.18)
     ax.set_xlabel("Period (s)", fontsize=6.1, labelpad=1.0)
     ax.set_ylabel(r"$c$ (km/s)", fontsize=6.1, labelpad=0.8)
-    ax.set_title(r"Conditioning data $d_{\rm obs}$", loc="left", fontsize=6.4, color=INK, pad=2.0)
+    ax.set_title(r"Observed dispersion $d_{\rm obs}$", loc="left", fontsize=6.4, color=INK, pad=2.0)
     style_axis(ax)
 
 
@@ -139,10 +139,10 @@ def support_profile(
     ylabel: bool,
     legend: bool = False,
 ) -> None:
-    q16, q50, q84 = quantiles(strong_samples, (0.16, 0.50, 0.84))
+    q05, q50, q95 = quantiles(strong_samples, (0.05, 0.50, 0.95))
     weak_q50 = quantiles(weak_samples, (0.50,))[0]
     ax.fill_betweenx(depth, p05, p95, color=SUPPORT_FILL, lw=0, zorder=1)
-    ax.fill_betweenx(depth, q16, q84, color=POST_BLUE_FILL, lw=0, alpha=0.88, zorder=2)
+    ax.fill_betweenx(depth, q05, q95, color=POST_BLUE_FILL, lw=0, alpha=0.88, zorder=2)
     target_line, = ax.plot(target, depth, color=TRUTH, lw=1.02, zorder=4, label="target")
     strong_line, = ax.plot(q50, depth, color=POST_BLUE, lw=1.12, ls=(0, (3.0, 1.8)), zorder=5, label="DI-Strong")
     weak_line, = ax.plot(weak_q50, depth, color=WEAK_LINE, lw=0.98, ls=(0, (1.2, 1.35)), zorder=6, label="DI-Weak")
@@ -170,7 +170,7 @@ def support_profile(
 
 def plot_audit_summary(ax: plt.Axes, rows: list[dict[str, str]]) -> None:
     order = ["in-prior", "boundary", "out-of-prior"]
-    labels = ["within\nprior", "near\nedge", "outside\nprior"]
+    labels = ["in\nprior", "near\nboundary", "out of\nprior"]
     x = np.arange(len(order), dtype=float)
     styles = {
         "DI-Strong": {"color": POST_BLUE, "ls": (0, (3.0, 1.8)), "marker": "o"},
@@ -203,7 +203,7 @@ def plot_audit_summary(ax: plt.Axes, rows: list[dict[str, str]]) -> None:
     ax.set_xticks(x)
     ax.set_xticklabels(labels, fontsize=5.1)
     ax.set_ylabel(r"$V_S$ error (km/s)", fontsize=6.0, labelpad=1.0)
-    ax.set_title("Support-regime stress test", loc="left", fontsize=6.25, color=INK, pad=2.0)
+    ax.set_title("Prior test sets", loc="left", fontsize=6.25, color=INK, pad=2.0)
     ax.set_xlim(-0.18, 2.18)
     ax.set_ylim(0.0, 0.86)
     style_axis(ax)
@@ -240,7 +240,7 @@ def main() -> None:
     fig = plt.figure(figsize=(7.25, 6.25), facecolor=PAPER)
     panel_title(fig, 0.018, 0.972, "a", r"Data: synthetic training pairs $(m,d)$")
     panel_title(fig, 0.018, 0.656, "b", r"Model: posterior sampling from dispersion data")
-    panel_title(fig, 0.018, 0.348, "c", r"Reliability audit: fit, error and prior support")
+    panel_title(fig, 0.018, 0.348, "c", r"Reliability checks: fit, error and prior support")
     row_separator(fig, 0.684)
     row_separator(fig, 0.378)
 
@@ -271,7 +271,7 @@ def main() -> None:
     ax_a_note.text(
         0.50,
         0.50,
-        "Training pairs define the\nsynthetic inversion problem;\nbands show sample quantiles.",
+        "Training pairs define the\nsynthetic inversion problem;\nbands show p5-p95 quantiles.",
         ha="center",
         va="center",
         fontsize=5.85,
@@ -329,7 +329,7 @@ def main() -> None:
         diagnostics["DI_Strong_in_prior_target"][args.posterior_index, 1],
         diagnostics["DI_Strong_in_prior_samples"][args.posterior_index, :, 1],
         diagnostics["DI_Weak_in_prior_samples"][args.posterior_index, :, 1],
-        "inside support",
+        "In prior",
         ylabel=True,
         legend=False,
     )
@@ -341,7 +341,7 @@ def main() -> None:
         diagnostics["DI_Strong_boundary_target"][args.audit_index, 1],
         diagnostics["DI_Strong_boundary_samples"][args.audit_index, :, 1],
         diagnostics["DI_Weak_boundary_samples"][args.audit_index, :, 1],
-        "support mismatch",
+        "Near boundary",
         ylabel=False,
         legend=True,
     )

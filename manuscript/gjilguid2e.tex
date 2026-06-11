@@ -14,8 +14,8 @@
 \usepackage[hidelinks]{hyperref}
 \newcommand{\figalt}[1]{}
 
-\title[Probabilistic surface-wave inversion]
-  {Probabilistic Surface-Wave Dispersion Inversion with a Depth-Controlled Conditional Rectified Flow}
+\title[Audited probabilistic surface-wave inversion]
+  {Auditing Learned Posterior Samples for Surface-Wave Dispersion Inversion}
 
 \author[X. Liu et al.]
   {Xin Liu$^1$, Ziye Yu$^1$\thanks{Corresponding author: yuziye@cea-igp.ac.cn}
@@ -37,9 +37,9 @@
 \pagestyle{plain}
 
 \begin{summary}
-Surface-wave dispersion inversion is non-unique, but deterministic neural inversions usually return only one model. We develop a probabilistic direct-inversion (DI) method in which a depth-controlled conditional rectified flow generates ensembles of 1-D $V_P$, $V_S$ and density profiles for incomplete Rayleigh/Love phase-velocity curves. These samples should be interpreted for the synthetic problem used in training: the chosen model prior, forward solver, data mask, noise assumption and depth parameterisation. Field use therefore still requires an observational-error model and independent calibration.
+Surface-wave dispersion inversion is non-unique, so a useful inverse method should report both a preferred model and the uncertainty attached to it. Bayesian inversions and earlier probabilistic neural networks already provide posterior distributions, but a learned posterior is only meaningful relative to the prior, forward solver, data mask, noise assumption and parameterisation used to train it. We develop a probabilistic direct-inversion (DI) method in which a depth-controlled conditional rectified flow generates ensembles of 1-D $V_P$, $V_S$ and density profiles for incomplete Rayleigh/Love phase-velocity curves, and we use the method to test how such learned posteriors can be audited.
 
-Matched DI-Strong and DI-Weak models are trained from scratch with identical budgets so that only the structural prior differs. In the $N=1024$ in-prior diagnostic, DI-Strong reaches posterior-median $V_S$ mean absolute error (MAE) of 0.086 km s$^{-1}$ and mean pointwise 16--84 per cent interval coverage of 0.638. The prior-support audit shows the expected trade-off: DI-Weak reduces boundary and out-of-prior $V_S$ MAE to 0.171 and 0.499 km s$^{-1}$, compared with 0.372 and 0.782 km s$^{-1}$ for DI-Strong, while losing in-prior accuracy. Split-sample posterior-temperature scaling improves held-out mean coverage but is only a calibration check, not an observational likelihood. A Rayleigh-only Bayan Obo field example \citep{Yang2025BayanOboDataset} shows how local posterior ensembles can be assembled into maps of median $V_S$ and model spread; because the field example has no Love waves, no field likelihood and no independent calibration set, it is not interpreted as calibrated geological uncertainty.
+Matched DI-Strong and DI-Weak models are trained from scratch with identical budgets so that only the structural prior differs. In the $N=1024$ in-prior diagnostic, DI-Strong reaches posterior-median $V_S$ mean absolute error (MAE) of 0.086 km s$^{-1}$ and mean pointwise 16--84 per cent interval coverage of 0.638. The prior-boundary test shows the expected trade-off: DI-Weak reduces near-boundary and out-of-prior $V_S$ MAE to 0.171 and 0.499 km s$^{-1}$, compared with 0.372 and 0.782 km s$^{-1}$ for DI-Strong, while losing in-prior accuracy. On a same-site CSRM common-input benchmark using Rayleigh fundamental-mode phase velocities at 8--60 s, DI-Strong reaches mean $V_S$ MAE of 0.108 km s$^{-1}$, comparable to QEDisp fundamental-mode multistart inversion (0.104 km s$^{-1}$) and DispFormer phase-only prediction (0.111 km s$^{-1}$). Split-sample posterior-temperature scaling improves held-out mean coverage but is only a calibration check, not an observational likelihood. These results support a conservative interpretation: the proposed sampler is competitive as a point estimator, but its main value is that posterior samples, prior support, coverage, missing-band behaviour and noise sensitivity can be checked explicitly.
 \end{summary}
 
 \begin{keywords}
@@ -50,15 +50,21 @@ Inverse theory -- Probability distributions -- Neural networks -- Surface waves 
 
 Geophysical inverse problems are rarely one-to-one. Surface-wave dispersion curves constrain weighted averages of elastic structure over period-dependent depth ranges, and many velocity models can explain similar observations. Classical inverse-problem theory therefore treats the answer as a posterior probability distribution rather than as a single preferred model \citep{MosegaardTarantola1995,Tarantola2005}. In surface-wave applications, stochastic and transdimensional methods have made this non-uniqueness explicit by mapping trade-offs among layer velocities, discontinuity depths, smoothing assumptions and data errors \citep{Sambridge1999,ShapiroRitzwoller2002,BodinEtAl2012,GaoLekic2018}. A useful inversion method should therefore report not only a central model but also uncertainty summaries that can be checked against known synthetic truth or independent constraints.
 
-The computational cost of repeated forward modelling motivates learned inversion. A deep neural network (DNN) can be trained on synthetic pairs of Earth models and dispersion curves, and then used as a fast inverse map. Ordinary deterministic DNN inversions, however, tend to return point estimates and can hide the non-uniqueness that motivates Bayesian inversion in the first place. Earlier probabilistic neural approaches estimated crustal thickness or velocity-model uncertainty from surface waves \citep{DevileeEtAl1999,MeierEtAl2007}, and recent mixture-density and deterministic networks have extended the idea to field-scale dispersion inversion and near-surface applications \citep{EarpEtAl2020,KeilWassermann2023,ChenEtAl2022}. These methods can be viewed as simulation-based inference: a prior generator and a forward simulator define the synthetic training problem, and the network learns an approximation to the corresponding conditional distribution \citep{CranmerEtAl2020}.
+Conventional surface-wave inversions handle this ambiguity through regularisation, multiple initial models or stochastic searches, but these choices bring their own dependence on parameterisation and starting models. Recent physics-based software has improved this workflow. For example, QEDispInv improves modal dispersion calculation in low-velocity-layered models and combines wavelength-constrained layering with multiple initial models to reduce local-solution bias \citep{PanEtAl2026QEDispInv}. Such methods provide an important baseline because they keep the forward physics explicit, but their cost still grows with the number of sites, starts and posterior checks.
+
+The same cost motivates learned inversion. A deep neural network (DNN) can be trained on synthetic pairs of Earth models and dispersion curves, and then used as a fast inverse map. Early neural approaches estimated crustal thickness or velocity-model uncertainty from surface waves \citep{DevileeEtAl1999,MeierEtAl2007}, and later networks extended learned inversion to near-surface, regional and uncertainty-aware settings \citep{HuEtAl2020,EarpEtAl2020,YablokovEtAl2021,YablokovEtAl2023,KeilWassermann2023,ChenEtAl2022,LuoEtAl2022}. Invertible neural networks have also been used to approximate Bayesian posteriors for surface-wave dispersion and related geophysical inverse problems \citep{ZhangCurtis2021}. These studies show that neural networks can predict models quickly and can, in some settings, approximate uncertain inverse solutions. The remaining issue addressed here is how to check the reliability of a posterior returned by a synthetic-trained DNN.
+
+Large public data products and pretrained models are also changing the reference point for this field. OpenSWI provides synthetic and real-world benchmark data for surface-wave inversion \citep{LiuEtAl2026OpenSWI}, while DispFormer uses a transformer architecture to handle Rayleigh phase and group curves with variable period ranges and missing values \citep{LiuEtAl2025DispFormer}. These advances are strong baselines for point prediction and generalisation. The present work has a different emphasis: it studies posterior sampling and posterior reliability under a documented training distribution, rather than variable-period foundation-model generalisation.
+
+In this paper, learned inversion is treated as simulation-based inference: a prior generator and a forward simulator define a synthetic training problem, and the network learns an approximation to the corresponding conditional distribution \citep{CranmerEtAl2020}. Ordinary deterministic DNN inversions tend to return point estimates and can hide the non-uniqueness that motivates Bayesian inversion in the first place. Our focus is on direct posterior sampling and reliability checks, not on replacing all conventional or pretrained point-estimation methods.
 
 Conditional rectified flow offers a direct way to return samples rather than a single regressed profile. After training, different random initial states are mapped to different elastic structures conditioned on the same dispersion curve. The resulting ensemble can be summarised by posterior medians, pointwise 16--84 per cent intervals, posterior standard deviations and posterior density views. Those summaries are useful only if their calibration is tested, because a visually plausible ensemble can still be too narrow, too broad or biased by the training distribution.
 
-The contribution of this study is methodological. It does not try to remove the non-uniqueness of surface-wave inversion; instead, it makes that non-uniqueness visible in a fast DNN inversion. Four elements are combined. The method returns posterior samples rather than only one regressed model. It samples a compact set of depth controls and evaluates the result on the full depth grid. It checks the samples with surface-wave quantities, including dispersion residuals, depth-binned coverage and rank diagnostics. It also keeps the training prior, forward solver and data mask explicit, so that the reported uncertainty can be tied back to the synthetic inversion problem.
+The contribution of this study is a reliability-centred framework for a learned posterior sampler. Four elements are combined. The method returns posterior samples rather than only one regressed model. It samples a compact set of depth controls and evaluates the result on the full depth grid. It checks the samples with surface-wave quantities, including dispersion residuals, depth-binned coverage and rank diagnostics. It also keeps the training prior, forward solver and data mask explicit, so that the reported uncertainty can be tied back to the synthetic inversion problem.
 
 This paper develops a probabilistic direct-inversion (DI) method based on a depth-controlled conditional rectified flow. The method learns $q_\theta({\bf m}|{\bf d})$, a distribution of 1-D elastic models ${\bf m}$ conditioned on a masked Rayleigh/Love dispersion vector ${\bf d}$. We ask four questions. First, what range of models does a DNN learn from synthetic model--dispersion pairs? Second, can a depth-controlled conditional flow produce regular posterior samples while preserving full-grid evaluation? Third, can posterior uncertainty be checked with empirical coverage and calibration diagnostics? Fourth, how sensitive is the learned posterior to prior support?
 
-The central result is that a depth-controlled conditional rectified flow can provide fast posterior ensembles for surface-wave dispersion, but those ensembles must be read together with the training assumptions. In this setting the prior is encoded by the synthetic model generator, velocity and density bounds, depth clipping, layer or control-point parameterisation, wave-type availability, observation masks and noise augmentation. Figure~\ref{fig:workflow} summarizes this idea. We therefore include a matched prior-support stress test comparing strong- and weak-prior samplers trained with the same budget. The purpose is not to argue that weak priors are always better. It is to show that DNN posterior uncertainty can be sampled, tested and calibrated within a clearly defined synthetic inversion problem.
+The central result is that a depth-controlled conditional rectified flow can provide fast posterior ensembles for surface-wave dispersion, but those ensembles must be read together with the training assumptions. In this setting the prior is encoded by the synthetic model generator, velocity and density bounds, depth clipping, layer or control-point parameterisation, wave-type availability, observation masks and noise augmentation. Figure~\ref{fig:workflow} summarizes this idea. We therefore include a matched prior-boundary test comparing strong- and weak-prior samplers trained with the same budget, missing-band and noise-sensitivity checks, posterior-temperature calibration, and a same-site external benchmark against QEDisp and DispFormer under a common Rayleigh-phase input. The aim is to show how DNN posterior uncertainty can be sampled, compared with established inversions and then audited within a clearly defined synthetic inversion problem.
 
 \section{Bayesian target and synthetic training distribution}
 
@@ -82,12 +88,12 @@ but the DNN does not evaluate this expression analytically during inference. Ins
 \end{equation}
 Here $p_{\rm syn}$ is the synthetic structural prior, $\mathcal{F}$ is the Rayleigh/Love forward solver, ${\bf q}$ is the observation mask, $\mathcal{E}_{\bf q}$ encodes the masked data vector and $p_\epsilon$ is the assumed synthetic observation-error distribution. In the present benchmark no additive phase-velocity noise is applied, so $p_\epsilon$ is a point mass at zero and the stochastic observation process is the masking operation. These choices define the synthetic population $p_{\rm train}({\bf m},{\bf d})$ and the target conditional distribution $p_{\rm train}({\bf m}|{\bf d})$. The DNN learns an approximation $q_\theta({\bf m}|{\bf d})$ to that distribution.
 
-Throughout this paper, posterior probability means probability for this stated synthetic inversion problem. It is not a calibrated posterior for arbitrary field dispersion measurements unless the field data are represented by a suitable observational-error model and the posterior is independently calibrated. This distinction is the reason for treating prior support as a reliability audit rather than as a data-generation detail.
+Throughout this paper, posterior probability means probability for this stated synthetic inversion problem. It is not a calibrated posterior for arbitrary field dispersion measurements unless the field data are represented by a suitable observational-error model and the posterior is independently calibrated. This distinction is the reason for treating training-prior support as a reliability check rather than as a hidden data-generation detail.
 
-\begin{figure*}
-\includegraphics[width=\textwidth]{figures/fig01_workflow_prior_posterior_audit.pdf}
-\caption{Probabilistic direct inversion and reliability audit. (a) Synthetic Earth models drawn from the structural prior are mapped through a surface-wave modal solver to define the training pairs $({\bf m},{\bf d})$; shaded bands show quantiles over generated samples, not observational-error bars. (b) A conditional rectified flow samples $q_\theta({\bf m}|{\bf d}_{\rm obs})$ from incomplete dispersion input, producing posterior $V_S$ profiles and posterior-predictive dispersion checks. (c) Reliability diagnostics compare matched DI-Strong and DI-Weak samplers across support regimes and representative in-support and support-mismatch examples. Posterior bands denote pointwise 16--84 per cent intervals from sampled ensembles.}
-\figalt{Three-row method diagram showing synthetic data generation, conditional-flow posterior sampling with dispersion checking, and prior-support reliability diagnostics for DI-Strong and DI-Weak samplers.}
+\begin{figure*}[t]
+\includegraphics[width=\textwidth]{figures/fig01_workflow_prior_posterior_audit_p5p95.pdf}
+\caption{Probabilistic direct inversion with prior checks. (a) Synthetic training pairs are generated by drawing elastic Earth models from a structural prior and computing Rayleigh dispersion with a surface-wave modal solver. Shaded bands show p5--p95 sample quantiles of the synthetic model and dispersion distributions, not observational-error bars. (b) The conditional-flow sampler takes an observed or masked dispersion curve and returns an ensemble of plausible $V_S$ profiles. The samples can be forward-modelled to check whether they reproduce the input dispersion. (c) Reliability checks compare matched DI-Strong and DI-Weak samplers on in-prior, near-boundary and out-of-prior test sets. The profile panels show representative in-prior and near-boundary cases; shaded posterior bands are p5--p95 pointwise sample quantiles. Coverage values elsewhere in the paper are computed separately for 16--84 per cent intervals.}
+\figalt{Three-row method diagram showing synthetic model--dispersion pair generation, conditional-flow posterior sampling with dispersion checking, and reliability checks across in-prior, near-boundary and out-of-prior test sets.}
 \label{fig:workflow}
 \end{figure*}
 
@@ -128,7 +134,7 @@ where $\mathcal{I}$ is a fixed differentiable interpolation operator. This basis
 
 \subsection{Conditioning encoder}
 
-The conditional input has five period-indexed channels: normalised period, normalised Rayleigh phase velocity, normalised Love phase velocity, Rayleigh mask and Love mask. A one-dimensional convolutional encoder with residual blocks maps this input to a 256-dimensional conditioning vector. The encoder sees both measured velocities and the pattern of missing observations, so the posterior sampler can represent cases with Rayleigh only, Love only, both wave types or incomplete period windows.
+The conditional input has five period-indexed channels: normalised period, normalised Rayleigh phase velocity, normalised Love phase velocity, Rayleigh mask and Love mask. A one-dimensional convolutional encoder with residual blocks maps this input to a 256-dimensional conditioning vector. The encoder sees both measured velocities and the pattern of missing observations, so the posterior sampler can represent cases with Rayleigh only, Love only, both wave types or incomplete period windows. In the present implementation these incomplete observations are represented on a fixed 2--60 s period grid. The masks emulate missing or quality-controlled picks within that grid; they should not be interpreted as unrestricted variable-period generalisation.
 
 \subsection{Conditional rectified flow}
 
@@ -159,7 +165,7 @@ from $t=0$ to $t=1$. The endpoint is denormalised in control-point space and int
 
 \subsection{Training and posterior summaries}
 
-DI-Strong and DI-Weak are trained from scratch with matched budgets: 100000 synthetic profiles, 2048 validation profiles, batch size 64, 24 scheduled epochs, the same encoder and conditional-flow architecture, the same optimizer and learning-rate schedule, the same loss weights, the same intermittent-band mask augmentation and the same random seed. The analysed checkpoint for each run is selected by validation total loss. The only intended difference is the structural prior generator. Unless otherwise stated, posterior summaries use 64 samples and 24 Euler steps. Point estimates are posterior medians computed independently at each depth and parameter, and uncertainty bands are pointwise marginal 16--84 per cent intervals from the sampled ensemble.
+DI-Strong and DI-Weak are trained from scratch with matched budgets: 100000 synthetic profiles, 2048 validation profiles, batch size 64, 24 scheduled epochs, the same encoder and conditional-flow architecture, the same optimizer and learning-rate schedule, the same loss weights, the same intermittent-band mask augmentation and the same random seed. The analysed checkpoint for each run is selected by validation total loss. The only intended difference is the structural prior generator. Unless otherwise stated, posterior summaries use 64 samples and 24 Euler steps. Point estimates are posterior medians computed independently at each depth and parameter. Quantitative coverage diagnostics use pointwise marginal 16--84 per cent intervals from the sampled ensemble; figures that use wider p5--p95 bands are labelled accordingly.
 
 Empirical coverage is computed pointwise over model parameters and depths:
 \begin{equation}
@@ -185,9 +191,9 @@ The scalar $\tau$ is fitted on a calibration subset to make mean pointwise 16--8
 
 \subsection{Prior-boundary diagnostic}
 
-The prior-boundary diagnostic changes the test distribution while keeping the forward solver and observation format fixed. Three regimes are used. The in-prior set contains models drawn from the strong-prior generator. The boundary set places Moho depth, sediment thickness, upper-mantle $V_S$ and low-velocity-zone depth or amplitude close to the strong-prior limits. The out-of-prior set remains physically plausible but deliberately exceeds strong-prior support through thicker sediments, shifted Moho depths, stronger low-velocity zones, upper-mantle velocities outside default ranges or sharper gradients.
+The prior-boundary diagnostic changes the test distribution while keeping the forward solver and observation format fixed. Three regimes are used. The in-prior set contains models drawn from the strong-prior generator. The near-boundary set places Moho depth, sediment thickness, upper-mantle $V_S$ and low-velocity-zone depth or amplitude close to the strong-prior limits. The out-of-prior set remains physically plausible but deliberately exceeds strong-prior support through thicker sediments, shifted Moho depths, stronger low-velocity zones, upper-mantle velocities outside default ranges or sharper gradients.
 
-DI-Weak denotes the weak-prior conditional rectified-flow sampler and is the broad-prior configuration considered here. DI-Strong denotes the matched strong-prior sampler and is used as a narrow-prior control. Because DI-Strong and DI-Weak are trained with matched budgets, the numerical comparison isolates the structural-prior generator; it remains a prior-support audit rather than a universal prior ranking.
+DI-Weak denotes the weak-prior conditional rectified-flow sampler and is the broad-prior configuration considered here. DI-Strong denotes the matched strong-prior sampler and is used as a narrow-prior control. Because DI-Strong and DI-Weak are trained with matched budgets, the numerical comparison isolates the structural-prior generator; it is a test of training-prior support rather than a universal prior ranking.
 
 For each method and test regime we compute $V_P$, $V_S$ and density mean absolute error (MAE), root-mean-square error, posterior interval coverage, forward-modelled dispersion residual and a prior-boundary pull-in statistic. The pull-in statistic estimates a pointwise 1--99 per cent envelope from the strong-prior training distribution. It then measures the fraction of target values outside that envelope whose posterior median is returned inside the envelope. Large pull-in indicates that the direct posterior map is drawing unfamiliar structures back into the strong-prior support.
 
@@ -213,17 +219,15 @@ DI-Weak & 1024 & 0.333 & 0.134 & 0.150 & 0.577 \\
 \end{table*}
 
 \begin{figure*}
-\includegraphics[width=0.48\textwidth]{figures/fair_di_metric_summary.pdf}
-\hfill
-\includegraphics[width=0.48\textwidth]{figures/fair_di_example_profiles.pdf}
-\caption{Matched production diagnostics for the conditional-flow posterior sampler. Left: metric summary for DI-Strong and DI-Weak on identical in-prior, boundary and out-of-prior test sets. Right: representative posterior profile examples with posterior medians and pointwise 16--84 per cent intervals.}
-\figalt{Side-by-side plots of matched DI-Strong and DI-Weak performance metrics and representative velocity-density posterior profiles with median curves and 16--84 per cent intervals.}
+\includegraphics[width=\textwidth]{figures/fig03_direct_inversion_results_v8.pdf}
+\caption{Matched production diagnostics for the conditional-flow posterior sampler. (a--c) $V_S$ model error, forward-modelled dispersion residual and empirical 16--84 per cent $V_S$ coverage for DI-Strong and DI-Weak on identical in-prior, near-boundary and out-of-prior test sets. The dashed line in (c) marks nominal 0.68 coverage. (d--f) Representative Rayleigh dispersion fits obtained by forward-modelling posterior samples. (g--i) Corresponding $V_S$ profiles for the same examples. Black curves or points are the target model or observed dispersion; coloured curves show posterior medians; shaded bands show p5--p95 pointwise posterior-sample quantiles.}
+\figalt{Nine-panel diagnostic figure comparing DI-Strong and DI-Weak across in-prior, near-boundary and out-of-prior cases, with error bars, coverage bars, dispersion fits and shear-velocity posterior profiles.}
 \label{fig:directexamples}
 \end{figure*}
 
 \subsection{Empirical coverage and posterior-temperature calibration}
 
-Raw posterior intervals are informative but not automatically calibrated (Fig.~\ref{fig:coverage}). On the in-prior held-out split, raw 68 per cent mean coverage is 0.631 for DI-Strong and 0.580 for DI-Weak. Scalar posterior-temperature scaling fitted on a separate calibration half gives held-out mean coverage of 0.681 and 0.685, with temperature factors of 1.114 and 1.316, respectively. Boundary and out-of-prior regimes require much larger corrections for DI-Strong ($\tau=3.160$ and 4.584), reflecting strong prior-support mismatch. DI-Weak needs smaller boundary correction ($\tau=1.687$) but still needs substantial out-of-prior widening ($\tau=3.335$). These results show that the DNN can return a spread of possible models, but that the nominal intervals must be checked before they are read as probabilities.
+Raw posterior intervals are informative but not automatically calibrated (Fig.~\ref{fig:coverage}). On the in-prior held-out split, raw 68 per cent mean coverage is 0.631 for DI-Strong and 0.580 for DI-Weak. Scalar posterior-temperature scaling fitted on a separate calibration half gives held-out mean coverage of 0.681 and 0.685, with temperature factors of 1.114 and 1.316, respectively. Near-boundary and out-of-prior regimes require much larger corrections for DI-Strong ($\tau=3.160$ and 4.584), reflecting mismatch with the strong training prior. DI-Weak needs smaller near-boundary correction ($\tau=1.687$) but still needs substantial out-of-prior widening ($\tau=3.335$). These results show that the DNN can return a spread of possible models, but that the nominal intervals must be checked before they are read as probabilities.
 
 Depth-binned coverage and rank diagnostics tell the same story with more spatial detail. For in-prior DI-Strong, raw depth-binned 68 per cent coverage ranges from 0.588 to 0.752 across channel-depth bins and becomes 0.641--0.795 after temperature scaling. DI-Weak has a wider raw in-prior range, 0.205--0.860, which becomes 0.258--0.941 after scaling; this indicates that one scalar temperature corrects the mean interval width but does not remove all depth- and parameter-dependent miscalibration. Rank/probability-integral-transform (PIT) histograms are also non-uniform before scaling: the two edge bins contain 0.201 of in-prior DI-Strong ranks and 0.281 of in-prior DI-Weak ranks, compared with 0.10 for a uniform diagnostic. We therefore report both mean reliability curves and depth-binned/rank tables rather than relying on one aggregate coverage number.
 
@@ -260,14 +264,14 @@ The primary synthetic benchmark is mask-only, with no additive phase-velocity no
 \label{fig:noise}
 \end{figure}
 
-\subsection{Prior-support reliability audit}
+\subsection{Prior support and reliability}
 
-The prior-boundary experiment audits behaviour that is not visible from in-prior validation alone. It is a prior-support diagnostic rather than a final method ranking. DI-Weak reduces support-driven boundary collapse relative to DI-Strong (Table~\ref{tab:priorboundary}). Boundary $V_S$ MAE decreases from 0.372 km s$^{-1}$ for DI-Strong to 0.171 km s$^{-1}$ for DI-Weak, and out-of-prior $V_S$ MAE decreases from 0.782 to 0.499 km s$^{-1}$. Dispersion residuals decrease from 0.277 to 0.100 km s$^{-1}$ for boundary cases and from 0.335 to 0.262 km s$^{-1}$ for out-of-prior cases.
+The prior-boundary experiment tests behaviour that is not visible from in-prior validation alone. It is a prior-support diagnostic rather than a final method ranking. DI-Weak reduces support-driven collapse near the strong-prior boundary relative to DI-Strong (Table~\ref{tab:priorboundary}). Near-boundary $V_S$ MAE decreases from 0.372 km s$^{-1}$ for DI-Strong to 0.171 km s$^{-1}$ for DI-Weak, and out-of-prior $V_S$ MAE decreases from 0.782 to 0.499 km s$^{-1}$. Dispersion residuals decrease from 0.277 to 0.100 km s$^{-1}$ for near-boundary cases and from 0.335 to 0.262 km s$^{-1}$ for out-of-prior cases.
 
-The pull-in statistic confirms that the improvement is a prior-support effect. For target values outside the strong-prior envelope, DI-Weak returns 0.101 of boundary predictions and 0.318 of out-of-prior predictions inside that envelope, compared with 0.725 and 0.815 for DI-Strong. The comparison demonstrates that the learned posterior depends on prior width: a broader prior can reduce boundary collapse, whereas the strong-prior control remains more accurate inside its own support.
+The pull-in statistic confirms that the improvement is a prior-support effect. For target values outside the strong-prior envelope, DI-Weak returns 0.101 of near-boundary predictions and 0.318 of out-of-prior predictions inside that envelope, compared with 0.725 and 0.815 for DI-Strong. The comparison demonstrates that the learned posterior depends on prior width: a broader prior can reduce near-boundary collapse, whereas the strong-prior control remains more accurate inside its own support.
 
 \begin{table*}
-\caption{Matched prior-support diagnostic for DI-Strong and DI-Weak trained from scratch with identical budgets. The table is a prior-support reliability audit, not a general ranking of priors. Pull-in is the fraction of target values outside the strong-prior envelope whose posterior medians return inside that envelope. Bootstrap confidence intervals are reported in the full result tables.}
+\caption{Matched prior-support diagnostic for DI-Strong and DI-Weak trained from scratch with identical budgets. The table tests sensitivity to the training prior; it is not a general ranking of priors. Pull-in is the fraction of target values outside the strong-prior envelope whose posterior medians return inside that envelope. Bootstrap confidence intervals are reported in the full result tables.}
 \label{tab:priorboundary}
 \centering
 \begin{tabular}{@{}llccccc@{}}
@@ -276,87 +280,66 @@ Method & Regime & $N$ & $V_S$ MAE & Disp. MAE & $V_S$ coverage & Pull-in \\
  & & & (km s$^{-1}$) & (km s$^{-1}$) & & \\
 \midrule
 DI-Strong & In-prior & 1024 & 0.086 & 0.030 & 0.660 & 0.803 \\
-DI-Strong & Boundary & 1024 & 0.372 & 0.277 & 0.250 & 0.725 \\
+DI-Strong & Near-boundary & 1024 & 0.372 & 0.277 & 0.250 & 0.725 \\
 DI-Strong & Out-of-prior & 1024 & 0.782 & 0.335 & 0.133 & 0.815 \\
 DI-Weak & In-prior & 1024 & 0.134 & 0.049 & 0.786 & 0.706 \\
-DI-Weak & Boundary & 1024 & 0.171 & 0.100 & 0.547 & 0.101 \\
+DI-Weak & Near-boundary & 1024 & 0.171 & 0.100 & 0.547 & 0.101 \\
 DI-Weak & Out-of-prior & 1024 & 0.499 & 0.262 & 0.264 & 0.318 \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
-\subsection{Baseline comparisons}
+\subsection{Common-input comparison with QEDisp and DispFormer}
 
-We use two deterministic DNN baselines, denoted DET-Strong and DET-Weak. They use the same encoder/control representation and matched training budgets as the posterior samplers, but return point estimates rather than posterior samples (Table~\ref{tab:baselines}; Fig.~\ref{fig:baselines}). They are competitive in median error: DET-Strong reaches in-prior $V_S$ MAE of 0.080 km s$^{-1}$ and DET-Weak reaches 0.127 km s$^{-1}$. Their limitation is not point-estimate accuracy, but the absence of posterior ensembles, empirical coverage and posterior calibration diagnostics. We also ran a forward-model optimisation baseline using a learned forward model (IND-FWD) on a smaller $N=128$ reference set. It returns sets of optimized models and coverage estimates, but is slower and its dispersion residuals remain larger than the direct samplers in the reported setting.
+We next compare the DI samplers with a conventional inversion and a recent deterministic neural baseline on the same reference sites. The benchmark uses 128 CSRM sites from OpenSWI-real \citep{LiuEtAl2026OpenSWI}, the same 8--60 s Rayleigh fundamental-mode phase velocities, and the same CSRM reference $V_S$ profiles for all common-input methods. QEDispInv \citep{PanEtAl2026QEDispInv} is run as a fundamental-mode Rayleigh multistart inversion. DispFormer \citep{LiuEtAl2025DispFormer} is evaluated in two ways: a phase-only run that matches the common-input information, and its method-native phase+group run, which uses additional group-velocity input and is therefore shown separately.
 
-A separate Rayleigh-only conventional inversion check was run with QEDisp/QEDispInv for the selected pseudo-pick case in the repository baseline package. With 48 starting models and 80 function evaluations, the best Rayleigh multimode fit has dispersion RMS of approximately 2.5 m s$^{-1}$, and the corresponding fundamental-mode-only check has RMS of approximately 3.0 m s$^{-1}$. Thus the traditional solver can fit this selected dispersion curve very well. This is a useful physics-based comparison, but it is a single-case check rather than a matched $N=1024$ statistical test of posterior coverage.
+The main result is that DI-Strong falls in the same point-error range as the conventional and deterministic neural baselines (Table~\ref{tab:commoninput}; Fig.~\ref{fig:commoninput}). The mean $V_S$ MAE is 0.108 km s$^{-1}$ for DI-Strong, compared with 0.104 km s$^{-1}$ for QEDisp fundamental-mode multistart inversion and 0.111 km s$^{-1}$ for DispFormer phase-only. DispFormer phase+group reaches 0.105 km s$^{-1}$ when group velocities are also supplied. DI-Weak is less accurate as a point estimator on this benchmark, with mean $V_S$ MAE of 0.138 km s$^{-1}$, but it returns broader posterior intervals. The important conclusion is therefore not that DI is more accurate than the baselines. It is that DI-Strong gives comparable point estimates while also returning posterior samples whose coverage and prior support can be checked.
 
 \begin{table*}
-\caption{Baseline diagnostic metrics. Deterministic DNN baselines are trained with matched budgets but do not produce posterior interval coverage. IND-FWD is a forward-model optimisation reference using a learned forward model, run with $N=128$ per regime; it is therefore interpreted as a limited reference rather than a final method ranking.}
-\label{tab:baselines}
+\caption{Same-site CSRM benchmark. All common-input rows use Rayleigh fundamental-mode phase velocities between 8 and 60 s on the same 128 OpenSWI-real CSRM sites. DispFormer phase+group uses additional group velocities and is therefore included as a method-native reference rather than as a strict common-input comparison.}
+\label{tab:commoninput}
 \centering
-\begin{tabular}{@{}llcccc@{}}
+\begin{tabular}{@{}p{0.30\textwidth}p{0.25\textwidth}cc@{}}
 \toprule
-Method & Regime & $N$ & $V_S$ MAE & Disp. MAE & Coverage \\
- & & & (km s$^{-1}$) & (km s$^{-1}$) & \\
+Method & Input & Mean $V_S$ MAE & Median $V_S$ MAE \\
+ & & (km s$^{-1}$) & (km s$^{-1}$) \\
 \midrule
-DET-Strong & In-prior & 1024 & 0.080 & 0.045 & -- \\
-DET-Strong & Boundary & 1024 & 0.399 & 0.307 & -- \\
-DET-Strong & Out-of-prior & 1024 & 0.831 & 0.349 & -- \\
-DET-Weak & In-prior & 1024 & 0.127 & 0.064 & -- \\
-DET-Weak & Boundary & 1024 & 0.164 & 0.135 & -- \\
-DET-Weak & Out-of-prior & 1024 & 0.429 & 0.240 & -- \\
-IND-FWD & In-prior & 128 & 0.203 & 0.240 & 0.494 \\
-IND-FWD & Boundary & 128 & 0.261 & 0.284 & 0.578 \\
-IND-FWD & Out-of-prior & 128 & 0.369 & 0.384 & 0.478 \\
+QEDisp multistart & Rayleigh phase & 0.104 & 0.100 \\
+DI-Strong & Rayleigh phase & 0.108 & 0.106 \\
+DI-Weak & Rayleigh phase & 0.138 & 0.128 \\
+DispFormer phase-only & Rayleigh phase & 0.111 & 0.108 \\
+DispFormer phase+group & Rayleigh phase + group & 0.105 & 0.101 \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
-\begin{figure}
-\includegraphics[width=\columnwidth]{figures/fair_baseline_metric_summary.pdf}
-\caption{Baseline comparison for deterministic direct inversion and the learned-forward/optimization reference. Deterministic direct inversion gives point estimates only; conditional-flow DI adds posterior samples and calibration diagnostics.}
-\figalt{Grouped bar charts comparing deterministic strong-prior, deterministic weak-prior and learned-forward optimization baselines by shear-velocity error and dispersion residual across three synthetic regimes.}
-\label{fig:baselines}
-\end{figure}
-
-\subsection{Field demonstration on subarray Rayleigh-wave dispersion}
-
-As a first field-data demonstration, we applied the matched DI-Weak sampler to subarray Rayleigh-wave dispersion picks from the Bayan Obo data set \citep{Yang2025BayanOboDataset}. The Zenodo package describes these products as subarray multichannel analysis of surface waves (MASW) results; here we use only the extracted Rayleigh phase-velocity curves. The data are used only to show how the posterior sampler behaves on real incomplete dispersion picks. We converted each curve to the same period-indexed input used by the DNN, retained the 2--40 s period window and masked the Love-wave channel because Love dispersion was not available. The 40--60 s part of the automatic picks contains a nearly flat velocity segment close to the scanning limit, so it is excluded from this conservative demonstration rather than interpreted as a deep constraint.
-
-The field run produces 64 posterior samples at every subarray centre. These local 1-D ensembles can be assembled into a pseudo-3-D velocity volume by mapping posterior medians and posterior standard deviations onto depth slices (Figs~\ref{fig:fieldmasw}--\ref{fig:fieldreference}). The mean number of retained periods is 39 per subarray. Mean posterior $V_S$ medians increase from 2.80 km s$^{-1}$ at 2 km to 3.81 km s$^{-1}$ at 20 km, then vary between 3.12 and 3.56 km s$^{-1}$ from 40 to 100 km. Mean posterior standard deviation is largest near the surface (0.458 km s$^{-1}$ at 2 km) and decreases below 60 km. Comparison against the available reference summary from the same data package gives depth-dependent spatial correlations ranging from 0.139 at 2 km to 0.881 at 40 km and mean absolute $V_S$ differences from 0.027 to 0.361 km s$^{-1}$. Because no field-specific observational-error likelihood, Love-wave field measurements or independent calibration set is available, these numbers are used as a method demonstration rather than as calibrated geological uncertainty.
-
-The depth interpretation is intentionally conservative. A 2--40 s Rayleigh-only input has limited independent sensitivity to deeper structure compared with a joint Rayleigh--Love, longer-period data set. Below the depth range directly supported by the available field dispersion picks, posterior medians and especially the decreasing posterior standard deviations are treated as prior-dominated summaries from the learned weak-prior model. We therefore do not interpret the deep slices as resolved deep mantle structure, and we do not describe the field standard deviations as field-calibrated observational uncertainty.
+The mean best-fit Rayleigh dispersion RMS for QEDisp is 0.010 km s$^{-1}$. The mean forward-modelled Rayleigh phase RMS for DispFormer is 0.048 km s$^{-1}$ in the phase-only run and 0.035 km s$^{-1}$ in the phase+group run. For DI, the additional diagnostic is posterior coverage: the mean p05--p95 pointwise $V_S$ coverage against the CSRM reference is 0.680 for DI-Strong and 0.856 for DI-Weak.
 
 \begin{figure*}
-\includegraphics[width=0.48\textwidth]{figures/fair_field_dispersion_qc.pdf}
-\hfill
-\includegraphics[width=0.48\textwidth]{figures/fair_field_summary_vs_depth.pdf}
-\caption{Field demonstration using Bayan Obo subarray Rayleigh-wave dispersion picks \citep{Yang2025BayanOboDataset}. The fair weak-prior checkpoint is applied to 150 Rayleigh-only subarrays using 64 posterior samples and 24 Euler integration steps. Panels show dispersion quality control and depth summaries of posterior-median $V_S$, posterior standard deviation and comparison against the available reference summary.}
-\figalt{Two field-summary panels showing quality control for Rayleigh-only dispersion picks and depth trends in posterior median shear velocity, posterior standard deviation and reference-model differences for 150 Bayan Obo subarrays.}
-\label{fig:fieldmasw}
+\includegraphics[width=\textwidth]{figures/fig05_common_input_benchmark.pdf}
+\caption{Same-site CSRM common-input benchmark. (a) Distribution of $V_S$ MAE relative to the CSRM reference profile for QEDisp fundamental-mode multistart inversion, DI-Strong, DI-Weak, DispFormer phase-only and DispFormer phase+group. The first four methods use the same Rayleigh phase-velocity input; DispFormer phase+group uses additional group-velocity input and is shaded separately. (b) Empirical pointwise coverage of the CSRM reference profile by the DI p05--p95 posterior band. The dotted line marks the nominal 0.90 level.}
+\figalt{Two-panel benchmark figure showing box-and-strip distributions of shear-velocity error for QEDisp, DI-Strong, DI-Weak and DispFormer on the same CSRM sites, plus posterior coverage for the two DI samplers.}
+\label{fig:commoninput}
 \end{figure*}
+
+Representative site-level checks are shown in Fig.~\ref{fig:commonqc}. The dispersion panels show that several methods can match the Rayleigh phase observations closely even when their $V_S$ profiles differ at depth. This is expected for a non-unique surface-wave inverse problem and is the practical reason for reporting posterior ensembles rather than only a preferred profile.
 
 \begin{figure*}
-\includegraphics[width=0.48\textwidth]{figures/fair_field_vs_median_slices.pdf}
-\hfill
-\includegraphics[width=0.48\textwidth]{figures/fair_field_vs_std_slices.pdf}
-\caption{Pseudo-3-D field posterior summaries from the fair weak-prior checkpoint. Panels show posterior-median $V_S$ slices and posterior-standard-deviation slices. Because the benchmark has no field-specific observational-error likelihood and no Love-wave field measurements, posterior medians and posterior standard deviations are interpreted as outputs of the trained synthetic model rather than field-calibrated uncertainty or a calibrated geological model.}
-\figalt{Map slices of posterior median shear velocity and posterior shear-velocity standard deviation across the Bayan Obo subarray grid, displayed at multiple depths.}
-\label{fig:fieldmaswslices}
+\includegraphics[width=\textwidth]{figures/fig06_common_input_qc_examples.pdf}
+\caption{Representative same-site CSRM benchmark examples. Left panels show Rayleigh phase-velocity observations and forward-modelled curves from QEDisp, DI posterior medians and DispFormer predictions. Right panels show the corresponding $V_S$ profiles compared with the CSRM reference. Shaded DI bands are p05--p95 pointwise posterior intervals; the QEDisp band is its p10--p90 multistart interval. These examples are used as QC for the common-input benchmark, not as calibrated field-data posterior validation.}
+\figalt{Four-panel QC figure with two CSRM sites. Each site has a Rayleigh phase-velocity fit panel and a shear-velocity profile panel comparing QEDisp, DI-Strong, DI-Weak and DispFormer with the CSRM reference.}
+\label{fig:commonqc}
 \end{figure*}
 
-\begin{figure}
-\centering
-\includegraphics[width=0.65\columnwidth]{figures/fair_field_reference_difference.pdf}
-\caption{Depth-dependent comparison between the fair weak-prior field posterior medians and the available reference summary from the Bayan Obo data package. This comparison is a field-use diagnostic rather than an independent calibration of posterior probability.}
-\figalt{Depth series comparing the DNN field posterior-median shear velocities with the available reference summary using correlation and difference metrics.}
-\label{fig:fieldreference}
-\end{figure}
-
-\clearpage
+As an internal control, we also trained point-estimate DNN baselines with the same encoder, depth-control representation, structural priors and training budgets as the DI samplers. They reach similar in-prior point errors, for example $V_S$ MAE of 0.080 km s$^{-1}$ for the strong-prior point-estimate baseline and 0.127 km s$^{-1}$ for the weak-prior baseline. Their limitation is not point-estimate accuracy, but the absence of posterior samples, empirical interval coverage and posterior calibration diagnostics. The full internal baseline results are retained in the repository result tables rather than used as the main external comparison.
 
 \section{Discussion}
+
+\subsection{Relation to earlier probabilistic and pretrained inversions}
+
+The present work builds on earlier Bayesian and neural probabilistic inversions. Classical Monte Carlo and transdimensional methods already provide posterior samples when a likelihood, prior and parameterisation are specified. Neural probabilistic methods have also been applied to surface-wave and related geophysical inversions, including probabilistic neural networks, mixture-density networks and invertible neural networks \citep{DevileeEtAl1999,MeierEtAl2007,EarpEtAl2020,ZhangCurtis2021,KeilWassermann2023,YablokovEtAl2023}. Those studies establish that learned methods can approximate uncertain inverse solutions at much lower inference cost than repeated conventional sampling.
+
+Our emphasis is on the audit of the learned posterior. We treat it as a conditional distribution defined by a synthetic prior-predictive experiment, and then ask how that distribution should be checked. The matched DI-Strong/DI-Weak comparison tests prior support directly; the reliability curves, depth-binned coverage, rank diagnostics and posterior-temperature scaling test calibration; the missing-band and noise experiments test robustness to common observation changes; and the QEDisp/DispFormer comparison keeps point-estimate performance in view. This framing is deliberately narrower than recent pretrained or variable-period approaches such as DispFormer, but it addresses a different need: making learned posterior probabilities auditable before they are used as geophysical uncertainty.
 
 \subsection{Meaning of DNN posterior probability}
 
@@ -372,11 +355,11 @@ The scalar temperature diagnostic is a simple empirical correction of posterior 
 
 The same caution applies to posterior-predictive residuals. A posterior draw can be forward-modelled to test whether it reproduces observed dispersion, but the interpretation of residuals depends on the observational error model. Without it, a small residual is only consistency with the encoded observation vector, not proof of a unique or calibrated Earth model.
 
-\subsection{Prior support as a reliability audit}
+\subsection{Prior support as a reliability check}
 
-The prior-support diagnostic shows how a learned posterior can fail outside the support of its training distribution. Strong-prior boundary collapse is not merely an architecture failure. It is the expected result of training a fast sampler under a restricted prior. The weak-prior comparison confirms this interpretation: changing the prior changes posterior behaviour in the predicted direction.
+The prior-support diagnostic shows how a learned posterior can fail outside the support of its training distribution. Strong-prior near-boundary collapse is not merely an architecture failure. It is the expected result of training a fast sampler under a restricted prior. The weak-prior comparison confirms this interpretation: changing the prior changes posterior behaviour in the predicted direction.
 
-The correct message is not that weak priors are always better. A weak prior is useful when structural support is uncertain, because it is less likely to exclude plausible models before seeing the data. Geology-guided priors are valuable when they are independently justified by mapping, boreholes, receiver functions, active-source constraints or preliminary inversions. The strong prior used here is therefore not an artificial negative control; it is a useful production-scale architecture and calibration baseline within its own prior support. The audit demonstrates that prior support must be explicit, tested and calibrated.
+The correct message is not that weak priors are always better. A weak prior is useful when structural support is uncertain, because it is less likely to exclude plausible models before seeing the data. Geology-guided priors are valuable when they are independently justified by mapping, boreholes, receiver functions, active-source constraints or preliminary inversions. The strong prior used here is therefore not an artificial negative control; it is a useful production-scale architecture and calibration baseline within its own prior support. The comparison demonstrates that prior support must be explicit, tested and calibrated.
 
 \subsection{Parameterisation and prior design}
 
@@ -386,21 +369,23 @@ Explicit geological parameterisations can improve recovery of interfaces, faults
 
 \subsection{Implications for field or regional use}
 
-Many practical studies assemble local or path-averaged 1-D inversions into maps or 3-D volumes. Repeated local prior-boundary bias can therefore become a coherent regional artefact, such as clipped Moho depth, suppressed low-velocity-zone amplitude or overly prior-typical upper-mantle $V_S$. A DNN posterior inversion should therefore be used with prior-support diagnostics, posterior-predictive checks, calibration sets and transparent reporting of the synthetic prior. The speed of the trained sampler is most valuable when paired with these checks, because thousands of local posterior ensembles can be generated and audited quickly.
+Many practical studies assemble local or path-averaged 1-D inversions into maps or 3-D volumes. Repeated near-boundary prior bias can therefore become a coherent regional artefact, such as clipped Moho depth, suppressed low-velocity-zone amplitude or overly prior-typical upper-mantle $V_S$. A DNN posterior inversion should therefore be used with prior-support diagnostics, posterior-predictive checks, calibration sets and transparent reporting of the synthetic prior. The speed of the trained sampler is most valuable when paired with these checks, because thousands of local posterior ensembles can be generated and checked quickly.
 
 \subsection{Limitations and future work}
 
-The present fair comparison removes the training-budget difference between DI-Strong and DI-Weak, but it is still a single-seed synthetic benchmark. The reported checks include bootstrap intervals, depth-binned coverage, reliability curves, rank/PIT diagnostics, missing-band tests, additive-noise sensitivity, posterior-predictive dispersion residuals, deterministic DNN baselines, a learned-forward optimisation reference, sample-count/ODE-step sensitivity checks and a Rayleigh-only field demonstration. Remaining field-facing work includes multiple random seeds, noise-aware or likelihood-aware training, a field-specific observational-error model and a matched test-set comparison with conventional physics-based inversion. These additions would strengthen the same central message: DNN posterior estimates should be sampled, calibrated and audited rather than treated as unchecked point predictions.
+The present fair comparison removes the training-budget difference between DI-Strong and DI-Weak, but it is still a single-seed synthetic benchmark. The reported checks include bootstrap intervals, depth-binned coverage, reliability curves, rank/PIT diagnostics, missing-band tests, additive-noise sensitivity, posterior-predictive dispersion residuals, deterministic DNN baselines, sampling-step sensitivity checks and a same-site CSRM comparison with QEDisp and DispFormer. They do not include a calibrated field-data posterior validation. Field-facing extensions should add multiple random seeds, noise-aware or likelihood-aware training, a field-specific observational-error model, period bands matched to the target observations and independent calibration or reference constraints. These additions would extend the same central message: DNN posterior estimates should be sampled, calibrated and audited rather than treated as unchecked point predictions.
 
 \section{Conclusions}
 
-We formulated surface-wave dispersion inversion as probabilistic direct inversion using a depth-controlled conditional rectified flow. The main methodological result is that a network trained on synthetic model--dispersion pairs can sample $q_\theta({\bf m}|{\bf d})$ for the stated synthetic inversion problem. The sampled ensemble provides posterior medians, pointwise 16--84 per cent intervals, posterior density views and depth-dependent uncertainty summaries, rather than only a deterministic inverse model.
+We formulated surface-wave dispersion inversion as probabilistic direct inversion using a depth-controlled conditional rectified flow. The main methodological result is an audited learned posterior sampler: a network trained on synthetic model--dispersion pairs can sample $q_\theta({\bf m}|{\bf d})$ for the stated synthetic inversion problem, and the resulting ensemble can be checked with posterior-predictive residuals, empirical coverage, calibration diagnostics and prior-support tests.
 
 The matched production runs test the architecture, depth-control basis and calibration diagnostics under two structural priors. On the in-prior diagnostic, DI-Strong reaches $V_S$ MAE of 0.086 km s$^{-1}$ and mean 16--84 per cent pointwise coverage of 0.638, while DI-Weak reaches 0.134 km s$^{-1}$ and 0.577. Empirical coverage, missing-band stress tests, additive-noise sensitivity and posterior-temperature scaling provide practical diagnostics for uncertainty calibration, while also showing that raw DNN interval widths should not be accepted without checking.
 
-Applied to Bayan Obo subarray Rayleigh-wave dispersion picks, the same sampler generates local posterior ensembles that can be assembled into pseudo-3-D $V_S$ median and posterior-standard-deviation slices. This field example shows that the trained sampler can be applied to real Rayleigh-wave dispersion measurements, but it remains Rayleigh-only and uncalibrated with respect to field observational errors.
+On the same-site CSRM common-input benchmark, DI-Strong reaches mean $V_S$ MAE of 0.108 km s$^{-1}$ using Rayleigh phase velocities alone, comparable to QEDisp fundamental-mode multistart inversion (0.104 km s$^{-1}$) and DispFormer phase-only prediction (0.111 km s$^{-1}$). DispFormer phase+group reaches 0.105 km s$^{-1}$ when group velocities are also supplied. This comparison supports a conservative claim: the proposed sampler is competitive as a point estimator, but its main value is the posterior ensemble and the ability to audit coverage, prior support and posterior-predictive consistency.
 
-The prior-boundary experiment shows that posterior uncertainty must be interpreted under the training prior. In the matched $N=1024$ diagnostic, DI-Weak reduces boundary and out-of-prior $V_S$ errors to 0.171 and 0.499 km s$^{-1}$ and lowers pull-in fractions relative to the strong-prior control. DI-Strong remains more accurate inside its own training prior, with in-prior $V_S$ MAE of 0.086 km s$^{-1}$ compared with 0.134 km s$^{-1}$ for DI-Weak, but it degrades to 0.372 km s$^{-1}$ at the boundary and 0.782 km s$^{-1}$ out of prior. This is a prior-support reliability audit, not a general ranking of priors. Field use requires explicit observational-error modelling, empirical calibration and prior-support auditing.
+The prior-boundary experiment shows that posterior uncertainty must be interpreted under the training prior. In the matched $N=1024$ diagnostic, DI-Weak reduces near-boundary and out-of-prior $V_S$ errors to 0.171 and 0.499 km s$^{-1}$ and lowers pull-in fractions relative to the strong-prior control. DI-Strong remains more accurate inside its own training prior, with in-prior $V_S$ MAE of 0.086 km s$^{-1}$ compared with 0.134 km s$^{-1}$ for DI-Weak, but it degrades to 0.372 km s$^{-1}$ near the boundary and 0.782 km s$^{-1}$ out of prior. This is a test of training-prior support, not a general ranking of priors. Field use requires explicit observational-error modelling, empirical calibration and prior-support checks.
+
+The current sampler is therefore a controlled probabilistic inversion framework rather than a general-purpose surface-wave foundation model. Future work should extend the same posterior-audit philosophy to variable-period inputs, broader wave-type combinations, field-specific error models, matched-period field calibration data and independently justified geological constraints.
 
 \section*{Acknowledgments}
 
@@ -416,7 +401,7 @@ The authors declare no competing interests.
 
 \begin{dataavailability}
 \noindent\textbf{Data Availability and Software Availability.}
-The Bayan Obo field dispersion data used for the field demonstration are available from Zenodo \citep{Yang2025BayanOboDataset}. The code, synthetic-data generators, configs, random seeds, plotting scripts, evaluation CSV/JSON outputs and manuscript build commands used for this version are available in the project repository at \url{https://github.com/cangyeone/SurfFlow}. Checkpoint identifiers, training metadata and exact evaluation commands are recorded in the repository README files and result-table protocols. Because GitHub is not used here for large binary files, model weights and large diagnostic arrays need to be supplied through a separate archive for final submission, or regenerated from the recorded training commands.
+The code, synthetic-data generators, configs, random seeds, plotting scripts, evaluation CSV/JSON outputs and manuscript build commands used for this version are available in the project repository at \url{https://github.com/cangyeone/SurfFlow}. The CSRM same-site benchmark uses the OpenSWI-real data product \citep{LiuEtAl2026OpenSWI}. External baseline calculations use QEDispInv \citep{PanEtAl2026QEDispInv} and DispFormer \citep{LiuEtAl2025DispFormer}; the wrapper scripts and extracted benchmark tables used for the comparisons are archived with the SurfFlow result files. Checkpoint identifiers, training metadata and exact evaluation commands are recorded in the repository README files and result-table protocols. Because GitHub is not used here for large binary files, model weights and large diagnostic arrays need to be supplied through a separate archive for final submission, or regenerated from the recorded training commands.
 \end{dataavailability}
 
 \clearpage
@@ -510,10 +495,10 @@ Loss function & SmoothL1 rectified-flow velocity loss plus a one-step reconstruc
 Strong-prior training & Trained from scratch with 100000 synthetic profiles, 2048 validation profiles, batch size 64, 24 scheduled epochs and seed 642026. The selected checkpoint is the best-validation checkpoint. \\
 Weak-prior training & Trained from scratch with the same architecture, optimizer, learning-rate schedule, batch size, train/validation sizes, epochs, loss weights, mask augmentation and seed as DI-Strong. The only intended difference is the structural prior generator. The selected checkpoint is the best-validation checkpoint. \\
 Optimisation & AdamW with cosine learning-rate scheduling and gradient clipping in the repository training script. Optimiser hyperparameters are listed in the repository metadata. \\
-Posterior sampling & Synthetic posterior summaries use 64 samples and 24 Euler integration steps. The Bayan Obo field demonstration also uses 64 posterior samples per subarray and 24 Euler integration steps. \\
+Posterior sampling & Synthetic posterior summaries use 64 samples and 24 Euler integration steps. \\
 Evaluation sizes & The matched DI comparison uses $N=1024$ examples per in-prior, boundary and out-of-prior regime. The prior envelope uses $N=10000$. The missing-band and additive-noise diagnostics use $N=1024$. The deterministic DNN baselines use $N=1024$ per regime; the learned-forward optimisation baseline uses a smaller $N=128$ reference set. \\
 Calibration & Scalar posterior-temperature scaling is fitted on 1024 calibration examples and evaluated on 1024 held-out examples for each method and regime. Reliability curves, rank diagnostics and depth-binned coverage are exported in the production result archive. Bootstrap intervals use 2000 resamples for the matched DI comparison tables. \\
-Field demonstration & Bayan Obo subarray Rayleigh-wave dispersion data are available at \url{https://doi.org/10.5281/zenodo.17292491}. The demonstration uses 150 subarray centres, masks the Love-wave channel, restricts periods to 2--40 s and excludes the 40--60 s segment because the automatic picks show a nearly flat segment close to the scanning limit. \\
+Field-facing scope & No calibrated field-data inversion is used as evidence in this manuscript. Field deployment requires observations whose period band matches the training/evaluation problem, an explicit observational-error model and independent calibration or reference data. \\
 \end{longtable}
 \normalsize
 
@@ -537,10 +522,10 @@ Method & Regime & Raw cov. & Scaled cov. & $\tau$ & Depth-bin range & Rank edge 
 \bottomrule
 \endfoot
 DI-Strong & In-prior & 0.631 & 0.681 & 1.11 & 0.588--0.752 & 0.201 \\
-DI-Strong & Boundary & 0.236 & 0.683 & 3.16 & 0.076--0.601 & 0.638 \\
+DI-Strong & Near-boundary & 0.236 & 0.683 & 3.16 & 0.076--0.601 & 0.638 \\
 DI-Strong & Out-of-prior & 0.138 & 0.675 & 4.58 & 0.041--0.573 & 0.799 \\
 DI-Weak & In-prior & 0.580 & 0.685 & 1.32 & 0.205--0.860 & 0.281 \\
-DI-Weak & Boundary & 0.488 & 0.679 & 1.69 & 0.336--0.719 & 0.368 \\
+DI-Weak & Near-boundary & 0.488 & 0.679 & 1.69 & 0.336--0.719 & 0.368 \\
 DI-Weak & Out-of-prior & 0.243 & 0.672 & 3.34 & 0.152--0.405 & 0.661 \\
 \end{longtable}
 \normalsize
@@ -574,18 +559,18 @@ In-prior & 64 & 48 & 0.129 & 0.586 & 0.203 & 0.048 & 12.7 \\
 In-prior & 128 & 12 & 0.128 & 0.573 & 0.191 & 0.048 & 18.3 \\
 In-prior & 128 & 24 & 0.128 & 0.583 & 0.198 & 0.049 & 23.5 \\
 In-prior & 128 & 48 & 0.128 & 0.591 & 0.202 & 0.047 & 31.2 \\
-Boundary & 16 & 12 & 0.166 & 0.438 & 0.137 & 0.096 & 2.5 \\
-Boundary & 16 & 24 & 0.166 & 0.448 & 0.141 & 0.098 & 3.0 \\
-Boundary & 16 & 48 & 0.168 & 0.462 & 0.145 & 0.099 & 3.7 \\
-Boundary & 32 & 12 & 0.165 & 0.462 & 0.139 & 0.096 & 5.5 \\
-Boundary & 32 & 24 & 0.162 & 0.477 & 0.144 & 0.096 & 6.2 \\
-Boundary & 32 & 48 & 0.166 & 0.483 & 0.149 & 0.097 & 7.4 \\
-Boundary & 64 & 12 & 0.163 & 0.476 & 0.141 & 0.095 & 11.4 \\
-Boundary & 64 & 24 & 0.164 & 0.493 & 0.147 & 0.096 & 17.0 \\
-Boundary & 64 & 48 & 0.162 & 0.497 & 0.150 & 0.097 & 14.9 \\
-Boundary & 128 & 12 & 0.161 & 0.481 & 0.142 & 0.095 & 22.1 \\
-Boundary & 128 & 24 & 0.162 & 0.496 & 0.148 & 0.096 & 25.4 \\
-Boundary & 128 & 48 & 0.162 & 0.504 & 0.150 & 0.096 & 28.4 \\
+Near-boundary & 16 & 12 & 0.166 & 0.438 & 0.137 & 0.096 & 2.5 \\
+Near-boundary & 16 & 24 & 0.166 & 0.448 & 0.141 & 0.098 & 3.0 \\
+Near-boundary & 16 & 48 & 0.168 & 0.462 & 0.145 & 0.099 & 3.7 \\
+Near-boundary & 32 & 12 & 0.165 & 0.462 & 0.139 & 0.096 & 5.5 \\
+Near-boundary & 32 & 24 & 0.162 & 0.477 & 0.144 & 0.096 & 6.2 \\
+Near-boundary & 32 & 48 & 0.166 & 0.483 & 0.149 & 0.097 & 7.4 \\
+Near-boundary & 64 & 12 & 0.163 & 0.476 & 0.141 & 0.095 & 11.4 \\
+Near-boundary & 64 & 24 & 0.164 & 0.493 & 0.147 & 0.096 & 17.0 \\
+Near-boundary & 64 & 48 & 0.162 & 0.497 & 0.150 & 0.097 & 14.9 \\
+Near-boundary & 128 & 12 & 0.161 & 0.481 & 0.142 & 0.095 & 22.1 \\
+Near-boundary & 128 & 24 & 0.162 & 0.496 & 0.148 & 0.096 & 25.4 \\
+Near-boundary & 128 & 48 & 0.162 & 0.504 & 0.150 & 0.096 & 28.4 \\
 \end{longtable}
 \normalsize
 
