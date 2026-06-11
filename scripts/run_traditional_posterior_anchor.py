@@ -39,18 +39,22 @@ matplotlib.rcParams["font.sans-serif"] = ["Arial", "DejaVu Sans"]
 matplotlib.rcParams["pdf.fonttype"] = 42
 matplotlib.rcParams["ps.fonttype"] = 42
 matplotlib.rcParams["svg.fonttype"] = "none"
-matplotlib.rcParams["font.size"] = 8.0
+matplotlib.rcParams["font.size"] = 7.0
 matplotlib.rcParams["axes.linewidth"] = 0.8
 matplotlib.rcParams["axes.spines.right"] = False
 matplotlib.rcParams["axes.spines.top"] = False
 
 import matplotlib.pyplot as plt
 import numpy as np
+import torch
 
 
 ROOT = Path(__file__).resolve().parents[1]
+EXTERNAL_CKPT = Path("/Volumes/lx_exFAT/yzy_directSWI/code_data/ckpt")
 DEFAULT_OUT_DIR = ROOT / "results" / "traditional_posterior_anchor"
 DEFAULT_FIG_DIR = ROOT / "figures" / "traditional_posterior_anchor"
+DEFAULT_STRONG_CKPT = EXTERNAL_CKPT / "fair_di_strong_full_seed642026" / "best.pt"
+DEFAULT_WEAK_CKPT = EXTERNAL_CKPT / "fair_di_weak_full_seed642026" / "best.pt"
 
 COLORS = {
     "target": "#111111",
@@ -58,6 +62,10 @@ COLORS = {
     "weak": "#d07b28",
     "best": "#58606b",
     "grid": "#e7ebf0",
+}
+DI_METHODS = {
+    "DI-Strong": {"prior": "strong", "color": COLORS["strong"]},
+    "DI-Weak": {"prior": "weak", "color": COLORS["weak"]},
 }
 REGIME_LABELS = {
     "in-prior": "In-prior",
@@ -91,6 +99,16 @@ def import_from_path(name: str, path: Path):
     sys.modules[name] = module
     spec.loader.exec_module(module)
     return module
+
+
+def choose_device(requested: str) -> torch.device:
+    if requested != "auto":
+        return torch.device(requested)
+    if torch.backends.mps.is_available():
+        return torch.device("mps")
+    if torch.cuda.is_available():
+        return torch.device("cuda")
+    return torch.device("cpu")
 
 
 def write_csv(path: Path, rows: Iterable[Dict[str, object]]) -> None:
@@ -257,6 +275,54 @@ def weighted_corr(values: np.ndarray, weights: np.ndarray) -> np.ndarray:
     return cov / np.outer(std, std)
 
 
+def sample_profile_quantiles(samples: np.ndarray, qs: Sequence[float]) -> np.ndarray:
+    return np.quantile(samples, np.asarray(qs), axis=0).astype(np.float32)
+
+
+def sample_dispersion_quantiles(
+    strong_mod,
+    samples: np.ndarray,
+    periods: np.ndarray,
+    max_samples: int,
+) -> Tuple[np.ndarray, int]:
+    if max_samples == 0:
+        return np.full((5, 2, len(periods)), np.nan, dtype=np.float32), 0
+    if len(samples) == 0:
+        return np.full((5, 2, len(periods)), np.nan, dtype=np.float32), 0
+    if max_samples > 0 and len(samples) > max_samples:
+        idx = np.linspace(0, len(samples) - 1, max_samples, dtype=int)
+        use_samples = samples[idx]
+    else:
+        use_samples = samples
+    depth = np.arange(samples.shape[-1], dtype=np.float32) * 0.5
+    pred_disp = []
+    for profile in use_samples:
+        try:
+            pred_disp.append(compute_dispersion(strong_mod, depth, profile[0], profile[1], profile[2], periods)[1:3])
+        except Exception:
+            continue
+    if not pred_disp:
+        return np.full((5, 2, len(periods)), np.nan, dtype=np.float32), 0
+    return np.quantile(np.stack(pred_disp), (0.05, 0.16, 0.50, 0.84, 0.95), axis=0).astype(np.float32), len(pred_disp)
+
+
+def metric_from_profile_qs(qs: np.ndarray, target: np.ndarray) -> Dict[str, float]:
+    median = qs[2]
+    err_vs = median[1] - target[1]
+    p05, p95 = qs[0, 1], qs[4, 1]
+    p16, p84 = qs[1, 1], qs[3, 1]
+    target_in_90 = (target[1] >= p05) & (target[1] <= p95)
+    target_in_68 = (target[1] >= p16) & (target[1] <= p84)
+    return {
+        "median_vs_mae_km_s": float(np.mean(np.abs(err_vs))),
+        "median_vs_rmse_km_s": float(np.sqrt(np.mean(err_vs**2))),
+        "vs_p05_p95_coverage": float(target_in_90.mean()),
+        "vs_p16_p84_coverage": float(target_in_68.mean()),
+        "mean_vs_p05_p95_width_km_s": float(np.mean(p95 - p05)),
+        "mean_vs_p16_p84_width_km_s": float(np.mean(p84 - p16)),
+    }
+
+
 def posterior_weights(bank: CandidateBank, case: Case, args: argparse.Namespace) -> Tuple[np.ndarray, np.ndarray, float, str]:
     logw, residual_obs = log_weights(bank, case, args.sigma_c)
     rms = np.sqrt(np.mean(residual_obs**2, axis=1))
@@ -285,12 +351,6 @@ def summarize_case(bank: CandidateBank, case: Case, args: argparse.Namespace) ->
     best_idx = int(np.argmax(weights))
     qs = weighted_profile_quantiles(bank.models, weights, (0.05, 0.16, 0.50, 0.84, 0.95))
     disp_qs = weighted_disp_quantiles(bank.disp, weights, (0.05, 0.16, 0.50, 0.84, 0.95))
-    median = qs[2]
-    err_vs = median[1] - case.target[1]
-    p05, p95 = qs[0, 1], qs[4, 1]
-    p16, p84 = qs[1, 1], qs[3, 1]
-    target_in_90 = (case.target[1] >= p05) & (case.target[1] <= p95)
-    target_in_68 = (case.target[1] >= p16) & (case.target[1] <= p84)
     best_resid = residual_obs[best_idx]
     key_depths = np.asarray(args.correlation_depths_km, dtype=float)
     depth = np.arange(case.target.shape[-1], dtype=np.float32) * 0.5
@@ -298,6 +358,9 @@ def summarize_case(bank: CandidateBank, case: Case, args: argparse.Namespace) ->
     corr = weighted_corr(bank.models[:, 1, key_idx], weights)
     row: Dict[str, object] = {
         "prior": bank.prior,
+        "reference_prior": bank.prior,
+        "method": f"ABC-{bank.prior.capitalize()}",
+        "posterior_family": "traditional_abc",
         "regime": case.regime,
         "case_index": case.case_index,
         "n_prior_draws": int(len(weights)),
@@ -308,14 +371,9 @@ def summarize_case(bank: CandidateBank, case: Case, args: argparse.Namespace) ->
         "ess": float(ess),
         "ess_fraction": float(ess / len(weights)),
         "best_disp_rms_km_s": float(np.sqrt(np.mean(best_resid**2))),
-        "median_vs_mae_km_s": float(np.mean(np.abs(err_vs))),
-        "median_vs_rmse_km_s": float(np.sqrt(np.mean(err_vs**2))),
-        "vs_p05_p95_coverage": float(target_in_90.mean()),
-        "vs_p16_p84_coverage": float(target_in_68.mean()),
-        "mean_vs_p05_p95_width_km_s": float(np.mean(p95 - p05)),
-        "mean_vs_p16_p84_width_km_s": float(np.mean(p84 - p16)),
         "candidate_runtime_s": float(bank.runtime_s),
     }
+    row.update(metric_from_profile_qs(qs, case.target))
     diag = {
         "weights": weights.astype(np.float32),
         "target": case.target.astype(np.float32),
@@ -331,6 +389,61 @@ def summarize_case(bank: CandidateBank, case: Case, args: argparse.Namespace) ->
     return row, diag
 
 
+def summarize_di_case(
+    method: str,
+    prior: str,
+    samples: np.ndarray,
+    case: Case,
+    strong_mod,
+    args: argparse.Namespace,
+    reference_diag: Dict[str, np.ndarray] | None,
+    runtime_s: float,
+) -> Tuple[Dict[str, object], Dict[str, np.ndarray]]:
+    qs = sample_profile_quantiles(samples, (0.05, 0.16, 0.50, 0.84, 0.95))
+    disp_qs, n_valid_disp = sample_dispersion_quantiles(
+        strong_mod,
+        samples,
+        case.disp[0],
+        max_samples=args.di_forward_max_samples,
+    )
+    row: Dict[str, object] = {
+        "prior": prior,
+        "reference_prior": prior,
+        "method": method,
+        "posterior_family": "learned_flow",
+        "regime": case.regime,
+        "case_index": case.case_index,
+        "input_mode": args.input_mode,
+        "n_posterior_samples": int(len(samples)),
+        "sampling_steps": int(args.di_steps),
+        "runtime_s": float(runtime_s),
+        "posterior_predictive_valid_samples": int(n_valid_disp),
+    }
+    row.update(metric_from_profile_qs(qs, case.target))
+    if reference_diag is not None:
+        abc_qs = reference_diag["profile_qs"]
+        abc_vs_width = np.maximum(abc_qs[4, 1] - abc_qs[0, 1], 1e-6)
+        di_vs_width = qs[4, 1] - qs[0, 1]
+        row.update(
+            {
+                "vs_median_absdiff_to_abc_km_s": float(np.mean(np.abs(qs[2, 1] - abc_qs[2, 1]))),
+                "vs_p05_p50_p95_absdiff_to_abc_km_s": float(
+                    np.mean(np.abs(qs[[0, 2, 4], 1] - abc_qs[[0, 2, 4], 1]))
+                ),
+                "vs_p05_p95_width_ratio_to_abc": float(np.mean(di_vs_width / abc_vs_width)),
+            }
+        )
+    diag = {
+        "target": case.target.astype(np.float32),
+        "disp": case.disp.astype(np.float32),
+        "mask": case.mask.astype(np.float32),
+        "profile_qs": qs.astype(np.float32),
+        "disp_qs": disp_qs.astype(np.float32),
+        "median_model": qs[2].astype(np.float32),
+    }
+    return row, diag
+
+
 def style(ax) -> None:
     ax.grid(color=COLORS["grid"], lw=0.55)
     ax.tick_params(direction="out", length=3.0, width=0.7, pad=2)
@@ -339,11 +452,16 @@ def style(ax) -> None:
         spine.set_color("0.25")
 
 
-def draw_case_figure(case: Case, prior_diags: Dict[str, Dict[str, np.ndarray]], args: argparse.Namespace) -> Path:
+def draw_case_figure(
+    case: Case,
+    prior_diags: Dict[str, Dict[str, np.ndarray]],
+    di_diags: Dict[str, Dict[str, np.ndarray]],
+    args: argparse.Namespace,
+) -> Path:
     depth = np.arange(case.target.shape[-1], dtype=np.float32) * 0.5
     period = case.disp[0]
-    fig, axes = plt.subplots(1, 3, figsize=(7.1, 2.45), gridspec_kw={"width_ratios": [1.1, 1.0, 0.85]})
-    fig.subplots_adjust(left=0.075, right=0.985, bottom=0.21, top=0.82, wspace=0.38)
+    fig, axes = plt.subplots(1, 3, figsize=(7.1, 2.55), gridspec_kw={"width_ratios": [1.1, 1.0, 0.85]})
+    fig.subplots_adjust(left=0.075, right=0.985, bottom=0.22, top=0.80, wspace=0.36)
     ax = axes[0]
     obs_ray = case.mask[1] > 0.5
     obs_love = case.mask[2] > 0.5
@@ -357,15 +475,24 @@ def draw_case_figure(case: Case, prior_diags: Dict[str, Dict[str, np.ndarray]], 
         ray = q[:, 0]
         if np.any(obs_ray):
             ax.fill_between(period, ray[0], ray[4], color=color, alpha=0.12, lw=0)
-            ax.plot(period, ray[2], color=color, lw=1.25, label=f"{prior} Rayleigh")
+            ax.plot(period, ray[2], color=color, lw=1.25, label=f"ABC-{prior} R")
         if np.any(obs_love):
             love = q[:, 1]
             ax.fill_between(period, love[0], love[4], color=color, alpha=0.06, lw=0)
-            ax.plot(period, love[2], color=color, lw=1.05, ls="--", label=f"{prior} Love")
+            ax.plot(period, love[2], color=color, lw=1.05, ls="--", label=f"ABC-{prior} L")
+    for method, diag in di_diags.items():
+        color = DI_METHODS[method]["color"]
+        q = diag["disp_qs"]
+        if np.all(~np.isfinite(q)):
+            continue
+        if np.any(obs_ray):
+            ax.plot(period, q[2, 0], color=color, lw=1.15, ls=(0, (2.4, 1.5)), label=f"{method} R")
+        if np.any(obs_love):
+            ax.plot(period, q[2, 1], color=color, lw=1.0, ls=(0, (1.0, 1.3)), label=f"{method} L")
     ax.set_xlabel("Period (s)")
     ax.set_ylabel("$c$ (km/s)")
-    ax.set_title("Posterior predictive", loc="left", fontsize=8.5, fontweight="bold")
-    ax.legend(frameon=False, fontsize=6.8, loc="lower right")
+    ax.set_title("Reference posterior predictive", loc="left", fontsize=8.0, fontweight="bold")
+    ax.legend(frameon=False, fontsize=5.5, loc="lower right", ncol=2, handlelength=1.5, columnspacing=0.7)
     style(ax)
 
     ax = axes[1]
@@ -374,38 +501,119 @@ def draw_case_figure(case: Case, prior_diags: Dict[str, Dict[str, np.ndarray]], 
         color = COLORS[prior]
         q = diag["profile_qs"][:, 1]
         ax.fill_betweenx(depth, q[0], q[4], color=color, alpha=0.15, lw=0)
-        ax.plot(q[2], depth, color=color, lw=1.3, label=f"{prior} median")
+        ax.plot(q[2], depth, color=color, lw=1.3, label=f"ABC-{prior}")
+    for method, diag in di_diags.items():
+        color = DI_METHODS[method]["color"]
+        q = diag["profile_qs"][:, 1]
+        ax.fill_betweenx(depth, q[0], q[4], color=color, alpha=0.055, lw=0)
+        ax.plot(q[2], depth, color=color, lw=1.15, ls=(0, (2.4, 1.5)), label=method)
     ax.set_ylim(120, 0)
     ax.set_xlabel("$V_S$ (km/s)")
     ax.set_ylabel("Depth (km)")
-    ax.set_title("$V_S$ marginal posterior", loc="left", fontsize=8.5, fontweight="bold")
-    ax.legend(frameon=False, fontsize=6.8, loc="lower left")
+    ax.set_title("$V_S$ marginal posterior", loc="left", fontsize=8.0, fontweight="bold")
+    ax.legend(frameon=False, fontsize=5.7, loc="lower left", handlelength=1.6)
     style(ax)
 
     ax = axes[2]
-    prior = "weak" if "weak" in prior_diags else next(iter(prior_diags))
-    corr = prior_diags[prior]["vs_corr"]
-    im = ax.imshow(corr, vmin=-1, vmax=1, cmap="coolwarm", origin="lower")
-    ticks = np.arange(len(args.correlation_depths_km))
-    labels = [f"{d:g}" for d in args.correlation_depths_km]
-    ax.set_xticks(ticks)
-    ax.set_yticks(ticks)
-    ax.set_xticklabels(labels)
-    ax.set_yticklabels(labels)
-    ax.set_xlabel("Depth (km)")
-    ax.set_ylabel("Depth (km)")
-    ax.set_title(f"{prior} $V_S$ correlation", loc="left", fontsize=8.5, fontweight="bold")
-    cbar = fig.colorbar(im, ax=ax, fraction=0.055, pad=0.03)
-    cbar.ax.tick_params(labelsize=6.5, length=2)
+    labels: List[str] = []
+    maes: List[float] = []
+    widths: List[float] = []
+    colors: List[str] = []
+    hatches: List[str] = []
+    for prior, diag in prior_diags.items():
+        labels.append(f"ABC\n{prior}")
+        m = metric_from_profile_qs(diag["profile_qs"], case.target)
+        maes.append(m["median_vs_mae_km_s"])
+        widths.append(m["mean_vs_p05_p95_width_km_s"])
+        colors.append(COLORS[prior])
+        hatches.append("")
+    for method, diag in di_diags.items():
+        labels.append(method.replace("-", "\n"))
+        m = metric_from_profile_qs(diag["profile_qs"], case.target)
+        maes.append(m["median_vs_mae_km_s"])
+        widths.append(m["mean_vs_p05_p95_width_km_s"])
+        colors.append(DI_METHODS[method]["color"])
+        hatches.append("//")
+    x = np.arange(len(labels))
+    barw = 0.36
+    for i, (xv, color, hatch) in enumerate(zip(x, colors, hatches)):
+        ax.bar(xv - barw / 2, maes[i], width=barw, color=color, alpha=0.9, hatch=hatch, lw=0.0)
+        ax.bar(xv + barw / 2, widths[i], width=barw, color=color, alpha=0.28, hatch=hatch, lw=0.0)
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels, fontsize=6.2)
+    ax.set_ylabel("$V_S$ (km/s)")
+    ax.set_title("MAE and 90% width", loc="left", fontsize=8.0, fontweight="bold")
+    ax.text(0.02, 0.97, "dark: MAE\npale: p05-p95 width", transform=ax.transAxes, ha="left", va="top", fontsize=5.9)
+    style(ax)
     fig.suptitle(
-        f"{REGIME_LABELS.get(case.regime, case.regime)} case {case.case_index}: traditional posterior anchor",
+        f"{REGIME_LABELS.get(case.regime, case.regime)} case {case.case_index}: ABC posterior anchor vs DI sampler",
         x=0.075,
         ha="left",
-        fontsize=9.5,
+        fontsize=8.8,
         fontweight="bold",
     )
     args.fig_dir.mkdir(parents=True, exist_ok=True)
-    out = args.fig_dir / f"posterior_anchor_{case.regime}_case{case.case_index}_{args.input_mode}"
+    out = args.fig_dir / f"posterior_anchor_vs_di_{case.regime}_case{case.case_index}_{args.input_mode}"
+    fig.savefig(out.with_suffix(".png"), dpi=350)
+    fig.savefig(out.with_suffix(".pdf"))
+    plt.close(fig)
+    return out.with_suffix(".png")
+
+
+def plot_aggregate_summary(rows: List[Dict[str, object]], args: argparse.Namespace) -> Path:
+    args.fig_dir.mkdir(parents=True, exist_ok=True)
+    regimes = ["in-prior", "boundary", "out-of-prior"]
+    methods = ["ABC-Strong", "DI-Strong", "ABC-Weak", "DI-Weak"]
+    metrics = [
+        ("median_vs_mae_km_s", "$V_S$ median MAE (km/s)", None),
+        ("mean_vs_p05_p95_width_km_s", "mean $V_S$ p05-p95 width (km/s)", None),
+        ("vs_p05_p95_coverage", "$V_S$ p05-p95 coverage", 0.90),
+    ]
+    by_key: Dict[Tuple[str, str], List[Dict[str, object]]] = {}
+    for row in rows:
+        by_key.setdefault((str(row.get("regime")), str(row.get("method"))), []).append(row)
+
+    fig, axes = plt.subplots(1, 3, figsize=(7.1, 2.42))
+    fig.subplots_adjust(left=0.075, right=0.985, bottom=0.25, top=0.80, wspace=0.32)
+    x = np.arange(len(regimes))
+    width = 0.18
+    offsets = np.linspace(-1.5 * width, 1.5 * width, len(methods))
+    for ax, (metric, ylabel, target_line) in zip(axes, metrics):
+        for offset, method in zip(offsets, methods):
+            vals = []
+            for regime in regimes:
+                group = by_key.get((regime, method), [])
+                if group:
+                    vals.append(float(np.mean([float(g[metric]) for g in group if g.get(metric, "") != ""])))
+                else:
+                    vals.append(np.nan)
+            prior = "strong" if "Strong" in method else "weak"
+            color = COLORS[prior]
+            ax.bar(
+                x + offset,
+                vals,
+                width=width * 0.94,
+                color=color,
+                alpha=0.86 if method.startswith("ABC") else 0.54,
+                hatch="" if method.startswith("ABC") else "//",
+                lw=0.0,
+                label=method,
+            )
+        if target_line is not None:
+            ax.axhline(target_line, color="0.25", ls=":", lw=0.9)
+        ax.set_xticks(x)
+        ax.set_xticklabels([REGIME_LABELS[r] for r in regimes], rotation=18, ha="right")
+        ax.set_ylabel(ylabel)
+        style(ax)
+    axes[0].legend(frameon=False, fontsize=5.8, loc="upper left", ncol=2, handlelength=1.2, columnspacing=0.7)
+    fig.suptitle(
+        "Traditional ABC posterior anchor and learned DI posterior samples",
+        x=0.075,
+        ha="left",
+        fontsize=8.8,
+        fontweight="bold",
+    )
+    out = args.fig_dir / f"posterior_anchor_vs_di_summary_{args.input_mode}"
     fig.savefig(out.with_suffix(".png"), dpi=350)
     fig.savefig(out.with_suffix(".pdf"))
     plt.close(fig)
@@ -416,6 +624,20 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out-dir", type=Path, default=DEFAULT_OUT_DIR)
     parser.add_argument("--fig-dir", type=Path, default=DEFAULT_FIG_DIR)
+    parser.add_argument("--include-di", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--strong-ckpt", type=Path, default=DEFAULT_STRONG_CKPT)
+    parser.add_argument("--weak-ckpt", type=Path, default=DEFAULT_WEAK_CKPT)
+    parser.add_argument("--di-methods", default="DI-Strong,DI-Weak")
+    parser.add_argument("--di-samples", type=int, default=64)
+    parser.add_argument("--di-steps", type=int, default=24)
+    parser.add_argument("--di-batch-size", type=int, default=8)
+    parser.add_argument(
+        "--di-forward-max-samples",
+        type=int,
+        default=32,
+        help="Maximum DI posterior samples to forward model for posterior-predictive bands; 0 skips this expensive step.",
+    )
+    parser.add_argument("--device", default="auto")
     parser.add_argument("--n-prior-draws", type=int, default=2048)
     parser.add_argument("--cases-per-regime", type=int, default=1)
     parser.add_argument("--priors", default="strong,weak", help="Comma-separated reference priors: strong,weak")
@@ -441,6 +663,8 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    np.random.seed(args.seed)
+    torch.manual_seed(args.seed)
     args.out_dir.mkdir(parents=True, exist_ok=True)
     args.fig_dir.mkdir(parents=True, exist_ok=True)
     strong_mod = import_from_path("surf_anchor_strong_prior", ROOT / "utils" / "generate_data.py")
@@ -451,6 +675,11 @@ def main() -> None:
     for prior in priors:
         if prior not in {"strong", "weak"}:
             raise ValueError(f"Unknown prior in --priors: {prior}")
+    di_methods = [m.strip() for m in args.di_methods.split(",") if m.strip()]
+    for method in di_methods:
+        if method not in DI_METHODS:
+            raise ValueError(f"Unknown DI method in --di-methods: {method}")
+    device = choose_device(args.device)
 
     print("[info] generating target cases")
     cases = make_cases(boundary_mod, strong_mod, args)
@@ -458,6 +687,18 @@ def main() -> None:
     for prior in priors:
         print(f"[info] building {prior} prior candidate bank: n={args.n_prior_draws}")
         banks[prior] = build_candidate_bank(prior, strong_mod, weak_mod, args)
+    di_models = {}
+    if args.include_di:
+        ckpts = {"DI-Strong": args.strong_ckpt, "DI-Weak": args.weak_ckpt}
+        for method in di_methods:
+            ckpt = ckpts[method]
+            if not ckpt.exists():
+                raise FileNotFoundError(ckpt)
+            print(f"[info] loading {method}: {ckpt}")
+            model, _cfg = boundary_mod.load_direct_model(ROOT / "disp_inv_train.v1.3.py", ckpt, device)
+            if model is None:
+                raise RuntimeError(f"Could not load {method} from {ckpt}")
+            di_models[method] = model
 
     rows: List[Dict[str, object]] = []
     npz_payload: Dict[str, np.ndarray] = {}
@@ -471,7 +712,39 @@ def main() -> None:
             prefix = f"{case.regime}_case{case.case_index}_{prior}".replace("-", "_")
             for key, value in diag.items():
                 npz_payload[f"{prefix}_{key}"] = value
-        figure_paths.append(str(draw_case_figure(case, prior_diags, args)))
+        di_diags = {}
+        if args.include_di:
+            disp_batch = case.disp[None].astype(np.float32)
+            mask_batch = case.mask[None].astype(np.float32)
+            for method, model in di_models.items():
+                prior = DI_METHODS[method]["prior"]
+                tic = time.time()
+                samples = boundary_mod.direct_samples(
+                    model,
+                    disp_batch,
+                    mask_batch,
+                    device,
+                    n_samples=args.di_samples,
+                    steps=args.di_steps,
+                    batch_size=args.di_batch_size,
+                )[0]
+                row, diag = summarize_di_case(
+                    method,
+                    prior,
+                    samples,
+                    case,
+                    strong_mod,
+                    args,
+                    reference_diag=prior_diags.get(prior),
+                    runtime_s=time.time() - tic,
+                )
+                rows.append(row)
+                di_diags[method] = diag
+                prefix = f"{case.regime}_case{case.case_index}_{method}".replace("-", "_").replace("DI_", "di_")
+                for key, value in diag.items():
+                    npz_payload[f"{prefix}_{key}"] = value
+        figure_paths.append(str(draw_case_figure(case, prior_diags, di_diags, args)))
+    figure_paths.append(str(plot_aggregate_summary(rows, args)))
 
     write_csv(args.out_dir / "posterior_anchor_metrics.csv", rows)
     write_json(
@@ -481,6 +754,16 @@ def main() -> None:
             "n_prior_draws": args.n_prior_draws,
             "cases_per_regime": args.cases_per_regime,
             "priors": priors,
+            "include_di": bool(args.include_di),
+            "di_methods": di_methods,
+            "di_samples": args.di_samples,
+            "di_steps": args.di_steps,
+            "di_forward_max_samples": args.di_forward_max_samples,
+            "device": str(device),
+            "checkpoints": {
+                "DI-Strong": str(args.strong_ckpt),
+                "DI-Weak": str(args.weak_ckpt),
+            },
             "input_mode": args.input_mode,
             "sigma_c_km_s": args.sigma_c,
             "abc_keep": args.abc_keep,
@@ -490,8 +773,9 @@ def main() -> None:
             "period_step": args.period_step,
             "seed": args.seed,
             "interpretation": (
-                "Prior-predictive importance-sampling posterior under the local generator, "
-                "surface-wave forward solver, mask and Gaussian phase-velocity error."
+                "Prior-predictive ABC/importance posterior under the local generator, "
+                "surface-wave forward solver, mask and Gaussian phase-velocity error, "
+                "optionally compared with SurfFlow DI posterior samples under the same observation."
             ),
             "figure_paths": figure_paths,
         },

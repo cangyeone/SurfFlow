@@ -66,6 +66,75 @@ Interpretation: the comparison supports comparable point-estimate performance
 for DI-Strong, while the main SurfFlow contribution remains posterior sampling
 and reliability checking.
 
+## Posterior Anchor and Input Ablation
+
+Two manuscript-supporting pilot experiments are now tracked in GitHub.
+
+### Traditional ABC posterior anchor vs DI posterior samples
+
+Script:
+
+```bash
+/opt/miniconda3/envs/seisloc/bin/python scripts/run_traditional_posterior_anchor.py \
+  --n-prior-draws 4096 \
+  --cases-per-regime 2 \
+  --priors strong,weak \
+  --input-mode joint \
+  --sigma-c 0.10 \
+  --abc-keep 128 \
+  --di-samples 64 \
+  --di-steps 24 \
+  --di-forward-max-samples 0 \
+  --out-dir results/traditional_posterior_anchor/joint_n4096_abc128_di64_modelonly \
+  --fig-dir figures/traditional_posterior_anchor/joint_n4096_abc128_di64_modelonly \
+  --progress-every 512
+```
+
+Tracked outputs:
+
+- `results/traditional_posterior_anchor/joint_n4096_abc128_di64_modelonly/posterior_anchor_metrics.csv`
+- `results/traditional_posterior_anchor/joint_n4096_abc128_di64_modelonly/posterior_anchor_protocol.json`
+- `figures/traditional_posterior_anchor/joint_n4096_abc128_di64_modelonly/posterior_anchor_vs_di_summary_joint.*`
+- six case-level figures under the same figure directory.
+
+The large `posterior_anchor_diagnostics.npz` file is intentionally local-only.
+
+Interpretation: this is a same-prior, same-forward prior-predictive ABC anchor,
+not a full transdimensional MCMC reference. It shows that DI median profiles are
+often more accurate than the ABC posterior median in these cases, but DI
+p05-p95 intervals are narrower than the same-prior ABC anchor. This supports
+using DI as a fast learned posterior sampler only when paired with calibration
+and prior-support audits.
+
+We do not need to download or depend on Zhang and Curtis' VIP code for this
+specific comparison. An external variational-inference package would introduce
+a different parameterisation and prior, whereas this anchor is designed to keep
+the inversion problem identical to SurfFlow.
+
+### Rayleigh/Love input-channel ablation
+
+Script:
+
+```bash
+/opt/miniconda3/envs/seisloc/bin/python scripts/run_rayleigh_love_input_ablation.py \
+  --n-test 64 \
+  --posterior-samples 32 \
+  --euler-steps 16 \
+  --batch-size 16 \
+  --methods DI-Strong,DI-Weak \
+  --out-dir results/rayleigh_love_input_ablation/n64_s32_steps16 \
+  --fig-dir figures/rayleigh_love_input_ablation/n64_s32_steps16
+```
+
+Tracked outputs:
+
+- `results/rayleigh_love_input_ablation/n64_s32_steps16/rayleigh_love_input_ablation_metrics.csv`
+- `results/rayleigh_love_input_ablation/n64_s32_steps16/rayleigh_love_input_ablation_protocol.json`
+- `figures/rayleigh_love_input_ablation/n64_s32_steps16/rayleigh_love_input_ablation.*`
+
+The current pilot shows a modest but consistent improvement from joint
+Rayleigh+Love input relative to either single-wave input.
+
 ## Large Files Not Tracked by GitHub
 
 The following products are local/archive files rather than GitHub files:
@@ -84,11 +153,10 @@ reproducibility archive before final submission.
 The next GJI-strengthening experiments should be kept separate from the current
 code-sync commit:
 
-1. A small traditional Bayesian posterior anchor for 3-6 synthetic cases.
-2. A Rayleigh-only, Love-only and Rayleigh+Love synthetic input ablation.
-3. A lightweight depth-control or smoothness-loss ablation.
-
-For the Bayesian posterior anchor, we do not need to reproduce Zhang and Curtis'
-INN implementation directly. The useful comparison is a traditional sampler run
-under our own prior, forward solver, parameterisation and noise assumption, so
-that SurfFlow and the reference posterior share the same inversion problem.
+1. Scale the posterior anchor beyond the current 2 cases/regime only if it is
+   needed for a supplement table.
+2. Re-run the Rayleigh/Love input-channel ablation at n=128, samples=64,
+   steps=24 if the ablation moves from supplement to main text.
+3. Add a lightweight depth-control or smoothness-loss ablation if reviewers are
+   likely to question whether narrow posteriors are caused by the parameter
+   basis or loss regularisation rather than the data.
