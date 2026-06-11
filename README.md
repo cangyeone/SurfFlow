@@ -93,4 +93,4 @@ are documented in:
 
 The `same_prior` directory and script names are retained for traceability to
 the exploratory runs, but the manuscript describes this experiment as a reduced
-prior-matched Bayesian reference rather than an exact same-prior full posterior.
+prior-matched Bayesian reference rather than an exact full Bayesian posterior.
