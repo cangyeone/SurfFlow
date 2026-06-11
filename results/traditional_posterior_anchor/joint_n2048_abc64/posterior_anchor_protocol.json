@@ -1,0 +1,23 @@
+{
+  "abc_keep": 64,
+  "abc_keep_fraction": 0.0,
+  "cases_per_regime": 1,
+  "created_unix_time": 1781145779.70666,
+  "figure_paths": [
+    "figures/traditional_posterior_anchor/joint_n2048_abc64/posterior_anchor_in-prior_case0_joint.png",
+    "figures/traditional_posterior_anchor/joint_n2048_abc64/posterior_anchor_boundary_case0_joint.png",
+    "figures/traditional_posterior_anchor/joint_n2048_abc64/posterior_anchor_out-of-prior_case0_joint.png"
+  ],
+  "input_mode": "joint",
+  "interpretation": "Prior-predictive importance-sampling posterior under the local generator, surface-wave forward solver, mask and Gaussian phase-velocity error.",
+  "n_prior_draws": 2048,
+  "period_max": 60.0,
+  "period_min": 2.0,
+  "period_step": 1.0,
+  "priors": [
+    "strong",
+    "weak"
+  ],
+  "seed": 20260611,
+  "sigma_c_km_s": 0.1
+}

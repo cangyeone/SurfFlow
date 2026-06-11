@@ -1,0 +1,15 @@
+{
+  "checkpoints": {
+    "DI-Strong": "/Volumes/lx_exFAT/yzy_directSWI/code_data/ckpt/fair_di_strong_full_seed642026/best.pt",
+    "DI-Weak": "/Volumes/lx_exFAT/yzy_directSWI/code_data/ckpt/fair_di_weak_full_seed642026/best.pt"
+  },
+  "created_unix_time": 1781145491.528654,
+  "device": "mps",
+  "euler_steps": 16,
+  "figure": "figures/rayleigh_love_input_ablation/n64_s32_steps16/rayleigh_love_input_ablation.png",
+  "n_test": 64,
+  "period_max": 60.0,
+  "period_min": 2.0,
+  "posterior_samples": 32,
+  "seed": 642026
+}
