@@ -240,29 +240,13 @@ Depth-binned coverage and rank diagnostics tell the same story with more spatial
 
 \subsection{Missing period bands and posterior uncertainty}
 
-The production samplers were trained with intermittent-band mask augmentation to better match incomplete dispersion picks. We evaluate the fair weak-prior checkpoint on 1024 synthetic examples using fixed and random period windows (Fig.~\ref{fig:missingband}). Reducing the mean valid fraction from 0.351 for the nominal 2--60 s mask to 0.235 for the 2--40 s window increases $V_S$ MAE from 0.164 to 0.192 km s$^{-1}$ and increases mean $V_S$ posterior spread from 0.179 to 0.206 km s$^{-1}$. The narrower 10--30 s window is more restrictive, with valid fraction 0.135, $V_S$ MAE 0.276 km s$^{-1}$ and mean $V_S$ spread 0.287 km s$^{-1}$. The random-window experiment has mean width 29.8 s, valid fraction 0.187, $V_S$ MAE 0.208 km s$^{-1}$ and mean spread 0.221 km s$^{-1}$.
+The production samplers were trained with intermittent-band mask augmentation to better match incomplete dispersion picks. We evaluate the fair weak-prior checkpoint on 1024 synthetic examples using fixed and random period windows (Appendix Fig.~\ref{fig:missingband}). Reducing the mean valid fraction from 0.351 for the nominal 2--60 s mask to 0.235 for the 2--40 s window increases $V_S$ MAE from 0.164 to 0.192 km s$^{-1}$ and increases mean $V_S$ posterior spread from 0.179 to 0.206 km s$^{-1}$. The narrower 10--30 s window is more restrictive, with valid fraction 0.135, $V_S$ MAE 0.276 km s$^{-1}$ and mean $V_S$ spread 0.287 km s$^{-1}$. The random-window experiment has mean width 29.8 s, valid fraction 0.187, $V_S$ MAE 0.208 km s$^{-1}$ and mean spread 0.221 km s$^{-1}$.
 
 The random-window examples provide an internal consistency check: valid fraction is negatively correlated with both posterior spread ($r=-0.577$) and $V_S$ MAE ($r=-0.440$). In other words, the posterior becomes broader and less accurate when less period support is available. Coverage remains below nominal but comparatively stable across the window choices, with mean 16--84 per cent coverage between 0.615 and 0.646. Missing-band augmentation therefore improves robustness to incomplete inputs, but calibration and an observational-error model remain necessary for probability claims.
 
-\begin{figure*}
-\includegraphics[width=0.48\textwidth]{figures/fair_missing_band_uncertainty.pdf}
-\hfill
-\includegraphics[width=0.48\textwidth]{figures/fair_missing_band_random_scatter.pdf}
-\caption{Effect of missing period bands on weak-prior DNN posterior inversion. Left: fixed and random period-window diagnostics for posterior-median $V_S$ error, posterior spread and coverage. Right: random-window relationships between valid period fraction, posterior spread and error.}
-\figalt{Bar charts and scatter plots showing that narrower or randomly incomplete period windows have lower valid-period fractions, larger shear-velocity errors and broader posterior spread.}
-\label{fig:missingband}
-\end{figure*}
-
 \subsection{Evaluation-time phase-velocity noise}
 
-The primary synthetic benchmark is mask-only, with no additive phase-velocity noise during training. We therefore treat additive noise as an evaluation-time sensitivity test rather than as a claim of noise-aware training (Fig.~\ref{fig:noise}). For inside-support DI-Weak, increasing Gaussian phase-velocity noise from 0 to 0.10 km s$^{-1}$ raises $V_S$ MAE from 0.133 to 0.299 km s$^{-1}$, raises mean posterior spread from 0.207 to 0.245, lowers mean raw coverage from 0.577 to 0.405 and increases the 68 per cent temperature factor from 1.336 to 2.053. DI-Strong shows the same trend, with inside-support $V_S$ MAE increasing from 0.086 to 0.199 km s$^{-1}$ and raw coverage falling from 0.638 to 0.394. This behaviour is expected: a sampler trained on a mask-only benchmark can recognise less consistent inputs through broader posterior summaries, but it has not learned a physical noise likelihood.
-
-\begin{figure}
-\includegraphics[width=\columnwidth]{figures/fair_noise_sensitivity.pdf}
-\caption{Evaluation-time additive phase-velocity noise sensitivity. Gaussian noise is added only to observed Rayleigh/Love entries; masks and period channels are unchanged. The primary training condition remains the mask-only benchmark.}
-\figalt{Line plots showing inside-support shear-velocity error, coverage, posterior standard deviation and temperature factor as additive phase-velocity noise increases from zero to 0.10 km per second.}
-\label{fig:noise}
-\end{figure}
+The primary synthetic benchmark is mask-only, with no additive phase-velocity noise during training. We therefore treat additive noise as an evaluation-time sensitivity test rather than as a claim of noise-aware training (Appendix Fig.~\ref{fig:noise}). For inside-support DI-Weak, increasing Gaussian phase-velocity noise from 0 to 0.10 km s$^{-1}$ raises $V_S$ MAE from 0.133 to 0.299 km s$^{-1}$, raises mean posterior spread from 0.207 to 0.245, lowers mean raw coverage from 0.577 to 0.405 and increases the 68 per cent temperature factor from 1.336 to 2.053. DI-Strong shows the same trend, with inside-support $V_S$ MAE increasing from 0.086 to 0.199 km s$^{-1}$ and raw coverage falling from 0.638 to 0.394. This behaviour is expected: a sampler trained on a mask-only benchmark can recognise less consistent inputs through broader posterior summaries, but it has not learned a physical noise likelihood.
 
 \subsection{Prior support and reliability}
 
@@ -526,6 +510,24 @@ Inside the synthetic support, the DI-Strong posterior medians and p05--p95 bands
 \figalt{Three shear-velocity profile panels comparing target profiles, MCMC posterior medians and intervals, DI posterior medians and intervals, and the projected prior interval for inside-support, near-edge and outside-support cases.}
 \label{fig:mcmcanchortransition}
 \end{figure*}
+
+\subsection{Missing-band and noise sensitivity diagnostics}
+
+\begin{figure*}
+\includegraphics[width=0.48\textwidth]{figures/fair_missing_band_uncertainty.pdf}
+\hfill
+\includegraphics[width=0.48\textwidth]{figures/fair_missing_band_random_scatter.pdf}
+\caption{Effect of missing period bands on weak-prior DNN posterior inversion. Left: fixed and random period-window diagnostics for posterior-median $V_S$ error, posterior spread and coverage. Right: random-window relationships between valid period fraction, posterior spread and error.}
+\figalt{Bar charts and scatter plots showing that narrower or randomly incomplete period windows have lower valid-period fractions, larger shear-velocity errors and broader posterior spread.}
+\label{fig:missingband}
+\end{figure*}
+
+\begin{figure}
+\includegraphics[width=\columnwidth]{figures/fair_noise_sensitivity.pdf}
+\caption{Evaluation-time additive phase-velocity noise sensitivity. Gaussian noise is added only to observed Rayleigh/Love entries; masks and period channels are unchanged. The primary training condition remains the mask-only benchmark.}
+\figalt{Line plots showing inside-support shear-velocity error, coverage, posterior standard deviation and temperature factor as additive phase-velocity noise increases from zero to 0.10 km per second.}
+\label{fig:noise}
+\end{figure}
 
 \subsection{Calibration and sampling-sensitivity diagnostics}
 
