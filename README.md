@@ -50,6 +50,10 @@ this GitHub package:
 - `results/qedisp_csrm_multistart/**/qedispinv.h5`
 
 These files should be placed in an external reproducibility archive if needed.
+The manuscript-specific DOI archive should follow `archive_manifest_GJI.md`,
+which lists the current manuscript source, final figure PDFs, small result
+tables/protocols, committed checkpoint metadata and large artifacts that must be
+archived outside GitHub or regenerated from the recorded commands.
 
 ## Reproduction Entry Points
 
@@ -81,8 +85,12 @@ the wrapper scripts in `scripts/` and the small CSV/JSON summaries under
 `results/openswi_csrm_transfer/`, `results/qedisp_csrm_multistart/` and
 `results/dispformer_openswi_csrm/`.
 
-The reduced same-prior MCMC posterior anchor and Rayleigh/Love input ablation
+The reduced prior-matched MCMC posterior anchor and Rayleigh/Love input ablation
 are documented in:
 
 - `docs/same_prior_mcmc_posterior_anchor_20260611.md`
 - `docs/rayleigh_love_input_ablation_20260611.md`
+
+The `same_prior` directory and script names are retained for traceability to
+the exploratory runs, but the manuscript describes this experiment as a reduced
+prior-matched Bayesian reference rather than an exact same-prior full posterior.

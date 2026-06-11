@@ -59,7 +59,7 @@ Interpretation:
 - QEDisp and DispFormer remain strong baselines.
 - The manuscript claim should be "comparable point error plus auditable posterior samples", not "best accuracy".
 
-### 3. Reduced same-prior MCMC posterior anchor
+### 3. Reduced prior-matched MCMC posterior anchor
 
 Appendix figures:
 
@@ -118,14 +118,12 @@ Main text:
 3. Fig. 3: prior-support production diagnostics.
 4. Fig. 4: calibration/reliability summary.
 5. Fig. 5: common-input QEDisp/DispFormer benchmark.
-
-Optional main or supplement:
-
-- Fig. 6 common-input QC examples. Keep in main only if the editor/reviewer needs visual proof of dispersion and model fits.
+6. Fig. 6: common-input QC examples showing dispersion and model fits.
 
 Appendix or supplement:
 
-- Reduced same-prior MCMC posterior anchor.
+- Reduced prior-matched MCMC posterior anchor.
+- Missing-band and additive-noise diagnostics.
 - Rayleigh/Love/joint input ablation.
 - Full reliability curves, rank/PIT and depth-binned tables.
 - Field-data audit or short-period interpolation warning, if retained at all.
@@ -137,5 +135,4 @@ Both local manuscript directories compile:
 - `SurfFlow/manuscript/gjilguid2e.pdf`
 - `paper-overleaf/gjilguid2e.pdf`
 
-The current compile has no undefined citations, undefined references, or missing figures. The only remaining layout warning is a tiny 0.32 pt overfull line near the observation-encoding sentence, which can be fixed in a final typography pass.
-
+The current compile has no undefined citations, undefined references, missing figures, rerun warnings or overfull lines.

@@ -18,7 +18,7 @@ samples can be generated quickly and then checked through:
 - empirical coverage and posterior-temperature diagnostics,
 - posterior-predictive dispersion residuals,
 - missing-band and noise sensitivity checks,
-- reduced same-prior MCMC posterior anchors,
+- reduced prior-matched MCMC posterior anchors,
 - common-input QEDisp/DispFormer baselines.
 
 Use qualified wording such as:
@@ -27,7 +27,7 @@ Use qualified wording such as:
 - `synthetic-distribution posterior`
 - `conditional posterior sampler`
 - `posterior samples conditioned on the prior, forward solver, mask and noise assumption`
-- `reduced same-prior MCMC reference`
+- `reduced prior-matched MCMC reference`
 
 Avoid unqualified claims that the network returns a field-calibrated Bayesian
 posterior or a general-purpose surface-wave foundation model.
@@ -51,7 +51,10 @@ export NUMBA_CACHE_DIR=/private/tmp/yzy_numba_cache
 | Fig. 3 | `manuscript/figures/fig03_direct_inversion_results_v9.pdf` | `overleaf_disp_inv_scripts/make_fig03_direct_inversion_results.py` | DI-Strong/DI-Weak production diagnostics |
 | Fig. 4 | `manuscript/figures/fig04_calibration_reliability_v4.pdf` | `overleaf_disp_inv_scripts/make_fig04_calibration_reliability.py` | Calibration/reliability summary |
 | Fig. 5 | `manuscript/figures/fig05_common_input_benchmark.pdf` | `scripts/make_gji_common_input_benchmark_figure.py` | Same-site QEDisp/DispFormer/DI benchmark |
-| Fig. 6 or supplement | `manuscript/figures/fig06_common_input_qc_examples.pdf` | `scripts/make_csrm_same_site_qc_examples.py` | Visual QC examples for common-input benchmark |
+| Fig. 6 | `manuscript/figures/fig06_common_input_qc_examples.pdf` | `scripts/make_csrm_same_site_qc_examples.py` | Visual QC examples for common-input benchmark |
+
+Missing-band and additive-noise diagnostic figures are now Appendix figures, not
+main-text figures.
 
 The current manuscript text uses the reader-facing regime labels:
 

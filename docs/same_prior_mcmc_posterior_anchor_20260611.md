@@ -19,7 +19,7 @@ The reference is not an exact full-dimensional Bayesian posterior for the origin
 - Gaussian phase-velocity error with sigma_c = 0.10 km/s
 - affine-invariant stretch-move MCMC
 
-Use the wording "reduced Bayesian reference" or "reduced same-prior MCMC reference". Do not call it the exact full Bayesian posterior.
+Use the wording "reduced Bayesian reference" or "reduced prior-matched MCMC reference". Do not call it the exact full Bayesian posterior.
 
 ## Conceptual framing
 

@@ -134,7 +134,7 @@ where $\mathcal{I}$ is a fixed differentiable interpolation operator. This basis
 
 \subsection{Conditioning encoder}
 
-The conditional input has five period-indexed channels: normalised period, normalised Rayleigh phase velocity, normalised Love phase velocity, Rayleigh mask and Love mask. A one-dimensional convolutional encoder with residual blocks maps this input to a 256-dimensional conditioning vector. The encoder sees both measured velocities and the pattern of missing observations, so the posterior sampler can represent cases with Rayleigh only, Love only, both wave types or incomplete period windows. In the present implementation these incomplete observations are represented on a fixed 2--60 s period grid. The masks emulate missing or quality-controlled picks within that grid; they should not be interpreted as unrestricted variable-period generalisation.
+The conditional input has five period-indexed channels: normalised period, Rayleigh phase velocity, Love phase velocity, and separate masks for Rayleigh and Love picks. A one-dimensional convolutional encoder with residual blocks maps this input to a 256-dimensional conditioning vector. The encoder sees both measured velocities and the pattern of missing observations, so the posterior sampler can represent cases with Rayleigh only, Love only, both wave types or incomplete period windows. In the present implementation these incomplete observations are represented on a fixed 2--60 s period grid. The masks emulate missing or quality-controlled picks within that grid; they should not be interpreted as unrestricted variable-period generalisation.
 
 \subsection{Conditional rectified flow}
 
@@ -387,7 +387,9 @@ The authors declare no competing interests.
 
 \begin{dataavailability}
 \noindent\textbf{Data Availability and Software Availability.}
-The code, synthetic-data generators, configs, random seeds, plotting scripts, evaluation CSV/JSON outputs and manuscript build commands used for this version are available in the project repository at \url{https://github.com/cangyeone/SurfFlow}. The CSRM same-site benchmark uses the OpenSWI-real data product \citep{LiuEtAl2026OpenSWI}. External baseline calculations use QEDispInv \citep{PanEtAl2026QEDispInv} and DispFormer \citep{LiuEtAl2025DispFormer}; the wrapper scripts and extracted benchmark tables used for the comparisons are archived with the SurfFlow result files. Checkpoint identifiers, training metadata and exact evaluation commands are recorded in the repository README files and result-table protocols. Because GitHub is not used here for large binary files, model weights and large diagnostic arrays need to be supplied through a separate archive for final submission, or regenerated from the recorded training commands.
+The code, synthetic-data generators, configs, random seeds, plotting scripts, evaluation CSV/JSON outputs and manuscript build commands used for this version are available in the project repository at \url{https://github.com/cangyeone/SurfFlow}. A manuscript-specific archive manifest in that repository lists the exact source files, figure PDFs, result tables, protocol files, checkpoint metadata and large artifacts required for the final DOI archive.
+
+The CSRM same-site benchmark uses the OpenSWI-real data product \citep{LiuEtAl2026OpenSWI}. External baseline calculations use QEDispInv \citep{PanEtAl2026QEDispInv} and DispFormer \citep{LiuEtAl2025DispFormer}; the wrapper scripts and extracted benchmark tables used for the comparisons are archived with the SurfFlow result files. Checkpoint identifiers, training metadata and exact evaluation commands are recorded in the repository README files and result-table protocols. Because GitHub is not used here for large binary files, model weights and large diagnostic arrays need to be supplied through the DOI archive for final submission, or regenerated from the recorded training commands.
 \end{dataavailability}
 
 \clearpage
