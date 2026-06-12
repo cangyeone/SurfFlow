@@ -210,8 +210,8 @@ def plot_temperature_factors(ax: plt.Axes, rows: list[dict[str, str]]) -> None:
     ax.set_yticklabels([])
     ax.set_xlim(0.85, 5.15)
     ax.set_xticks([1, 2, 3, 4, 5])
-    ax.set_xlabel(r"Temperature factor $\tau$", fontsize=6.4, labelpad=1.0)
-    ax.set_title("Posterior widening required", loc="left", fontsize=7.0, color=INK, pad=2.0)
+    ax.set_xlabel(r"Spread multiplier $\tau$", fontsize=6.4, labelpad=1.0)
+    ax.set_title("Posterior-spread widening", loc="left", fontsize=7.0, color=INK, pad=2.0)
     style_axis(ax)
     ax.grid(axis="x", color=GRID, lw=0.5)
 
@@ -304,7 +304,7 @@ def plot_tau_bars(ax: plt.Axes, rows: list[dict[str, str]]) -> None:
     ax.set_xticklabels([REGIME_LABELS[r] for r in REGIMES], fontsize=6.1)
     ax.set_yticks([0, 1, 2, 3, 4, 5])
     ax.set_ylabel(r"Posterior spread multiplier $\tau$", fontsize=6.4, labelpad=1.0)
-    ax.set_title("Fitted posterior widening", loc="left", fontsize=7.0, color=INK, pad=2.0)
+    ax.set_title("Fitted spread multiplier", loc="left", fontsize=7.0, color=INK, pad=2.0)
     style_axis(ax)
     ax.grid(axis="y", color=GRID, lw=0.5)
 
@@ -329,7 +329,7 @@ def plot_reliability_matrix(rows: list[dict[str, str]], stem: str) -> None:
             ax.plot([0, 100], [0, 1], color="#252A31", lw=0.78, ls=(0, (2.0, 1.7)), zorder=1)
             for scale_label, marker, ls, fill, label in (
                 ("raw", "o", (0, (1.25, 1.25)), PAPER, "raw"),
-                ("temperature_scaled", "s", "-", color, "temperature scaled"),
+                ("temperature_scaled", "s", "-", color, "spread calibrated"),
             ):
                 subset = rows_for(rows, method=method, regime=regime, scale_label=scale_label)
                 subset = sorted(subset, key=lambda r: float(r["nominal_percent"]))
@@ -430,7 +430,7 @@ def plot_reliability_matrix(rows: list[dict[str, str]], stem: str) -> None:
             mfc="#4A5564",
             mec="#4A5564",
             lw=1.0,
-            label="temperature scaled",
+            label="spread calibrated",
         ),
     ]
     fig.legend(
@@ -479,7 +479,7 @@ def make_figure(rows: list[dict[str, str]], stem: str) -> None:
         Line2D([0], [0], color=POST_BLUE, marker="o", lw=1.0, label="DI-Strong"),
         Line2D([0], [0], color=WEAK_ORANGE, marker="o", lw=1.0, label="DI-Weak"),
         Line2D([0], [0], color="#4A5564", marker="o", mfc=PAPER, mec="#4A5564", lw=0, label="raw"),
-        Line2D([0], [0], color="#4A5564", marker="o", mfc="#4A5564", mec="#4A5564", lw=0, label="scaled"),
+        Line2D([0], [0], color="#4A5564", marker="o", mfc="#4A5564", mec="#4A5564", lw=0, label="spread calibrated"),
     ]
     fig.legend(
         handles=legend_handles,

@@ -124,11 +124,13 @@ def depth_bin_rows(method: str, regime: str, samples: np.ndarray, target: np.nda
     rows = []
     cov = interval_coverage(samples, target, 68.0, scale)
     std = scaled_samples(samples, scale).std(axis=1)
+    median = np.median(samples, axis=1)
     for lo, hi in DEPTH_BINS:
         keep = (depth >= lo) & (depth < hi)
         if not keep.any():
             continue
         for idx, channel in enumerate(CHANNELS):
+            median_mae = np.abs(median[:, idx, :][:, keep] - target[:, idx, :][:, keep])
             rows.append(
                 {
                     "method": method,
@@ -137,6 +139,7 @@ def depth_bin_rows(method: str, regime: str, samples: np.ndarray, target: np.nda
                     "depth_max_km": hi,
                     "channel": channel,
                     "coverage_68": float(cov[:, idx, :][:, keep].mean()),
+                    "posterior_median_mae": float(median_mae.mean()),
                     "posterior_std_mean": float(std[:, idx, :][:, keep].mean()),
                 }
             )

@@ -164,12 +164,11 @@ def draw_coverage(ax, rows: List[Dict[str, object]], rng: np.random.Generator) -
             alpha=0.70,
             zorder=6,
         )
-    ax.axhline(0.90, color="0.25", lw=0.85, ls=":", zorder=2)
     ax.set_xticks([1, 2])
     ax.set_xticklabels([label for _method, label, _color in methods])
     ax.set_ylim(0.0, 1.05)
-    ax.set_ylabel("Reference profile inside p05--p95 band")
-    panel_label(ax, "b", "DI posterior coverage")
+    ax.set_ylabel("CSRM reference-profile inclusion")
+    panel_label(ax, "b", "DI reference-inclusion QC")
     style(ax)
 
 
