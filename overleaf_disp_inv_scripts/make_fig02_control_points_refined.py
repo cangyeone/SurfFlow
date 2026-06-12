@@ -119,7 +119,7 @@ def main() -> None:
     median_controls = q50[control_indices]
     median_control_interp = np.interp(depth, control_depths, median_controls)
 
-    fig, axes = plt.subplots(1, 2, figsize=(7.10, 2.30), sharey=True, facecolor=PAPER)
+    fig, axes = plt.subplots(1, 2, figsize=(7.10, 2.42), sharey=True, facecolor=PAPER)
     ax = axes[0]
     ax.fill_betweenx(depth, q10, q90, color=PRIOR_FILL, linewidth=0, zorder=1, label="p10-p90")
     ax.plot(q50, depth, color=PRIOR, lw=1.16, alpha=0.98, zorder=3, label="median profile")
