@@ -3,10 +3,17 @@
 Probabilistic surface-wave dispersion inversion using a depth-controlled
 conditional rectified flow.
 
-This repository contains the manuscript-facing code and small artifacts for the
-GJI submission on probabilistic surface-wave dispersion inversion. The training,
-evaluation, comparison, plotting, manuscript and reproducibility files are kept
-at the repository root rather than inside an extra publish subdirectory.
+This repository contains the code and small reproducibility artifacts for the
+GJI submission on probabilistic surface-wave dispersion inversion. Training,
+evaluation, comparison and plotting code remain here; manuscript source and
+submission materials are maintained separately in Overleaf.
+
+## Manuscript Location
+
+The paper is maintained in [the Overleaf project](https://www.overleaf.com/project/6af12bf703ca6c90d7b4f430),
+not in the current GitHub tree. Its main file is `main.tex` (pdfLaTeX).
+See [the Overleaf workflow](docs/OVERLEAF.md) for cloning and building the paper.
+The migration preserves the existing draft without rewriting its scientific content.
 
 The current manuscript framing is an audit-oriented one: SurfFlow is treated as
 a learned posterior sampler for a stated synthetic inversion problem, not as a
@@ -27,7 +34,7 @@ the reduced MCMC posterior-anchor experiment is in
 - `results/`: CSV/JSON/log outputs used by the manuscript tables and diagnostics.
 - `figures/`: generated comparison, calibration, noise, missing-band and field
   figures copied from the production run.
-- `manuscript/`: GJI LaTeX source, bibliography, cover letter and compiled PDF.
+- `docs/OVERLEAF.md`: location and workflow for the separate manuscript project.
 - `field_masw_results_fair_weak/`: small field-summary CSV/JSON products.
 - `checkpoint_metadata/`: configs, training logs, best-selection metadata,
   normalization summaries and runtime metadata. Large model weights are omitted.

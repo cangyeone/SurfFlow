@@ -2,6 +2,12 @@
 
 Date: 2026-06-12
 
+Location update (2026-11-09): manuscript files are now maintained only in
+[Overleaf](https://www.overleaf.com/project/6af12bf703ca6c90d7b4f430).
+The `manuscript/` paths below are historical: remove that prefix when locating
+files in the separate Overleaf checkout. See [OVERLEAF.md](OVERLEAF.md).
+This location change does not revise the historical experiment notes below.
+
 This note is the repository-side handoff for the current GJI draft. It records
 which scripts, small result summaries and figures should stay aligned between
 GitHub, the local manuscript tree and Overleaf.

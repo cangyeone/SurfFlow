@@ -16,3 +16,6 @@
 **/*.fls
 **/*.log
 **/*.out
+
+# The manuscript is maintained in a separate Overleaf checkout.
+/manuscript/

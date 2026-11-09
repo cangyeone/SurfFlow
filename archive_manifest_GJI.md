@@ -2,35 +2,41 @@
 
 This manifest lists the files that should accompany the GJI submission
 "Auditing Learned Posterior Samples for Surface-Wave Dispersion Inversion".
-GitHub contains the manuscript-facing source, small CSV/JSON outputs, plotting
-code and metadata. A separate DOI archive should hold the large model weights
+GitHub contains code, small CSV/JSON outputs, plotting code and metadata.
+Manuscript source and submission materials are maintained in
+[Overleaf](https://www.overleaf.com/project/6af12bf703ca6c90d7b4f430), not in the
+current GitHub tree. A separate DOI archive should hold the large model weights
 and large diagnostic arrays that are intentionally omitted from GitHub.
+
+Paths in the two manuscript sections below are relative to the Overleaf project
+root. All subsequent sections use paths relative to this code repository.
 
 ## Manuscript Source
 
-- `manuscript/gjilguid2e.tex`
-- `manuscript/gjilguid2e.pdf`
-- `manuscript/gjilguid2e.bbl`
-- `manuscript/references.bib`
-- `manuscript/gji.cls`
-- `manuscript/gji.bst`
-- `manuscript/gji_extra.sty`
-- `manuscript/timet.sty`
-- `manuscript/cover_letter_GJI.md`
+- `main.tex` (compilation entry point)
+- `gjilguid2e.tex`
+- `gjilguid2e.pdf` (saved pre-migration PDF; rebuild `main.tex` for updates)
+- `gjilguid2e.bbl`
+- `references.bib`
+- `gji.cls`
+- `gji.bst`
+- `gji_extra.sty`
+- `timet.sty`
+- `cover_letter_GJI.md`
 
 ## Manuscript Figures Used By The Current PDF
 
-- `manuscript/figures/fig01_workflow_prior_posterior_audit_p5p95.pdf`
-- `manuscript/figures/fig02_control_points.pdf`
-- `manuscript/figures/fig03_direct_inversion_results_v9.pdf`
-- `manuscript/figures/fig04_calibration_reliability_v4.pdf`
-- `manuscript/figures/fig05_common_input_benchmark.pdf`
-- `manuscript/figures/fig06_common_input_qc_examples.pdf`
-- `manuscript/figures/mcmc_anchor_inside_support_profiles.pdf`
-- `manuscript/figures/mcmc_anchor_support_transition_profiles.pdf`
-- `manuscript/figures/fair_missing_band_uncertainty.pdf`
-- `manuscript/figures/fair_missing_band_random_scatter.pdf`
-- `manuscript/figures/fair_noise_sensitivity.pdf`
+- `figures/fig01_workflow_prior_posterior_audit_p5p95.pdf`
+- `figures/fig02_control_points.pdf`
+- `figures/fig03_direct_inversion_results_v9.pdf`
+- `figures/fig04_calibration_reliability_v4.pdf`
+- `figures/fig05_common_input_benchmark.pdf`
+- `figures/fig06_common_input_qc_examples.pdf`
+- `figures/mcmc_anchor_inside_support_profiles.pdf`
+- `figures/mcmc_anchor_support_transition_profiles.pdf`
+- `figures/fair_missing_band_uncertainty.pdf`
+- `figures/fair_missing_band_random_scatter.pdf`
+- `figures/fair_noise_sensitivity.pdf`
 
 ## Core Code, Configs And Plotting Scripts
 
